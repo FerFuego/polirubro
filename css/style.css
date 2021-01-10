@@ -560,11 +560,45 @@ ol {
 .hero__categories ul li {
   list-style: none;
 }
-.hero__categories ul li a {
+.hero__categories ul li .item {
   font-size: 16px;
   color: #1c1c1c;
   line-height: 39px;
+  display: flex;
+  position: relative;
+  justify-content: space-between;
+}
+.hero__categories ul li .item span {
   display: block;
+  position: relative;
+  height: 40px;
+  width: 37px;
+  z-index: 9;
+}
+.hero__categories ul li .item span::after {
+  display: block;
+  position: absolute;
+  right: 18px;
+  top: 0;
+  content: "3";
+  font-family: "ElegantIcons";
+  font-size: 18px;
+}
+.hero__categories ul li .sublist {
+  display: none;
+  border: none;
+  padding-left: 15px;
+  padding-top: 10px;
+  padding-bottom: 12px;
+}
+.hero__categories ul li .sublist .sub-item {
+  font-size: 16px;
+  line-height: 39px;
+  display: block;
+  position: relative;
+}
+.hero__categories ul li .sublist .sub-item:hover {
+  color: rgba(0, 123, 255, 0.6);
 }
 
 .hero__search {
@@ -1028,14 +1062,51 @@ ol {
   font-weight: 700;
   margin-bottom: 25px;
 }
+.sidebar__item ul {
+  /* border: 1px solid $border; */
+}
 .sidebar__item ul li {
   list-style: none;
 }
-.sidebar__item ul li a {
+.sidebar__item ul li .item {
   font-size: 16px;
   color: #1c1c1c;
   line-height: 39px;
+  display: flex;
+  position: relative;
+  justify-content: space-between;
+}
+.sidebar__item ul li .item span {
   display: block;
+  position: relative;
+  height: 40px;
+  width: 37px;
+  z-index: 9;
+}
+.sidebar__item ul li .item span::after {
+  display: block;
+  position: absolute;
+  right: 18px;
+  top: 0;
+  content: "3";
+  font-family: "ElegantIcons";
+  font-size: 18px;
+}
+.sidebar__item ul li .sublist {
+  display: none;
+  border: none;
+  padding-left: 15px;
+  padding-top: 10px;
+  padding-bottom: 12px;
+}
+.sidebar__item ul li .sublist .sub-item {
+  font-size: 16px;
+  line-height: 39px;
+  display: block;
+  position: relative;
+}
+.sidebar__item ul li .sublist .sub-item:hover {
+  color: rgba(0, 123, 255, 0.6);
 }
 .sidebar__item .latest-product__text {
   position: relative;

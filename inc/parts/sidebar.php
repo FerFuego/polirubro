@@ -2,23 +2,26 @@
     <div class="sidebar__item">
         <h4>Categorias</h4>
         <ul>
-            <li><a href="#">ART EMBALAJE REGALOS</a></li>
-            <li><a href="#">BAZAR</a></li>
-            <li><a href="#">BIJOUTERIE</a></li>
-            <li><a href="#">FERRETERIA</a></li>
-            <li><a href="#">FLETE</a></li>
-            <li><a href="#">JUGUETES</a></li>
-            <li><a href="#">JUGUETES GRANDES</a></li>
-            <li><a href="#">KIOSCO</a></li>
-            <li><a href="#">LIBRERIA</a></li>
-            <li><a href="#">LIBRERIA - ACCESORIO</a></li>
-            <li><a href="#">NAVIDAD</a></li>
-            <li><a href="#">OFERTAS</a></li>
-            <li><a href="#">PELUCHES</a></li>
-            <li><a href="#">REGALERIA IMPORTADA</a></li>
-            <li><a href="#">RESMAS</a></li>
-            <li><a href="#">ROPA INTERIOR</a></li>
-            <li><a href="#">TEXTIL</a></li>
+            <?php 
+                $rubros = new Rubros();
+                $result = $rubros->getTreeRubros();
+
+                foreach ( $result['rubros'] as $r ) : ?>
+                    <li>
+                        <a href="" data-rubro="<?php echo $r['id']; ?>" class="item sublistCTA">
+                            <?php echo $r['rubro']; ?>
+                            <span></span>
+                        </a>
+                        <div class="sublist">
+                            <?php foreach ( $result['subrubros'] as $s ) : 
+                                if ( $s['rubro'] == $r['id'] && $r['rubro'] !== $s['subrubro'] ) : ?>
+                                    <a href="#" class="sub-item"><?php echo $s['subrubro']; ?></a>
+                                <?php endif;
+                            endforeach; ?>
+                        </div>
+                    </li>
+            <?php endforeach; 
+                $rubros->closeConnection(); ?>
         </ul>
     </div>
     <div class="sidebar__item">
@@ -38,7 +41,7 @@
             </div>
         </div>
     </div>
-    <div class="sidebar__item sidebar__item__color--option">
+    <!-- <div class="sidebar__item sidebar__item__color--option">
         <h4>Colores</h4>
         <div class="sidebar__item__color sidebar__item__color--white">
             <label for="white">
@@ -76,7 +79,7 @@
                 <input type="radio" id="green">
             </label>
         </div>
-    </div>
+    </div> -->
     <!-- <div class="sidebar__item">
         <h4>Popular Size</h4>
         <div class="sidebar__item__size">

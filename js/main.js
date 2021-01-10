@@ -91,6 +91,16 @@
         $('.hero__categories ul').slideToggle(400);
     });
 
+
+    /*--------------------------
+        CTA categories tree
+    ----------------------------*/
+    $('.sublistCTA span').on('click', function(e){
+        e.preventDefault();
+        /* $('.sublist').css('display','none'); */
+        $(this).parent().next('.sublist').slideToggle(400);
+    });
+
     /*--------------------------
         Latest Product Slider
     ----------------------------*/

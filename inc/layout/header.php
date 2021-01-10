@@ -1,5 +1,6 @@
 <div class="humberger__menu__overlay"></div>
 
+<!-- Mobile -->
 <div class="humberger__menu__wrapper">
 
     <div class="humberger__menu__logo">
@@ -10,16 +11,14 @@
     </div>
 
     <div class="humberger__menu__widget">
-        <div class="header__top__right__auth">
-            <a href="#"><i class="fa fa-user"></i> Ingresar</a>
-        </div>
+       <?php echo Polirubro::get_items_session(); ?>
     </div>
 
     <nav class="humberger__menu__nav mobile-menu">
         <ul>
-            <li class="<?php echo (normalize_title() === '')? 'active':''?>"><a href="./">Inicio</a></li>
-            <li class="<?php echo (normalize_title() === 'Nosotros')? 'active':''?>"><a href="./nosotros.php">Nosotros</a></li>
-            <li class="<?php echo (normalize_title() === 'Productos')? 'active':''?>"><a href="./productos.php">Productos</a></li>
+            <li class="<?php echo (Polirubro::normalize_title() === '')? 'active':''?>"><a href="./">Inicio</a></li>
+            <li class="<?php echo (Polirubro::normalize_title() === 'Nosotros')? 'active':''?>"><a href="./nosotros.php">Nosotros</a></li>
+            <li class="<?php echo (Polirubro::normalize_title() === 'Productos')? 'active':''?>"><a href="./productos.php">Productos</a></li>
             <!-- <li><a href="#">Paginas</a>
                 <ul class="header__menu__dropdown">
                     <li><a href="./shop-details.html">Shop Details</a></li>
@@ -28,7 +27,7 @@
                     <li><a href="./blog-details.html">Blog Details</a></li>
                 </ul>
             </li> -->
-            <li class="<?php echo (normalize_title() === 'Contacto')? 'active':''?>"><a href="./contacto.php">Contacto</a></li>
+            <li class="<?php echo (Polirubro::normalize_title() === 'Contacto')? 'active':''?>"><a href="./contacto.php">Contacto</a></li>
         </ul>
     </nav>
 
@@ -51,7 +50,7 @@
 </div>
 
 <header class="header">
-
+     <!-- Top bar -->
     <div class="header__top">
         <div class="container">
             <div class="row">
@@ -72,7 +71,7 @@
                             <a href="#"><i class="fa fa-pinterest-p"></i></a>
                         </div>
                         <div class="header__top__right__auth">
-                            <a href="#"><i class="fa fa-user"></i> Ingresar</a>
+                            <?php echo Polirubro::get_items_session(); ?>
                         </div>
                     </div>
                 </div>
@@ -90,9 +89,9 @@
             <div class="col-lg-6">
                 <nav class="header__menu">
                     <ul>
-                        <li class="<?php echo (normalize_title() === '')? 'active':''?>"><a href="./">Inicio</a></li>
-                        <li class="<?php echo (normalize_title() === 'Nosotros')? 'active':''?>"><a href="./nosotros.php">Nosotros</a></li>
-                        <li class="<?php echo (normalize_title() === 'Productos')? 'active':''?>"><a href="./productos.php">Productos</a></li>
+                        <li class="<?php echo (Polirubro::normalize_title() === '')? 'active':''?>"><a href="./">Inicio</a></li>
+                        <li class="<?php echo (Polirubro::normalize_title() === 'Nosotros')? 'active':''?>"><a href="./nosotros.php">Nosotros</a></li>
+                        <li class="<?php echo (Polirubro::normalize_title() === 'Productos')? 'active':''?>"><a href="./productos.php">Productos</a></li>
                         <!-- <li><a href="#">Paginas</a>
                             <ul class="header__menu__dropdown">
                                 <li><a href="./shop-details.html">Shop Details</a></li>
@@ -101,7 +100,7 @@
                                 <li><a href="./blog-details.html">Blog Details</a></li>
                             </ul>
                         </li> -->
-                        <li class="<?php echo (normalize_title() === 'Contacto')? 'active':''?>"><a href="./contacto.php">Contacto</a></li>
+                        <li class="<?php echo (Polirubro::normalize_title() === 'Contacto')? 'active':''?>"><a href="./contacto.php">Contacto</a></li>
                     </ul>
                 </nav>
             </div>

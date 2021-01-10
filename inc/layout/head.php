@@ -1,3 +1,13 @@
+<?php session_start(); ?>
+
+<!-- php Functions -->
+<?php require('inc/functions/class-connection.php'); ?>
+<?php require('inc/functions/class-squery.php'); ?>
+<?php require('inc/functions/class-login.php'); ?>
+<?php require('inc/functions/class-polirubro.php'); ?>
+<?php require('inc/functions/class-rubros.php'); ?>
+<?php require('inc/functions/class-subrubros.php'); ?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -26,9 +36,6 @@
     <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="css/style.css" type="text/css">
-
-    <!-- Php Functions -->
-    <?php require('inc/functions/custom-functions.php'); ?>
 </head>
 
 <body>

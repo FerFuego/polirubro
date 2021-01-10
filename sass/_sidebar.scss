@@ -15,15 +15,52 @@
     }
 
     ul {
+        /* border: 1px solid $border; */
 
         li {
             list-style: none;
 
-            a {
+            .item {
                 font-size: 16px;
                 color: $normal-color;
                 line-height: 39px;
-                display: block;
+                display: flex;
+                position: relative;
+                justify-content: space-between;
+    
+                span {
+                    display: block;
+                    position: relative;
+                    height: 40px;
+                    width: 37px;
+                    z-index: 9;
+                    &::after {
+                        display: block;
+                        position: absolute;
+                        right: 18px;
+                        top: 0;
+                        content: "3";
+                        font-family: "ElegantIcons";
+                        font-size: 18px;
+                    }
+                }
+            }
+
+            .sublist {
+                display: none;
+                border: none;
+                padding-left: 15px;
+                padding-top: 10px;
+                padding-bottom: 12px;
+                .sub-item {
+                    font-size: 16px;
+                    line-height: 39px;
+                    display: block;
+                    position: relative;
+                    &:hover {
+                        color: rgba(#007bff, 0.6);
+                    }
+                }
             }
         }
     }
