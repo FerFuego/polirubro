@@ -19,10 +19,5 @@
                 <span>Atencion Lunes a Viernes</span>
             </div>
         </div>
-    </div>
-
-    <?php if ($_SERVER['REQUEST_URI'] === '/' || $_SERVER['REQUEST_URI'] === '/nuevo/' || $_SERVER['REQUEST_URI'] === '/nuevo/index.php') :
-        require_once('inc/parts/slider.php'); 
-    endif; ?>
-    
+    </div>    
 </div>

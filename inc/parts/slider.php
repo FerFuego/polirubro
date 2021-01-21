@@ -1,4 +1,4 @@
-<section class="categories">
+<section class="slider">
     <div class="container">
         <div class="row">
             <div class="home__slider owl-banner-carousel owl-carousel">

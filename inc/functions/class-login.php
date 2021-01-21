@@ -3,6 +3,7 @@
  * Login class
  */
 class Login{
+	
 	var $user;
 	var $pass;
 

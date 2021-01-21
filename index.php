@@ -7,7 +7,7 @@
 <!-- Header Section End -->
 
 <!-- Hero Section Begin -->
-<section class="hero">
+<section class="hero hero-normal">
     <div class="container">
         <div class="row">
             <?php require_once('inc/parts/categories.php'); ?>
@@ -16,6 +16,12 @@
     </div>
 </section>
 <!-- Hero Section End -->
+
+<!-- Slider Begin -->
+<?php if ($_SERVER['REQUEST_URI'] === '/' || $_SERVER['REQUEST_URI'] === '/nuevo/' || $_SERVER['REQUEST_URI'] === '/nuevo/index.php') :
+    require_once('inc/parts/slider.php'); 
+endif; ?>
+<!-- Slider End -->
 
 <!-- Banner Begin -->
 <?php require_once('inc/parts/banner-section.php'); ?>

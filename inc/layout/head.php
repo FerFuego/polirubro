@@ -7,6 +7,8 @@
 <?php require('inc/functions/class-polirubro.php'); ?>
 <?php require('inc/functions/class-rubros.php'); ?>
 <?php require('inc/functions/class-subrubros.php'); ?>
+<?php require('inc/functions/class-productos.php'); ?>
+<?php require('inc/functions/class-paginator.php'); ?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -41,6 +43,6 @@
 <body>
 
 <!-- Page Preloder -->
-<div id="preloder">
+<!-- <div id="preloder">
     <div class="loader"></div>
-</div>
+</div> -->

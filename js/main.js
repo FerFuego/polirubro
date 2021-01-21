@@ -238,3 +238,30 @@ $('.owl-banner-carousel').owlCarousel({
     autoHeight: true,
     autoplay: true
 });
+
+/*-------------------
+    Get SubRubros
+--------------------- */
+$('.sublistCTA').on('click', function () {
+
+    var id_rubro = $(this).attr('data-rubro');
+
+    var formData = new FormData();
+        formData.append('action', 'getSubRubroByIdRubro');
+        formData.append('id_rubro', id_rubro);
+
+    jQuery.ajax({
+        cache: false,
+        url: 'inc/functions/ajax-requests.php',
+        type: 'POST',
+        data: formData,
+        contentType: false,
+        processData: false,
+        beforeSend: function () {
+            //
+        },
+        success: function (response) {
+            $('#' + id_rubro).next('.sublist').html(response);
+        }
+    });
+})

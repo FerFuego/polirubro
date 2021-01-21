@@ -3,7 +3,8 @@
  * sQuery class
  * procesa las consultas a la base de datos
  */
-class sQuery { 
+class sQuery {
+	
 	var $pconnection;
 	var $pquery;
 	var $results;
@@ -14,42 +15,15 @@ class sQuery {
 	}
 
 	// metodo que ejecuta una consulta y la guarda en el atributo $pquery
-	function executeQuery($consulta) {
+	function executeQuery($query) {
 		
-		$this->pquery = mysqli_query($this->pconnection->getConnection(), $consulta);
+		$this->pquery = mysqli_query($this->pconnection->getConnection(), $query);
 
-		if($this->pquery){
-			return $this->pquery;
-		}else{
-			return false;
-		}
-	}	
+		if($this->pquery) return $this->pquery;
 
-	// metodo que ejecuta una consulta y la guarda en el atributo $pquery
-	function executeQueryArray($consulta) {
-
-		$this->pquery = mysqli_query($this->pconnection->getConnection(),$consulta);
-
-		if(stristr(substr($consulta,0,6),"SELECT")){
-			if($this->pquery->num_rows > 0) {
-				while ($row =$this->pquery->fetch_assoc()) {
-					foreach($row as $k => $v) $row[$k]=str_replace("´","'",mb_detect_encoding($v,'UTF-8', true)?$v:utf8_encode($v));
-					$array_result[]=$row;
-				}
-				return $array_result;
-			}else{
-				return false;
-			}
-		}
-
-		if($this->pquery){
-			return $this->pquery;
-		}else{
-			return false;
-		}	
+		return false;
 	}
 
-	// retorna la consulta en forma de result.
 	function getResults() {
 		return $this->pquery;
 	}	

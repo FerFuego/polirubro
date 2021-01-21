@@ -3,13 +3,14 @@
  * Subrubros class
  */
 class Subrubros {
+    
     var $id_subrubro;
     var $id_rubro;
     var $nombre;
     var $no_borra;
     var $obj;
 
-    function __construct($id=0) {
+    public function __construct($id=0) {
 
         if ($id != 0) {
             
@@ -24,20 +25,26 @@ class Subrubros {
         }
     }
 
-    function getID(){ return $this->id_subrubro; }
-    function getRubroID(){ return $this->id_rubro; }
-    function getNombre(){ return $this->nombre; }
-    function getBorra(){ return $this->no_borra; }
+    public function getID(){ return $this->id_subrubro; }
+    public function getRubroID(){ return $this->id_rubro; }
+    public function getNombre(){ return $this->nombre; }
+    public function getBorra(){ return $this->no_borra; }
 
-    function getSubRubros(){
+    public function getSubRubros(){
         $this->obj = new sQuery();
         $result = $this->obj->executeQuery("SELECT * FROM subrubros ORDER BY Nombre");
         return $result;
     }
 
-    function closeConnection(){
+    public function getSubRubroByIdRubro($id_rubro){
+        $this->obj = new sQuery();
+        $result = $this->obj->executeQuery("SELECT * FROM subrubros WHERE Id_Rubro = '$id_rubro' ORDER BY Nombre");
+        return $result;
+    }
+
+    public function closeConnection(){
         $this->obj->Clean();
 		$this->obj->Close();
 	} 
 
-} 
+}

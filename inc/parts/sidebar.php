@@ -4,23 +4,17 @@
         <ul>
             <?php 
                 $rubros = new Rubros();
-                $result = $rubros->getTreeRubros();
+                $result = $rubros->getRubros();
 
-                foreach ( $result['rubros'] as $r ) : ?>
+                while ( $row = mysqli_fetch_array($result) ) : ?>
                     <li>
-                        <a href="" data-rubro="<?php echo $r['id']; ?>" class="item sublistCTA">
-                            <?php echo $r['rubro']; ?>
+                        <a href="" data-rubro="<?php echo $row['Id_Rubro']; ?>" class="item sublistCTA">
+                            <?php echo $row['Nombre']; ?>
                             <span></span>
                         </a>
-                        <div class="sublist">
-                            <?php foreach ( $result['subrubros'] as $s ) : 
-                                if ( $s['rubro'] == $r['id'] && $r['rubro'] !== $s['subrubro'] ) : ?>
-                                    <a href="#" class="sub-item"><?php echo $s['subrubro']; ?></a>
-                                <?php endif;
-                            endforeach; ?>
-                        </div>
+                        <div class="sublist"></div>
                     </li>
-            <?php endforeach; 
+            <?php endwhile; 
                 $rubros->closeConnection(); ?>
         </ul>
     </div>
