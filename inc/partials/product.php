@@ -8,6 +8,7 @@
             </ul>
         </div>
         <div class="product__item__text">
+            <span><?php echo $product->Rubro; ?></span>
             <h6><a href="#"><?php echo $product->Nombre; ?></a></h6>
             <h5><?php echo $product->Id_Producto; ?></h5>
         </div>

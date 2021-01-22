@@ -68,7 +68,7 @@ class Productos {
     public function getGrupoID(){ return $this->id_grupo; }
     public function getNombre(){ return $this->nombre; }
 
-    public function getProductos($id_rubro, $id_subrubro, $id_grupo){
+    public function getProducts($id_rubro, $id_subrubro, $id_grupo){
 
         $where = '1=1';
         $where .= ( $id_rubro ) ? ' AND Id_Rubro='. $id_rubro : '';
@@ -85,6 +85,27 @@ class Productos {
             'query' => $query,
             'params' => 'id_rubro='.$id_rubro.'&id_subrubro='.$id_subrubro.'&id_grupo='.$id_grupo
         ];
+
+        return $result;
+    }
+
+    public function getProductsOffert($id_rubro, $id_subrubro, $id_grupo){
+
+        $where = 'Oferta = 1';
+        $where .= ( $id_rubro ) ? ' AND Id_Rubro='. $id_rubro : '';
+        $where .= ( $id_subrubro ) ? ' AND Id_SubRubro='. $id_subrubro : '';
+        $where .= ( $id_grupo ) ? ' AND Id_Grupo='. $id_grupo : '';
+
+        $this->obj = new sQuery();
+        $result = $this->obj->executeQuery("SELECT * FROM productos WHERE $where ORDER BY Nombre");
+
+        return $result;
+    }
+
+    public function getProductNews($limit=10){
+
+        $this->obj = new sQuery();
+        $result = $this->obj->executeQuery("SELECT * FROM productos WHERE Novedad = 1 ORDER BY Id_Producto DESC LIMIT $limit");
 
         return $result;
     }

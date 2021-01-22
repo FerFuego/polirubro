@@ -6,10 +6,10 @@
                 $rubros = new Rubros();
                 $result = $rubros->getRubros();
 
-                while ( $row = mysqli_fetch_array($result) ) : ?>
+                while ( $rubro = $result->fetch_object() ) : ?>
                     <li>
-                        <a href="" data-rubro="<?php echo $row['Id_Rubro']; ?>" class="item sublistCTA">
-                            <?php echo $row['Nombre']; ?>
+                        <a href="productos.php?id_rubro=<?php echo $rubro->Id_Rubro; ?>" id="<?php echo $rubro->Id_Rubro; ?>" data-rubro="<?php echo $rubro->Id_Rubro; ?>" class="item sublistCTA">
+                            <?php echo $rubro->Nombre; ?>
                             <span></span>
                         </a>
                         <div class="sublist"></div>
@@ -101,69 +101,28 @@
             </label>
         </div>
     </div> -->
-    <div class="sidebar__item">
-        <div class="latest-product__text">
-            <h4>Ultimos Productos</h4>
-            <div class="latest-product__slider owl-carousel">
-                <div class="latest-prdouct__slider__item">
-                    <a href="#" class="latest-product__item">
-                        <div class="latest-product__item__pic">
-                            <img src="img/product/product-5.jpg" alt="">
-                        </div>
-                        <div class="latest-product__item__text">
-                            <h6>Crab Pool Security</h6>
-                            <span>$30.00</span>
-                        </div>
-                    </a>
-                    <a href="#" class="latest-product__item">
-                        <div class="latest-product__item__pic">
-                            <img src="img/product/product-6.jpg" alt="">
-                        </div>
-                        <div class="latest-product__item__text">
-                            <h6>Crab Pool Security</h6>
-                            <span>$30.00</span>
-                        </div>
-                    </a>
-                    <a href="#" class="latest-product__item">
-                        <div class="latest-product__item__pic">
-                            <img src="img/product/product-7.jpg" alt="">
-                        </div>
-                        <div class="latest-product__item__text">
-                            <h6>Crab Pool Security</h6>
-                            <span>$30.00</span>
-                        </div>
-                    </a>
-                </div>
-                <div class="latest-prdouct__slider__item">
-                    <a href="#" class="latest-product__item">
-                        <div class="latest-product__item__pic">
-                            <img src="img/product/product-5.jpg" alt="">
-                        </div>
-                        <div class="latest-product__item__text">
-                            <h6>Crab Pool Security</h6>
-                            <span>$30.00</span>
-                        </div>
-                    </a>
-                    <a href="#" class="latest-product__item">
-                        <div class="latest-product__item__pic">
-                            <img src="img/product/product-6.jpg" alt="">
-                        </div>
-                        <div class="latest-product__item__text">
-                            <h6>Crab Pool Security</h6>
-                            <span>$30.00</span>
-                        </div>
-                    </a>
-                    <a href="#" class="latest-product__item">
-                        <div class="latest-product__item__pic">
-                            <img src="img/product/product-7.jpg" alt="">
-                        </div>
-                        <div class="latest-product__item__text">
-                            <h6>Crab Pool Security</h6>
-                            <span>$30.00</span>
-                        </div>
-                    </a>
+
+    <?php
+        $news = new Productos();
+        $results = $news->getProductNews(10);
+
+        if ( $results->num_rows > 0 ) : ?>
+
+            <div class="sidebar__item">
+                <div class="latest-product__text">
+                    <h4>Ultimos Productos</h4>
+                    <div class="latest-product__slider owl-carousel">
+                        <?php   
+                            while ( $product = $results->fetch_object() ) :
+                                require 'inc/partials/sidebar-card.php';
+                            endwhile;
+
+                            $news->closeConnection();
+                        ?>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
+
+    <?php endif; ?>
+
 </div>

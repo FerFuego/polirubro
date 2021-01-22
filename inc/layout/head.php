@@ -10,6 +10,16 @@
 <?php require('inc/functions/class-productos.php'); ?>
 <?php require('inc/functions/class-paginator.php'); ?>
 
+<?php
+    // Variables para los Productos 
+    $id_rubro = (isset($_GET["id_rubro"]) ? $_GET["id_rubro"] : "");
+    $id_subrubro = (isset($_GET["id_subrubro"]) ? $_GET["id_subrubro"] : "");
+    $id_grupo = (isset($_GET["id_grupo"]) ? $_GET["id_grupo"] : "");
+    $page = (isset($_GET["page"]) ? $_GET["page"] : 1);
+    $limit = 21; //Limito la busqueda
+    $links = 6; // limito los items a mostrar en el paginador
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 

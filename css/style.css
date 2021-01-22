@@ -1496,6 +1496,12 @@ ol {
 .product__item:hover .product__item__pic .product__item__pic__hover {
   bottom: 20px;
 }
+.product__item span {
+  font-size: 14px;
+  color: #b2b2b2;
+  display: block;
+  margin-bottom: 4px;
+}
 
 .product__item__pic {
   height: 270px;

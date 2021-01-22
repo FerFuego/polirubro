@@ -9,10 +9,10 @@
                 $rubros = new Rubros();
                 $result = $rubros->getRubros();
 
-                while ( $row = mysqli_fetch_array($result) ) : ?>
+                while ( $rubro = $result->fetch_object() ) : ?>
                     <li>
-                        <a href="productos.php?id_rubro=<?php echo $row['Id_Rubro']; ?>" id="<?php echo $row['Id_Rubro']; ?>" data-rubro="<?php echo $row['Id_Rubro']; ?>" class="item sublistCTA">
-                            <?php echo $row['Nombre']; ?>
+                        <a href="productos.php?id_rubro=<?php echo $rubro->Id_Rubro; ?>" id="<?php echo $rubro->Id_Rubro; ?>" data-rubro="<?php echo $rubro->Id_Rubro; ?>" class="item sublistCTA">
+                            <?php echo $rubro->Nombre; ?>
                             <span></span>
                         </a>
                         <div class="sublist"></div>
