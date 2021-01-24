@@ -1,12 +1,12 @@
 <div class="col-lg-9">
     <div class="hero__search">
         <div class="hero__search__form">
-            <form action="#">
+            <form action="productos.php" method="GET">
                 <!-- <div class="hero__search__categories">
                     Todas las Categorias
                     <span class="arrow_carrot-down"></span>
                 </div> -->
-                <input type="text" placeholder="Que estas buscando?">
+                <input type="text" name="s" placeholder="Que estas buscando?" value="<?php echo (isset($search))? $search : ''; ?>">
                 <button type="submit" class="site-btn">BUSCAR</button>
             </form>
         </div>

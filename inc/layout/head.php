@@ -16,6 +16,7 @@
     $id_subrubro = (isset($_GET["id_subrubro"]) ? $_GET["id_subrubro"] : "");
     $id_grupo = (isset($_GET["id_grupo"]) ? $_GET["id_grupo"] : "");
     $page = (isset($_GET["page"]) ? $_GET["page"] : 1);
+    $search = (isset($_GET['s']) ? $_GET['s'] : "");
     $limit = 21; //Limito la busqueda
     $links = 6; // limito los items a mostrar en el paginador
 ?>

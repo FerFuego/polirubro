@@ -37,9 +37,15 @@
                 <!-- Offer Section End -->
 
                 <?php 
-                    $productos = new Productos();
-                    $result    = $productos->getProducts($id_rubro, $id_subrubro, $id_grupo);
-                    $productos->closeConnection();
+                    if ( $search != '') {
+                        $productos = new Productos();
+                        $result    = $productos->getProductSearch($search);
+                        $productos->closeConnection();
+                    } else {
+                        $productos = new Productos();
+                        $result    = $productos->getProducts($id_rubro, $id_subrubro, $id_grupo);
+                        $productos->closeConnection();
+                    }
 
                     $paginator = new Paginator( $result['query'], $result['total'] );
                     $results   = $paginator->getData( $limit, $page );

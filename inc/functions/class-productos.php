@@ -89,6 +89,22 @@ class Productos {
         return $result;
     }
 
+    public function getProductSearch($search) {
+
+        $query = "SELECT * FROM productos WHERE Nombre LIKE '%$search%'";
+
+        $this->obj = new sQuery();
+        $result = $this->obj->executeQuery($query);
+
+        $result = [
+            'total' => $this->obj->getResultados(),
+            'query' => $query,
+            'params' => 's='.$search
+        ];
+
+        return $result;
+    }
+
     public function getProductsOffert($id_rubro, $id_subrubro, $id_grupo){
 
         $where = 'Oferta = 1';
