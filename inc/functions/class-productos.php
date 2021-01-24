@@ -126,6 +126,14 @@ class Productos {
         return $result;
     }
 
+    public function getProductsOffertNews(){
+
+        $this->obj = new sQuery();
+        $result = $this->obj->executeQuery("SELECT * FROM productos WHERE Oferta = 1 OR Novedad = 1 ORDER BY RAND() LIMIT 8");
+
+        return $result;
+    }
+
     public function getResultados() {
         $this->obj->getResults();
     }

@@ -13,6 +13,10 @@ Class Polirubro {
         return ucfirst( str_replace( ['/','nuevo','.php'], ['','',''], $base[0] ) );
     }
 
+    public static function get_slug($string) {
+        return strtolower( str_replace( ' ', '-', $string ) );
+    }
+
     public static function get_items_session() {
 
         $html = '';
