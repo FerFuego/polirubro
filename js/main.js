@@ -91,16 +91,6 @@
         $('.hero__categories ul').slideToggle(400);
     });
 
-
-    /*--------------------------
-        CTA categories tree
-    ----------------------------*/
-    $('.sublistCTA span').on('click', function(e){
-        e.preventDefault();
-        /* $('.sublist').css('display','none'); */
-        $(this).parent().next('.sublist').slideToggle(400);
-    });
-
     /*--------------------------
         Latest Product Slider
     ----------------------------*/
@@ -128,7 +118,6 @@
         autoHeight: false,
         autoplay: true,
         responsive: {
-
             320: {
                 items: 1,
             },
@@ -239,12 +228,29 @@ $('.owl-banner-carousel').owlCarousel({
     autoplay: true
 });
 
+/*--------------------------
+    CTA categories tree
+----------------------------*/
+$('.sublistCTA span').on('click', function(e){
+    e.preventDefault();
+    $(this).parent().next('.sublist').slideToggle(400);
+});
+
+/*--------------------------
+    CTA categories tree
+----------------------------*/
+$('.lastlistCTA span').on('click', function(e){
+    e.preventDefault();
+    $(this).parent().next('.lastlist').slideToggle(400);
+});
+
 /*-------------------
     Get SubRubros
 --------------------- */
 $('.sublistCTA').on('click', function () {
 
-    var id_rubro = $(this).attr('data-rubro');
+    var obj = $(this);
+    var id_rubro = obj.attr('data-rubro');
 
     var formData = new FormData();
         formData.append('action', 'getSubRubroByIdRubro');
@@ -261,7 +267,35 @@ $('.sublistCTA').on('click', function () {
             //
         },
         success: function (response) {
-            $('#' + id_rubro).next('.sublist').html(response);
+            obj.next('.sublist').html(response);
+        }
+    });
+});
+
+/*-------------------
+    Get Grupo
+--------------------- */
+$('.lastlistCTA').on('click', function () {
+
+    var obj = $(this);
+    var id_subrubro = obj.attr('data-subrubro');
+
+    var formData = new FormData();
+        formData.append('action', 'getGrupoByIdSubRubro');
+        formData.append('id_subrubro', id_subrubro);
+
+    jQuery.ajax({
+        cache: false,
+        url: 'inc/functions/ajax-requests.php',
+        type: 'POST',
+        data: formData,
+        contentType: false,
+        processData: false,
+        beforeSend: function () {
+            //
+        },
+        success: function (response) {
+            obj.next('.lastlist').html(response);
         }
     });
 })

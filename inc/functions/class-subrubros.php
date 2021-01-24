@@ -42,6 +42,12 @@ class Subrubros {
         return $result;
     }
 
+    public function getSubRubroByIdGrupo($id_grupo){
+        $this->obj = new sQuery();
+        $result = $this->obj->executeQuery("SELECT * FROM subrubros WHERE Id_Grupo = '$id_grupo' ORDER BY Nombre");
+        return $result;
+    }
+
     public function closeConnection(){
         $this->obj->Clean();
 		$this->obj->Close();

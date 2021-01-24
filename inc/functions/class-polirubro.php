@@ -9,7 +9,8 @@ Class Polirubro {
     }
 
     public static function normalize_title() {
-        return ucfirst(str_replace(['/','nuevo','.php'], ['','',''], $_SERVER['REQUEST_URI']));
+        $base = explode( '?', $_SERVER['REQUEST_URI'] );
+        return ucfirst( str_replace( ['/','nuevo','.php'], ['','',''], $base[0] ) );
     }
 
     public static function get_items_session() {
