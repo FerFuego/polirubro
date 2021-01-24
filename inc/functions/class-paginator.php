@@ -46,11 +46,11 @@ class Paginator {
         if ( $this->page == 1 ) {
             $html .= '<a>&laquo;</a>';
         } else {
-            $html .= '<a href="?'.$params.'&limit=' . $this->limit . '&page=' . ( $this->page - 1 ) . '">&laquo;</a>';
+            $html .= '<a href="?'.$params.'&page=' . ( $this->page - 1 ) . '">&laquo;</a>';
         }
      
         if ( $start > 1 ) {
-            $html .= '<a href="?'.$params.'&limit=' . $this->limit . '&page=1">1</a>';
+            $html .= '<a href="?'.$params.'&page=1">1</a>';
             $html .= '<span>...</span>';
         }
      
@@ -58,19 +58,19 @@ class Paginator {
             if ( $this->page == $i ) {
                 $html .= '<a class="active">' . $i . '</a>';
             } else {
-                $html .= '<a href="?'.$params.'&limit=' . $this->limit . '&page=' . $i . '">' . $i . '</a>';
+                $html .= '<a href="?'.$params.'&page=' . $i . '">' . $i . '</a>';
             }
         }
      
         if ( $end < $last ) {
             $html .= '<span class="disabled">...</span>';
-            $html .= '<a href="?'.$params.'&limit=' . $this->limit . '&page=' . $last . '">' . $last . '</a>';
+            $html .= '<a href="?'.$params.'&page=' . $last . '">' . $last . '</a>';
         }
      
        if ( $this->page == $last ) {
            $html .= '<a>&raquo;</a>';
        } else {
-           $html .= '<a href="?'.$params.'&limit=' . $this->limit . '&page=' . ( $this->page + 1 ) . '">&raquo;</a>';
+           $html .= '<a href="?'.$params.'&page=' . ( $this->page + 1 ) . '">&raquo;</a>';
        }
 
         $html .= '</div>';
