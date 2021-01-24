@@ -12,7 +12,7 @@ class Connection {
 		$con['server']="localhost"; 
         $con['base']="polirubro";	
 		$con['user']="root"; 
-		$con['pass']="X28activada";	
+		$con['pass']="";	
         
 		$result = new mysqli($con['server'], $con['user'], $con['pass'], $con['base']);
         
