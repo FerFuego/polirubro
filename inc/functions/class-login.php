@@ -7,14 +7,16 @@ class Login{
 	var $user;
 	var $pass;
 
-	function __construct( $username, $password ) {
+	public function __construct( $username, $password ) {
 		$this->user = $username;
 		$this->pass = $password;
     }
     
-	function loginDB() {
+	public function loginProcess() {
+
 		$obj = new sQuery();
-		$result = $obj->executeQuery("SELECT * FROM clientes WHERE Usuario = '$this->user' AND Password = '$this->pass'");
+		$result = $obj->executeQuery("SELECT * FROM clientes WHERE Usuario = '$this->user' AND Password = '$this->pass' LIMIT 1");
+
 		return $result;
 	}
 }

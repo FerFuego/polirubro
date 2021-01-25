@@ -2,16 +2,48 @@
 /*-----------------------
     Ajax Requests
 -----------------------*/
-
+session_start();
 require('class-connection.php');
 require('class-squery.php');
 require('class-rubros.php');
 require('class-subrubros.php');
+require('class-login.php');
+
+
+if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'actionLogin') {
+
+    $user = (isset($_POST['user']) ? filter_var($_POST['user'], FILTER_SANITIZE_STRING) : null);
+    $pass = (isset($_POST['pass']) ? filter_var($_POST['pass'], FILTER_SANITIZE_STRING) : null);
+    $login = 'false';
+
+    $access = new Login($user, $pass);
+    $result = $access->loginProcess();
+
+    if ( $result->num_rows > 0 ) :
+
+        while ( $user = $result->fetch_object() ) {
+            $_SESSION["id_user"] = session_id();
+            $_SESSION["Id_Cliente"] = $result->Id_Cliente;
+            $_SESSION["Nombre"] = $result->Nombre;
+            $_SESSION["Mail"] = $result->Mail;
+            $_SESSION["ListaPrecioDef"] = $result->ListaPrecioDef;
+            $_SESSION["user"] = $result->Usuario;
+            $login = 'true';
+        }
+
+    endif;
+
+    echo $login;
+    die();
+}
+
 
 if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'getSubRubroByIdRubro') {
 
+    $id_rubro = filter_var($_POST["id_rubro"], FILTER_VALIDATE_INT);
+
     $object = new Subrubros();
-    $result = $object->getSubRubroByIdRubro($_POST['id_rubro']);
+    $result = $object->getSubRubroByIdRubro($id_rubro);
 
     $html = '<div class="d-block">';
 
@@ -31,8 +63,10 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'getSubRubr
 
 if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'getGrupoByIdSubRubro') {
 
+    $id_grupo = filter_var($_POST["id_grupo"], FILTER_VALIDATE_INT);
+
     $object = new Subrubros();
-    $result = $object->getSubRubroByIdGrupo($_POST['id_gubro']);
+    $result = $object->getSubRubroByIdGrupo($id_grupo);
 
     $html = '<div>';
 

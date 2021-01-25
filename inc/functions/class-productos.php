@@ -91,7 +91,7 @@ class Productos {
 
     public function getProductSearch($search) {
 
-        $query = "SELECT * FROM productos WHERE Nombre LIKE '%$search%'";
+        $query = "SELECT * FROM productos WHERE Nombre LIKE '%$search%' OR CodProducto LIKE '%$search%'";
 
         $this->obj = new sQuery();
         $result = $this->obj->executeQuery($query);

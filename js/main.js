@@ -272,9 +272,9 @@ $('.sublistCTA').on('click', function () {
     });
 });
 
-/*-------------------
+/*--------------------
     Get Grupo
---------------------- */
+---------------------*/
 $('.lastlistCTA').on('click', function () {
 
     var obj = $(this);
@@ -299,3 +299,57 @@ $('.lastlistCTA').on('click', function () {
         }
     });
 })
+
+/*----------------------
+    Form Login Toggle
+----------------------*/
+function formToggle() {
+    $('.form-login').toggleClass('d-none');
+}
+
+/*--------------------
+    Login Request
+---------------------*/
+$(document).ready( function () {
+    $('.form-login').submit( function (e) {
+    
+        var user = $('#user').val();
+        var pass = $('#pass').val();
+    
+        console.log(user)
+    
+        if (user == '') {
+            $('.js-login-message').html('<p>Ingrese Usuario</p>');
+        }
+    
+        if (pass == '') {
+            $('.js-login-message').html('<p>Ingrese Contraseña</p>');
+        }
+    
+        var formData = new FormData();
+            formData.append('action', 'actionLogin');
+            formData.append('user', user );
+            formData.append('pass', pass );
+    
+        jQuery.ajax({
+            cache: false,
+            url: 'inc/functions/ajax-requests.php',
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            beforeSend: function () {
+                $('.js-login-message').html('<p>Validando...</p>');
+            },
+            success: function (response) {
+                console.log(response )
+                if (response == 'true') {
+                    $('.js-login-message').html('<small class="text-success">Usuario Validado, Redireccionando...</small>');
+                    location.reload();
+                } else {
+                    $('.js-login-message').html('<small class="text-danger">Usuario o contrseña Incorrecto!</small>');
+                }
+            }
+        });
+    })
+});

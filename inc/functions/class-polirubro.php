@@ -21,21 +21,42 @@ Class Polirubro {
 
         $html = '';
 
-        if (isset ($_SESSION["Id_Cliente"]) && $_SESSION["Id_Cliente"] != 0) {
+        if (isset ($_SESSION["user"])) {
 
             $html .= '<div class="header__top__right__auth">'.
-                        'Conectado como: <strong>'. $_SESSION["Id_Cliente"].' | '.$_SESSION["NombreCliente"].'</strong>&nbsp;|&nbsp;'.
-                        '<a href="clientes_logout.php"><img src="images/cerrar_sesion_16.png" title="Cerrar Sesi&oacute;n"></a>&nbsp;'.
-                        '<a href="clientes_logout.php">Cerrar Sesi&oacute;n</a>'.
+                        //'Conectado como: <strong>'. $_SESSION['user'][0].' | '.$_SESSION['user'].'</strong>&nbsp;|&nbsp;'.
+                        '<strong>'.$_SESSION['Usuario'].'</strong>'.
+                        '<a href="clientes_logout.php"><i class="fa fa-sign-out"></i> Cerrar Sesi&oacute;n</a>'.
                     '</div>';
-            if ($_SESSION["Id_Pedido"] != 0) {
+           /*  if ($_SESSION["Id_Pedido"] != 0) {
                 $html .= "<h3>Tiene un pedido abierto. N&uacute;mero: <strong>".$_SESSION["Id_Pedido"]."</strong>.</h3>";
-            }
+            } */
 
         } else {
 
             $html .= '<div class="header__top__right__auth">
-                <a href="#"><i class="fa fa-user"></i> Ingresar</a>
+                <a href="#" onclick="formToggle();"><i class="fa fa-user"></i> Ingresar</a>
+                <form class="form-login d-none" id="js-formx-login">
+                    <div class="form-group">
+                        <label for="usuario">Usuario</label>
+                        <input type="text" name="user" class="form-control user" id="user" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Contrase&ntilde;a</label>
+                        <input type="password" name="pass" class="form-control pass" id="pass" required>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="g-recaptcha" data-sitekey="6LehItsUAAAAAKkyZXB_Aon0DNX7zqMl8OE7jgAO"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-primary" value="Entrar">
+                    </div>
+
+                    <div class="js-login-message"></div>
+                </form>
             </div>';
         }
 

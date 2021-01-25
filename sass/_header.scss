@@ -47,6 +47,9 @@
 .header__top__right {
     text-align: right;
     padding: 10px 0 13px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
 }
 
 .header__top__right__social {
@@ -147,16 +150,36 @@
 }
 
 .header__top__right__auth {
-    display: inline-block;
+    display: flex;
+    align-items: center;
+
+    strong {
+        position: relative;
+        padding-right: 13px;
+        &::after {
+            position: absolute;
+            right: -20px;
+            top: 1px;
+            height: 20px;
+            width: 1px;
+            background: #000000;
+            opacity: 0.1;
+            content: "";
+            margin-right: 15px;
+            margin-left: 15px;
+        }
+    }
 
     a {
         display: block;
+        padding-left: 21px;
         font-size: 14px;
         color: $normal-color;
 
         i {
             margin-right: 6px;
         }
+
     }
 }
 
@@ -311,4 +334,26 @@
 
 .humberger__open {
     display: none;
+}
+
+.form-login {
+    background-color: $white-color;
+    box-shadow: 3px 3px 5px #e6e7e8;
+    position: absolute;
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    right: 0;
+    top: 30px;
+    z-index: 2;
+
+    .form-group {
+        width: 100%;
+        input {
+            width: 100%;
+        }
+    }
 }
