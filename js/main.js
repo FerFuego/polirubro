@@ -329,9 +329,9 @@ $(document).ready( function () {
             $('.js-login-message').html('<p>Ingrese Contraseña</p>');
         }
 
-        /* if (values['g-recaptcha-response'] == '') {
+        if (values['g-recaptcha-response'] == '') {
             $('.js-login-message').html('<p>Complete Captcha</p>');
-        } */
+        }
     
         var formData = new FormData();
             formData.append('action', 'actionLogin');
