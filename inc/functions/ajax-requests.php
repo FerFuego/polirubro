@@ -9,35 +9,46 @@ require('class-rubros.php');
 require('class-subrubros.php');
 require('class-login.php');
 
-
+/**
+ * Request of Login
+ */
 if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'actionLogin') {
 
     $user = (isset($_POST['user']) ? filter_var($_POST['user'], FILTER_SANITIZE_STRING) : null);
     $pass = (isset($_POST['pass']) ? filter_var($_POST['pass'], FILTER_SANITIZE_STRING) : null);
+    $recaptcha = (isset($_POST['g-recaptcha-response']) ? $_POST['g-recaptcha-response'] : null);
     $login = 'false';
+
+    $request = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=6LehItsUAAAAAJgi5I6XbtuH6sRzbFhiYNQwZSed&response=".$recaptcha."&remoteip=".$_SERVER['REMOTE_ADDR']);
+    $response = json_decode($request);
+    
+    if ( $response->success === false ) {
+        echo 'Captcha Incorrecto!';
+        die();
+    }
 
     $access = new Login($user, $pass);
     $result = $access->loginProcess();
 
     if ( $result->num_rows > 0 ) :
-
         while ( $user = $result->fetch_object() ) {
-            $_SESSION["id_user"] = session_id();
-            $_SESSION["Id_Cliente"] = $result->Id_Cliente;
-            $_SESSION["Nombre"] = $result->Nombre;
-            $_SESSION["Mail"] = $result->Mail;
-            $_SESSION["ListaPrecioDef"] = $result->ListaPrecioDef;
-            $_SESSION["user"] = $result->Usuario;
+            $_SESSION["id_user"]    = session_id();
+            $_SESSION["Id_Cliente"] = $user->Id_Cliente;
+            $_SESSION["Nombre"]     = $user->Nombre;
+            $_SESSION["Mail"]       = $user->Mail;
+            $_SESSION["user"]       = $user->Usuario;
+            $_SESSION["ListaPrecioDef"] = $user->ListaPrecioDef;
             $login = 'true';
         }
-
     endif;
 
     echo $login;
     die();
 }
 
-
+/**
+ * Request of Lists of SubCategories
+ */
 if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'getSubRubroByIdRubro') {
 
     $id_rubro = filter_var($_POST["id_rubro"], FILTER_VALIDATE_INT);
@@ -60,7 +71,9 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'getSubRubr
     die();
 }
 
-
+/**
+ * Request of Lists of Groups
+ */
 if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'getGrupoByIdSubRubro') {
 
     $id_grupo = filter_var($_POST["id_grupo"], FILTER_VALIDATE_INT);

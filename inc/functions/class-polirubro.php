@@ -24,9 +24,8 @@ Class Polirubro {
         if (isset ($_SESSION["user"])) {
 
             $html .= '<div class="header__top__right__auth">'.
-                        //'Conectado como: <strong>'. $_SESSION['user'][0].' | '.$_SESSION['user'].'</strong>&nbsp;|&nbsp;'.
-                        '<strong>'.$_SESSION['Usuario'].'</strong>'.
-                        '<a href="clientes_logout.php"><i class="fa fa-sign-out"></i> Cerrar Sesi&oacute;n</a>'.
+                        '<strong>'.$_SESSION['user'].'</strong>'.
+                        '<a href="logout.php"><i class="fa fa-sign-out"></i> Cerrar Sesi&oacute;n</a>'.
                     '</div>';
            /*  if ($_SESSION["Id_Pedido"] != 0) {
                 $html .= "<h3>Tiene un pedido abierto. N&uacute;mero: <strong>".$_SESSION["Id_Pedido"]."</strong>.</h3>";

@@ -18,7 +18,7 @@
 <!-- Hero Section End -->
 
 <!-- Slider Begin -->
-<?php if ($_SERVER['REQUEST_URI'] === '/' || $_SERVER['REQUEST_URI'] === '/nuevo/' || $_SERVER['REQUEST_URI'] === '/nuevo/index.php') :
+<?php if ($_SERVER['REQUEST_URI'] === '/' || $_SERVER['REQUEST_URI'] === '/index.php' || $_SERVER['REQUEST_URI'] === '/nuevo/' || $_SERVER['REQUEST_URI'] === '/nuevo/index.php') :
     require_once('inc/parts/slider.php'); 
 endif; ?>
 <!-- Slider End -->

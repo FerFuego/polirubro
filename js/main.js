@@ -312,24 +312,32 @@ function formToggle() {
 ---------------------*/
 $(document).ready( function () {
     $('.form-login').submit( function (e) {
+
+        e.preventDefault();
+
+        var values = {};
+
+        $.each($(this).serializeArray(), function(i, field) {
+            values[field.name] = field.value;
+        });
     
-        var user = $('#user').val();
-        var pass = $('#pass').val();
-    
-        console.log(user)
-    
-        if (user == '') {
+        if (values.user == '') {
             $('.js-login-message').html('<p>Ingrese Usuario</p>');
         }
     
-        if (pass == '') {
+        if (values.pass == '') {
             $('.js-login-message').html('<p>Ingrese Contraseña</p>');
         }
+
+        /* if (values['g-recaptcha-response'] == '') {
+            $('.js-login-message').html('<p>Complete Captcha</p>');
+        } */
     
         var formData = new FormData();
             formData.append('action', 'actionLogin');
-            formData.append('user', user );
-            formData.append('pass', pass );
+            formData.append('user', values.user );
+            formData.append('pass', values.pass );
+            formData.append('g-recaptcha-response', values['g-recaptcha-response'] );
     
         jQuery.ajax({
             cache: false,
@@ -342,10 +350,11 @@ $(document).ready( function () {
                 $('.js-login-message').html('<p>Validando...</p>');
             },
             success: function (response) {
-                console.log(response )
                 if (response == 'true') {
                     $('.js-login-message').html('<small class="text-success">Usuario Validado, Redireccionando...</small>');
                     location.reload();
+                } else if (response == 'Captcha Incorrecto!') {
+                    $('.js-login-message').html('<small class="text-danger">'+response+'</small>');
                 } else {
                     $('.js-login-message').html('<small class="text-danger">Usuario o contrseña Incorrecto!</small>');
                 }
