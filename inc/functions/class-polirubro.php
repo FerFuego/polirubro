@@ -1,10 +1,21 @@
 <?php
 /**
- * Global class of frontend
+ * Global class
  */
 Class Polirubro {
 
     public function __construct() {
+
+        require('inc/functions/class-connection.php');
+        require('inc/functions/class-squery.php');
+        require('inc/functions/class-login.php');
+        require('inc/functions/class-rubros.php');
+        require('inc/functions/class-subrubros.php');
+        require('inc/functions/class-productos.php');
+        require('inc/functions/class-paginator.php');
+        require('inc/functions/class-pedidos.php');
+        require('inc/functions/class-detalles.php');
+        
         $this->get_items_session();
     }
 
@@ -27,9 +38,6 @@ Class Polirubro {
                         '<strong>'.$_SESSION['user'].'</strong>'.
                         '<a href="logout.php"><i class="fa fa-sign-out"></i> Cerrar Sesi&oacute;n</a>'.
                     '</div>';
-           /*  if ($_SESSION["Id_Pedido"] != 0) {
-                $html .= "<h3>Tiene un pedido abierto. N&uacute;mero: <strong>".$_SESSION["Id_Pedido"]."</strong>.</h3>";
-            } */
 
         } else {
 

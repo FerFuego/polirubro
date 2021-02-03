@@ -33,7 +33,7 @@ class Productos {
         if ($id != 0) {
             
             $this->obj = new sQuery();
-            $result = $this->obj->executeQuery("SELECT * FROM productos WHERE Id_Producto='$id' ORDER BY Nombre");
+            $result = $this->obj->executeQuery("SELECT * FROM productos WHERE CodProducto='$id'");
             $row = mysqli_fetch_assoc($result);
 
             $this->id_producto = $row['Id_Producto'];
@@ -67,6 +67,7 @@ class Productos {
     public function getSubRubroID(){ return $this->id_subrubro; }
     public function getGrupoID(){ return $this->id_grupo; }
     public function getNombre(){ return $this->nombre; }
+    public function PreVtaFinal1(){ return $this->precio_venta_final_1; }
 
     public function getProducts($id_rubro, $id_subrubro, $id_grupo){
 
@@ -130,6 +131,19 @@ class Productos {
 
         $this->obj = new sQuery();
         $result = $this->obj->executeQuery("SELECT * FROM productos WHERE Oferta = 1 OR Novedad = 1 ORDER BY RAND() LIMIT 8");
+
+        return $result;
+    }
+
+    public function getRelatedProducts($id_rubro, $id_subrubro, $id_grupo, $id_producto){
+
+        $where = '1=1';
+        $where .= ( $id_rubro ) ? ' AND Id_Rubro='. $id_rubro : '';
+        $where .= ( $id_subrubro ) ? ' AND Id_SubRubro='. $id_subrubro : '';
+        $where .= ( $id_grupo ) ? ' AND Id_Grupo='. $id_grupo : '';
+
+        $this->obj = new sQuery();
+        $result = $this->obj->executeQuery("SELECT * FROM productos WHERE $where AND Id_Producto NOT IN ($id_producto) ORDER BY Nombre Limit 4");
 
         return $result;
     }

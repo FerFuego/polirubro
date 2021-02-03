@@ -12,7 +12,7 @@
                 <div class="product__discount__slider owl-carousel">
                     <?php   
                         while ( $product = $results->fetch_object() ) :
-                            require 'inc/partials/offert-card.php';
+                            require 'inc/partials/product.php';
                         endwhile;
 
                         $offert->closeConnection();
