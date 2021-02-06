@@ -4,18 +4,19 @@
  */
 class Pedidos {
     
-    var $Id_Pedido;
-    var $Id_Cliente;
-    var $Nombre;
-    var $Localidad;
-    var $Mail;
-    var $Usuario;
-    var $FechaIni;
-    var $FechaFin;
-    var $ImpTotal;
-    var $Cerrado;
-    var $IP;
-    var $obj;
+    public $Id_Pedido;
+    public $Id_Cliente;
+    public $Nombre;
+    public $Localidad;
+    public $Mail;
+    public $Usuario;
+    public $FechaIni;
+    public $FechaFin;
+    public $ImpTotal;
+    public $Cerrado;
+    public $IP;
+    public $totalFinal = 0;
+    protected $obj;
 
     public function __construct($id=0) {
 
@@ -50,10 +51,42 @@ class Pedidos {
     public function getImpTotal(){ return $this->ImpTotal; }
     public function getCerrado(){ return $this->Cerrado; }
     public function getIP(){ return $this->IP; }
+    public function getTotalFinal(){ return $this->totalFinal; }
+
+    public function getPedidoAbierto($Id_Cliente) {
+
+        $this->obj = new sQuery();
+        $result = $this->obj->executeQuery("SELECT * FROM pedidos_cabe WHERE (Id_Cliente = $Id_Cliente) AND (Cerrado = 0)");
+
+        $row = $result->fetch_object();
+
+        $data = [
+            'num_rows' => $result->num_rows,
+            'Id_Pedido' => ($row) ? $row->Id_Pedido : null,
+        ];
+
+        return $data;
+    }
+
+    public function sumTotalCart($totalParcial) {
+        $this->totalFinal = $this->totalFinal + $totalParcial;
+    }
+
+    public function insertPedido(Usuarios $user) {
+
+        $this->obj = new sQuery();
+        $this->obj->executeQuery("INSERT INTO pedidos_cabe (Id_Cliente, Nombre, Localidad, Mail, Usuario, FechaIni, ImpTotal, Cerrado, IP) VALUES ('$user->Id_Cliente','$user->Nombre','$user->Localidad','$user->Mail','$user->Usuario','$this->FechaIni',0,0,'$this->IP')");
+
+        $data = [
+            'Id_Pedido' => $this->obj->getIDAffect(),
+        ];
+
+        return $data;
+    }
 
     public function closeConnection(){
-        $this->obj->Clean();
+        @$this->obj->Clean();
 		$this->obj->Close();
-	} 
+	}
 
 }

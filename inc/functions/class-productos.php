@@ -4,29 +4,29 @@
  */
 class Productos {
 
-    var $id_producto;
-    var $cod_producto;
-    var $nombre;
-    var $id_marca;
-    var $marca;
-    var $id_rubro;
-    var $rubro;
-    var $id_subrubro;
-    var $subrubro;
-    var $id_grupo;
-    var $grupo;
-    var $precio_venta_neto_1;
-    var $precio_venta_final_1;
-    var $precio_venta_neto_2;
-    var $precio_venta_final_2;
-    var $precio_venta_neto_3;
-    var $precio_venta_final_3;
-    var $fecha_alta;
-    var $fecha_alta_web;
-    var $novedad;
-    var $oferta;
-    var $observaciones;
-    var $obj;
+    public $id_producto;
+    public $cod_producto;
+    public $nombre;
+    public $id_marca;
+    public $marca;
+    public $id_rubro;
+    public $rubro;
+    public $id_subrubro;
+    public $subrubro;
+    public $id_grupo;
+    public $grupo;
+    public $precio_venta_neto_1;
+    public $precio_venta_final_1;
+    public $precio_venta_neto_2;
+    public $precio_venta_final_2;
+    public $precio_venta_neto_3;
+    public $precio_venta_final_3;
+    public $fecha_alta;
+    public $fecha_alta_web;
+    public $novedad;
+    public $oferta;
+    public $observaciones;
+    protected $obj;
 
     public function __construct($id=0) {
 
@@ -63,6 +63,7 @@ class Productos {
     }
 
     public function getID(){ return $this->id_producto; }
+    public function getCode(){ return $this->cod_producto; }
     public function getRubroID(){ return $this->id_rubro; }
     public function getSubRubroID(){ return $this->id_subrubro; }
     public function getGrupoID(){ return $this->id_grupo; }
@@ -88,6 +89,19 @@ class Productos {
         ];
 
         return $result;
+    }
+
+    public static function getImage($CodProducto) {
+
+        if (file_exists("../fotos/".$CodProducto.".JPG")) {
+            $img = "../fotos/".$CodProducto.".JPG";
+        } elseif (file_exists("../fotos/".$CodProducto.".jpg")) {
+            $img = "../fotos/".$CodProducto.".jpg";
+        } else {
+            $img = "img/sin-imagen.jpg";
+        }
+        
+        return $img;
     }
 
     public function getProductSearch($search) {
@@ -153,7 +167,7 @@ class Productos {
     }
 
     public function closeConnection(){
-        $this->obj->Clean();
+        @$this->obj->Clean();
 		$this->obj->Close();
 	} 
 

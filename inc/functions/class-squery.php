@@ -5,9 +5,9 @@
  */
 class sQuery {
 	
-	var $pconnection;
-	var $pquery;
-	var $results;
+	protected $pconnection;
+	protected $pquery;
+	protected $results;
 
 	// constructor, solo crea una conexion usando la clase "Conexion"
 	function __construct() {

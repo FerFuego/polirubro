@@ -4,16 +4,17 @@
  */
 class Detalles {
     	
-    var $Auto;
-    var $Id_Pedido;
-    var $Id_Producto;
-    var $CodProducto;
-    var $Nombre;
-    var $PreVtaFinal1;
-    var $Cantidad;
-    var $ImpTotal;
-    var $Notas;
-    var $obj;
+    public $Auto;
+    public $Id_Pedido;
+    public $Id_Producto;
+    public $CodProducto;
+    public $Nombre;
+    public $PreVtaFinal1;
+    public $Cantidad;
+    public $ImpTotal;
+    public $Notas;
+    public $totalFinal = 0;
+    protected $obj;
 
     public function __construct($id=0) {
 
@@ -43,10 +44,52 @@ class Detalles {
     public function getPreVtaFinal1(){ return $this->PreVtaFinal1; }
     public function getCantidad(){ return $this->Cantidad; }
     public function getImpTotal(){ return $this->ImpTotal; }
+    public function getTotalFinal(){ return $this->totalFinal; }
     public function getNotas(){ return $this->Notas; }
 
+
+    public function getDetallesPedido($Id_Pedido) {
+
+        $this->obj = new sQuery();
+        $result = $this->obj->executeQuery("SELECT * FROM pedidos_deta WHERE (Id_Pedido = $Id_Pedido)");
+
+        return $result;
+    }
+
+    public function getPedidoResumen($Id_Pedido) {
+        $this->obj = new sQuery();
+        $result = $this->obj->executeQuery("SELECT * FROM pedidos_deta WHERE (Id_Pedido = $Id_Pedido)");
+
+        if ( $result->num_rows > 0 ) :
+            $pedido = new Pedidos();
+            while ( $product = $result->fetch_object() ) :
+                $pedido->sumTotalCart($product->ImpTotal);
+            endwhile;
+        endif;
+
+        return $result->num_rows;
+    }
+
+    public function insertDetalle() {
+        
+        $this->obj = new sQuery();
+        $this->obj->executeQuery("INSERT INTO pedidos_deta ( Id_Pedido, Id_Producto, CodProducto, Nombre, PreVtaFinal1, Cantidad, ImpTotal, Notas) VALUES ('$this->Id_Pedido','$this->Id_Producto','$this->CodProducto','$this->Nombre','$this->PreVtaFinal1','$this->Cantidad','$this->ImpTotal','$this->Notas')");
+    }
+
+    public function updateDetalle() {
+        
+        $this->obj = new sQuery();
+        $this->obj->executeQuery("UPDATE pedidos_deta SET Cantidad='$this->Cantidad', ImpTotal='$this->ImpTotal', Notas='$this->Notas' WHERE Auto='$this->Auto'");
+    }
+
+    public function deleteDetalle() {
+
+        $this->obj = new sQuery();
+        $this->obj->executeQuery("DELETE FROM pedidos_deta WHERE Auto = '$this->Auto'");
+    }
+
     public function closeConnection(){
-        $this->obj->Clean();
+        @$this->obj->Clean();
 		$this->obj->Close();
 	} 
 

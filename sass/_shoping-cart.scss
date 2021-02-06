@@ -62,11 +62,31 @@
                         width: 100px;
                     }
 
+                    &.shoping__cart__note {
+                        font-size: 18px;
+                        color: $normal-color;
+                        font-weight: 700;
+                        width: 200px;
+                        textarea {
+                            border: 1px solid #ebebeb;
+                        }
+                    }
+
                     &.shoping__cart__total {
                         font-size: 18px;
                         color: $normal-color;
                         font-weight: 700;
                         width: 110px;
+                    }
+
+                    &.shoping__cart__item__update {
+                        text-align: right;
+
+                        span {
+                            font-size: 16px;
+                            color: #b2b2b2;
+                            cursor: pointer;
+                        }
                     }
 
                     &.shoping__cart__item__close {

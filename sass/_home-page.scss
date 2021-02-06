@@ -175,6 +175,19 @@
     position: relative;
     overflow: hidden;
     background-position: center center;
+
+    .product__code {
+        position: absolute;
+        left: 15px;
+        top: 5px;
+        h5 {
+            font-size: 16px;
+            color: #252525;
+            font-weight: 700;
+            line-height: 45px;
+            text-align: center;
+        }
+    }
 }
 
 .featured__item__pic__hover {
@@ -232,6 +245,7 @@
 .featured__item__text {
     text-align: center;
     padding-top: 15px;
+    border: 1px solid #ebebeb;
 
     h6 {
         margin-bottom: 10px;
@@ -244,6 +258,13 @@
     h5 {
         color: $heading-color-2;
         font-weight: 700;
+    }
+
+    span {
+        font-size: 14px;
+        color: #b2b2b2;
+        display: block;
+        margin-bottom: 4px;
     }
 }
 /*---------------------

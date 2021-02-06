@@ -307,10 +307,10 @@ function formToggle() {
     $('.form-login').toggleClass('d-none');
 }
 
-/*--------------------
-    Login Request
----------------------*/
 $(document).ready( function () {
+    /*--------------------
+        Login Request
+    ---------------------*/
     $('.form-login').submit( function (e) {
 
         e.preventDefault();
@@ -361,4 +361,120 @@ $(document).ready( function () {
             }
         });
     })
+
+    /*--------------------
+        Insert Cart
+    ---------------------*/
+    $('.js-form-cart').submit( function (e) {
+
+        e.preventDefault();
+
+        var values = {};
+
+        $.each($(this).serializeArray(), function(i, field) {
+            values[field.name] = field.value;
+        });
+    
+        var formData = new FormData();
+            formData.append('action', 'insertProductCart');
+            formData.append('id_product', values.id_product );
+            formData.append('nota', values.nota );
+            formData.append('cant', values.cant );
+            formData.append('cod_product', values.cod_product);
+            formData.append('name_product', values.name_product);
+            formData.append('price_product', values.price_product);
+    
+        jQuery.ajax({
+            cache: false,
+            url: 'inc/functions/ajax-requests.php',
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            beforeSend: function () {
+                $('.js-login-message').html('<p>Agregando...</p>');
+            },
+            success: function (response) {
+                if (response == 'true') {
+                    $('.js-login-message').html('<small class="text-success">Agregado al carrito!</small>');
+                    $("#js-dynamic-cart").load( $(location).attr("href") + ' #js-data-cart' );
+                } else {
+                    $('.js-login-message').html('<small class="text-danger">Ocurrio un error, por favor recarge la pagina e intente nuevamente.</small>');
+                }
+            }
+        });
+    })
+
+    /*--------------------
+        Update Cart
+    ---------------------*/
+    $('.js-form-update').submit( function (e) {
+
+        e.preventDefault();
+
+        var values = {};
+
+        $.each($(this).serializeArray(), function(i, field) {
+            values[field.name] = field.value;
+        });
+    
+        var formData = new FormData();
+            formData.append('action', 'updateProductCart');
+            formData.append('id_item', values.id_item );
+            formData.append('codprod', values.codprod );
+            formData.append('cant', $('#cant_'+ values.id_item).val() );
+            formData.append('nota', $('#nota_'+ values.id_item).val() );
+    
+        jQuery.ajax({
+            cache: false,
+            url: 'inc/functions/ajax-requests.php',
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                console.log(response)
+                if (response == 'true') {
+                    location.reload();
+                } else {
+                    $('.js-cart-message').html('<small class="text-danger">Ocurrio un error, por favor recarge la pagina e intente nuevamente.</small>');
+                }
+            }
+        });
+    })
+
+    /*--------------------
+        Delete Cart
+    ---------------------*/
+    $('.js-form-delete').submit( function (e) {
+
+        e.preventDefault();
+
+        var values = {};
+
+        $.each($(this).serializeArray(), function(i, field) {
+            values[field.name] = field.value;
+        });
+    
+        var formData = new FormData();
+            formData.append('action', 'deleteProductCart');
+            formData.append('id_item', values.id_item );
+    
+        jQuery.ajax({
+            cache: false,
+            url: 'inc/functions/ajax-requests.php',
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                if (response == 'true') {
+                    location.reload();
+                } else {
+                    $('.js-cart-message').html('<small class="text-danger">Ocurrio un error, por favor recarge la pagina e intente nuevamente.</small>');
+                }
+            }
+        });
+    })
+
 });

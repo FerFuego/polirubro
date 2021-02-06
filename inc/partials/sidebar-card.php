@@ -1,12 +1,9 @@
 <div class="latest-prdouct__slider__item">
-    <a href="#" class="latest-product__item">
-        <div class="latest-product__item__pic">
-            <img src="img/product/product-5.jpg" alt="">
-        </div>
+    <a href="detalle.php?id=<?php echo $product->CodProducto; ?>" class="latest-product__item">
         <div class="latest-product__item__text">
+            <img src="<?php echo Productos::getImage( $product->CodProducto ); ?>" alt="">
             <h6><?php echo $product->Nombre; ?></h6>
             <span><?php echo $product->Id_Producto; ?></span>
-            <!-- <span>$30.00</span> -->
         </div>
     </a>
 </div>

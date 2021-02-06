@@ -5,7 +5,7 @@
  */
 class Connection {
 
-    var $conn;
+    protected $conn;
     
 	function __construct() {	
 

@@ -153,6 +153,7 @@ ol {
   text-transform: uppercase;
   font-weight: 700;
   background: #7fad39;
+  border: 0;
   letter-spacing: 2px;
 }
 
@@ -483,6 +484,7 @@ ol {
 }
 .header__cart ul li a {
   position: relative;
+  color: #000000;
 }
 .header__cart ul li a i {
   font-size: 18px;
@@ -900,6 +902,18 @@ ol {
   overflow: hidden;
   background-position: center center;
 }
+.featured__item__pic .product__code {
+  position: absolute;
+  left: 15px;
+  top: 5px;
+}
+.featured__item__pic .product__code h5 {
+  font-size: 16px;
+  color: #252525;
+  font-weight: 700;
+  line-height: 45px;
+  text-align: center;
+}
 
 .featured__item__pic__hover {
   position: absolute;
@@ -959,6 +973,7 @@ ol {
 .featured__item__text {
   text-align: center;
   padding-top: 15px;
+  border: 1px solid #ebebeb;
 }
 .featured__item__text h6 {
   margin-bottom: 10px;
@@ -969,6 +984,12 @@ ol {
 .featured__item__text h5 {
   color: #252525;
   font-weight: 700;
+}
+.featured__item__text span {
+  font-size: 14px;
+  color: #b2b2b2;
+  display: block;
+  margin-bottom: 4px;
 }
 
 /*---------------------
@@ -1534,6 +1555,19 @@ ol {
 
 .product__item {
   margin-bottom: 50px;
+  border: 1px solid #ebebeb;
+}
+.product__item .product__code {
+  position: absolute;
+  left: 15px;
+  top: 5px;
+}
+.product__item .product__code h5 {
+  font-size: 16px;
+  color: #252525;
+  font-weight: 700;
+  line-height: 45px;
+  text-align: center;
 }
 .product__item:hover .product__item__pic .product__item__pic__hover {
   bottom: 20px;
@@ -1899,11 +1933,28 @@ ol {
   font-weight: 700;
   width: 100px;
 }
+.shoping__cart__table table tbody tr td.shoping__cart__note {
+  font-size: 18px;
+  color: #1c1c1c;
+  font-weight: 700;
+  width: 200px;
+}
+.shoping__cart__table table tbody tr td.shoping__cart__note textarea {
+  border: 1px solid #ebebeb;
+}
 .shoping__cart__table table tbody tr td.shoping__cart__total {
   font-size: 18px;
   color: #1c1c1c;
   font-weight: 700;
   width: 110px;
+}
+.shoping__cart__table table tbody tr td.shoping__cart__item__update {
+  text-align: right;
+}
+.shoping__cart__table table tbody tr td.shoping__cart__item__update span {
+  font-size: 16px;
+  color: #b2b2b2;
+  cursor: pointer;
 }
 .shoping__cart__table table tbody tr td.shoping__cart__item__close {
   text-align: right;

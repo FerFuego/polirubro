@@ -4,8 +4,8 @@
  */
 class Login{
 	
-	var $user;
-	var $pass;
+	private $user;
+	private $pass;
 
 	public function __construct( $username, $password ) {
 		$this->user = $username;

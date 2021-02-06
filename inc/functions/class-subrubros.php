@@ -4,11 +4,11 @@
  */
 class Subrubros {
     
-    var $id_subrubro;
-    var $id_rubro;
-    var $nombre;
-    var $no_borra;
-    var $obj;
+    public $id_subrubro;
+    public $id_rubro;
+    public $nombre;
+    public $no_borra;
+    protected $obj;
 
     public function __construct($id=0) {
 

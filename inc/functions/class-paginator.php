@@ -63,7 +63,7 @@ class Paginator {
         }
      
         if ( $end < $last ) {
-            $html .= '<span class="disabled">...</span>';
+            $html .= '<span class="disabled mr-3">...</span>';
             $html .= '<a href="?'.$params.'&page=' . $last . '">' . $last . '</a>';
         }
      

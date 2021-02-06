@@ -4,19 +4,14 @@
  */
 Class Polirubro {
 
+    const GOOGLE_API = '6LehItsUAAAAAJgi5I6XbtuH6sRzbFhiYNQwZSed';
+    const SITE_KEY = '6LehItsUAAAAAKkyZXB_Aon0DNX7zqMl8OE7jgAO';
+
     public function __construct() {
 
-        require('inc/functions/class-connection.php');
-        require('inc/functions/class-squery.php');
-        require('inc/functions/class-login.php');
-        require('inc/functions/class-rubros.php');
-        require('inc/functions/class-subrubros.php');
-        require('inc/functions/class-productos.php');
-        require('inc/functions/class-paginator.php');
-        require('inc/functions/class-pedidos.php');
-        require('inc/functions/class-detalles.php');
-        
-        $this->get_items_session();
+        require('autoload.php');
+
+        $this->getItemsSession();
     }
 
     public static function normalize_title() {
@@ -28,7 +23,7 @@ Class Polirubro {
         return strtolower( str_replace( ' ', '-', $string ) );
     }
 
-    public static function get_items_session() {
+    public static function getItemsSession() {
 
         $html = '';
 
@@ -38,7 +33,6 @@ Class Polirubro {
                         '<strong>'.$_SESSION['user'].'</strong>'.
                         '<a href="logout.php"><i class="fa fa-sign-out"></i> Cerrar Sesi&oacute;n</a>'.
                     '</div>';
-
         } else {
 
             $html .= '<div class="header__top__right__auth">
@@ -55,7 +49,7 @@ Class Polirubro {
                     </div>
 
                     <div class="form-group">
-                        <div class="g-recaptcha" data-sitekey="6LehItsUAAAAAKkyZXB_Aon0DNX7zqMl8OE7jgAO"></div>
+                        <div class="g-recaptcha" data-sitekey="'.self::SITE_KEY.'"></div>
                     </div>
 
                     <div class="form-group">
@@ -66,6 +60,37 @@ Class Polirubro {
                 </form>
             </div>';
         }
+
+        return $html;
+    }
+
+    public static function getResumenCart() {
+
+        $html = '';
+
+        if ( isset($_SESSION["id_user"]) ) :
+
+            $pedido = new Pedidos();
+            $result = $pedido->getPedidoAbierto($_SESSION["Id_Cliente"]);
+
+            if ( $result['num_rows'] > 0 ) : 
+
+                $detalle = new Detalles();
+                $resumen = $detalle->getPedidoResumen($result['Id_Pedido']);
+
+                $html .='<div class="header__cart" id="js-dynamic-cart">
+                    <ul id="js-data-cart">
+                        <li><a href="/carrito.php" title="Ver Carrito"><b>Pedido</b> <i class="fa fa-shopping-bag"></i> <span>' .$resumen.'</span></a></li>
+                    </ul>
+                </div>';
+
+                $detalle->closeConnection();
+
+            endif;
+
+            $pedido->closeConnection();
+            
+        endif;
 
         return $html;
     }

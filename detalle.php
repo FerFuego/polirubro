@@ -34,7 +34,7 @@
                     <div class="col-lg-6 col-md-6">
                         <div class="product__details__pic">
                             <div class="product__details__pic__item">
-                                <img class="product__details__pic__item--large" src="img/product/details/product-details-1.jpg" alt="">
+                                <img class="product__details__pic__item--large" src="<?php echo Productos::getImage( $product->getCode() ); ?>" alt="">
                             </div>
                             <!--  <div class="product__details__pic__slider owl-carousel">
                                 <img data-imgbigurl="img/product/details/product-details-2.jpg"
@@ -63,7 +63,13 @@
 
                             <?php if ( isset($_SESSION["id_user"]) ) : ?>
 
-                                <div class="product__details__price">$<?php echo $product->PreVtaFinal1(); ?></div>
+                            <form class="js-form-cart">
+                                <div class="product__details__price">$<?php echo number_format($product->PreVtaFinal1(), 2,',','.'); ?></div>
+
+                                <input type="hidden" name="id_product" value="<?php echo $product->getID(); ?>">
+                                <input type="hidden" name="cod_product" value="<?php echo $product->getCode(); ?>">
+                                <input type="hidden" name="name_product" value="<?php echo $product->getNombre(); ?>">
+                                <input type="hidden" name="price_product" value="<?php echo $product->PreVtaFinal1(); ?>">
 
                                 <div>
                                     <textarea type="text" name="nota" class="product__details__note" placeholder="Agregar Nota"></textarea>
@@ -72,19 +78,38 @@
                                 <div class="product__details__quantity">
                                     <div class="quantity">
                                         <div class="pro-qty">
-                                            <input value="1" type='number' min='1' max='99999'> 
+                                            <input type="number" name="cant" min="1" max="99999" value="1"> 
                                         </div>
                                     </div>
                                 </div>
 
-                                <a href="#" class="primary-btn">AGREGAR AL CARRITO</a>
+                                <input type="submit" class="primary-btn" value="AGREGAR AL CARRITO">
                                 <!-- <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a> -->
+                            </form>
+
+                            <div class="js-login-message"></div>
 
                             <?php endif; ?>
 
                             <ul>
-                                <!-- <li><b>Availability</b> <span>In Stock</span></li>
-                                <li><b>Shipping</b> <span>01 day shipping. <samp>Free pickup today</samp></span></li>
+                                <?php if ($product->marca) : ?>
+                                    <li><b>Marca</b> <span><?php echo ucfirst(strtolower($product->marca)); ?></span></li>
+                                <?php endif; ?>
+                                
+                                <?php if ($product->rubro) : ?>
+                                    <li><b>Rubro</b> <span><?php echo ucfirst(strtolower($product->rubro)); ?></span></li>
+                                <?php endif; ?>
+                                
+                                <?php if ($product->subrubro) : ?>
+                                    <li><b>SubRubro</b> <span><?php echo ucfirst(strtolower($product->subrubro)); ?></span></li>
+                                <?php endif; ?>
+                                
+                                <?php if ($product->grupo) : ?>
+                                    <li><b>Grupo</b> <span><?php echo ucfirst(strtolower($product->grupo)); ?></span></li>
+                                <?php endif; ?>
+
+                                <li><b>Disponibilidad</b> <span>Hay Stock</span></li>
+                                <!-- <li><b>Shipping</b> <span>01 day shipping. <samp>Free pickup today</samp></span></li>
                                 <li><b>Weight</b> <span>0.5 kg</span></li>
                                 <li><b>Share on</b>
                                     <div class="share">

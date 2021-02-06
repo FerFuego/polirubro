@@ -11,7 +11,7 @@
     </div>
 
     <div class="humberger__menu__widget">
-       <?php echo Polirubro::get_items_session(); ?>
+       <?php echo Polirubro::getItemsSession(); ?>
     </div>
 
     <nav class="humberger__menu__nav mobile-menu">
@@ -27,6 +27,9 @@
                     <li><a href="./blog-details.html">Blog Details</a></li>
                 </ul>
             </li> -->
+            <?php if ( isset($_SESSION["id_user"]) ) : ?>
+                <li class="<?php echo (Polirubro::normalize_title() === 'Carrito')? 'active':''?>"><a href="./carrito.php">Carrito</a></li>
+            <?php endif; ?>
             <li class="<?php echo (Polirubro::normalize_title() === 'Contacto')? 'active':''?>"><a href="./contacto.php">Contacto</a></li>
         </ul>
     </nav>
@@ -71,7 +74,7 @@
                             <a href="#"><i class="fa fa-pinterest-p"></i></a>
                         </div>
                         <div class="header__top__right__auth">
-                            <?php echo Polirubro::get_items_session(); ?>
+                            <?php echo Polirubro::getItemsSession(); ?>
                         </div>
                     </div>
                 </div>
@@ -86,13 +89,13 @@
                     <a href="/"><img src="img/logo.jpg" alt=""></a>
                 </div>
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-7">
                 <nav class="header__menu">
                     <ul>
                         <li class="<?php echo (Polirubro::normalize_title() === '')? 'active':''?>"><a href="./">Inicio</a></li>
                         <li class="<?php echo (Polirubro::normalize_title() === 'Nosotros')? 'active':''?>"><a href="./nosotros.php">Nosotros</a></li>
                         <li class="<?php echo (Polirubro::normalize_title() === 'Productos')? 'active':''?>"><a href="./productos.php">Productos</a></li>
-                        <!-- <li><a href="#">Paginas</a>
+                            <!-- <li><a href="#">Paginas</a>
                             <ul class="header__menu__dropdown">
                                 <li><a href="./shop-details.html">Shop Details</a></li>
                                 <li><a href="./shoping-cart.html">Shoping Cart</a></li>
@@ -100,11 +103,16 @@
                                 <li><a href="./blog-details.html">Blog Details</a></li>
                             </ul>
                         </li> -->
+                        <?php if ( isset($_SESSION["id_user"]) ) : ?>
+                            <li class="<?php echo (Polirubro::normalize_title() === 'Carrito')? 'active':''?>"><a href="./carrito.php">Carrito</a></li>
+                        <?php endif; ?>
                         <li class="<?php echo (Polirubro::normalize_title() === 'Contacto')? 'active':''?>"><a href="./contacto.php">Contacto</a></li>
                     </ul>
                 </nav>
             </div>
-            <div class="col-lg-3"></div>
+            <div class="col-lg-2">
+                <?php echo Polirubro::getResumenCart(); ?>
+            </div>
         </div>
         <div class="humberger__open">
             <i class="fa fa-bars"></i>
