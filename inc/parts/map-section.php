@@ -5,8 +5,8 @@
         <div class="inside-widget">
             <h4>Bell Ville</h4>
             <ul>
-                <li>Telefono: (03537) 410102</li>
-                <li>Direccion: Sargento Cabral 234 - 2550 Bell Ville, Córdoba</li>
+                <li>Telefono: <?php echo Polirubro::PHONE; ?></li>
+                <li>Direccion: <?php echo Polirubro::ADDRESS; ?></li>
             </ul>
         </div>
     </div>

@@ -84,6 +84,12 @@ class Pedidos {
         return $data;
     }
 
+    public function finalizarPedido() {
+
+        $this->obj = new sQuery();
+        $result = $this->obj->executeQuery("UPDATE pedidos_cabe SET FechaFin = '$this->FechaFin', Cerrado = '$this->Cerrado' WHERE (Id_Cliente = $this->Id_Cliente) AND (Id_Pedido = $this->Id_Pedido) AND (Cerrado = 0)");
+    }
+
     public function closeConnection(){
         @$this->obj->Clean();
 		$this->obj->Close();

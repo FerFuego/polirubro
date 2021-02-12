@@ -6,7 +6,7 @@
                     <!-- <img src="img/banner/TelasColgando.png" alt=""> -->
                     <h2>Retaceria <br />Todos los tonos y texturas</h2>
                     <p>Tenemos amplia variedad de productos</p>
-                    <a href="#" class="primary-btn">COMPRAR AHORA</a>
+                    <a href="/productos.php?id_rubro=106&id_subrubro=428" class="primary-btn">COMPRAR AHORA</a>
                 </div>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6">
@@ -14,7 +14,7 @@
                     <!-- <img src="img/banner/vasos.png" alt=""> -->
                     <h2>Bazar para Cocina<br />Fiestas y Cumpleaños</h2>
                     <p>Tenemos amplia variedad de productos</p>
-                    <a href="#" class="primary-btn">COMPRAR AHORA</a>
+                    <a href="/productos.php?id_rubro=3&id_subrubro=295" class="primary-btn">COMPRAR AHORA</a>
                 </div>
             </div>
         </div>

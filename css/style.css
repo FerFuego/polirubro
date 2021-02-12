@@ -229,6 +229,10 @@ ol {
     border-left-color: transparent;
   }
 }
+.text-white {
+  color: #FFF !important;
+}
+
 /*---------------------
   Header
 -----------------------*/
@@ -498,7 +502,7 @@ ol {
   color: #ffffff;
   line-height: 13px;
   text-align: center;
-  font-weight: 700;
+  font-weight: 300;
   display: inline-block;
   border-radius: 50%;
   position: absolute;
@@ -1911,8 +1915,8 @@ ol {
   text-align: left;
 }
 .shoping__cart__table table tbody tr td {
-  padding-top: 30px;
-  padding-bottom: 30px;
+  padding-top: 15px;
+  padding-bottom: 15px;
   border-bottom: 1px solid #ebebeb;
 }
 .shoping__cart__table table tbody tr td.shoping__cart__item {

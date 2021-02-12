@@ -45,8 +45,8 @@
 
     <div class="humberger__menu__contact">
         <ul>
-            <li><i class="fa fa-envelope"></i> info@polirrubrosgarro.com.ar</li>
-            <li>Sargento Cabral 234, 2550 Bell Ville, Córdoba</li>
+            <li><i class="fa fa-envelope"></i> <?php echo Polirubro::EMAIL; ?></li>
+            <li><?php echo Polirubro::ADDRESS; ?></li>
         </ul>
     </div>
 
@@ -60,8 +60,8 @@
                 <div class="col-lg-6 col-md-6">
                     <div class="header__top__left">
                         <ul>
-                            <li><i class="fa fa-envelope"></i> info@polirrubrosgarro.com.ar</li>
-                            <li>Sargento Cabral 234, 2550 Bell Ville, Córdoba</li>
+                            <li><i class="fa fa-envelope"></i> <?php echo Polirubro::EMAIL; ?></li>
+                            <li><?php echo Polirubro::ADDRESS; ?></li>
                         </ul>
                     </div>
                 </div>

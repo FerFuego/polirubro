@@ -8,7 +8,7 @@ class Usuarios {
     public $Nombre;
     public $Localidad;
     public $Mail;
-    private $Usuario;
+    public $Usuario;
     private $Password;
     public $ListaPrecioDef;
     protected $obj;

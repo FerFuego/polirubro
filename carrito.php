@@ -24,7 +24,7 @@
 <!-- Cart Section Begin -->
 <section class="shoping-cart spad">
 
-    <?php  if ( isset($_SESSION["id_user"]) ) :
+    <?php if ( isset($_SESSION["id_user"]) ) :
         
         $pedido = new Pedidos();
         $result = $pedido->getPedidoAbierto($_SESSION["Id_Cliente"]);
@@ -39,8 +39,8 @@
                             <thead>
                                 <tr>
                                     <th class="shoping__product">Producto</th>
-                                    <th>Precio</th>
                                     <th>Nota</th>
+                                    <th>Precio</th>
                                     <th>Cantidad</th>
                                     <th>Total</th>
                                     <th></th>
@@ -96,7 +96,7 @@
                     <div class="shoping__checkout">
                         <h5>Total Pedido</h5>
                         <ul>
-                            <li>Total <span>$<?php echo $pedido->getTotalFinal(); ?></span></li>
+                            <li>Total <span>$<?php echo number_format($pedido->getTotalFinal(), 2,',','.'); ?></span></li>
                         </ul>
                         <a href="/finalizar-pedido.php" class="primary-btn">Revision Final del Pedido</a>
                     </div>
@@ -105,7 +105,15 @@
         </div>
 
     <?php $pedido->closeConnection();
-        endif;
+        else : ?>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2 class="text-danger text-center">No tienes ningun pedido abierto</h2>
+                </div>
+            </div>
+        </div>
+        <?php endif;
     endif; ?>
 
 </section>

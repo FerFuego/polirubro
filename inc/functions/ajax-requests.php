@@ -175,3 +175,27 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'deleteProd
 
     die('true');
 }
+
+/**
+ * Request of Finally Order
+ */
+if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'finallyOrder') {
+
+    $id_pedido = (isset($_POST['id_pedido']) ? filter_var($_POST['id_pedido'], FILTER_VALIDATE_INT) : null);
+
+    $order = new Pedidos($id_pedido);
+    $order->FechaFin = date("Y-m-d");
+    $order->Cerrado = 1;
+    $order->finalizarPedido();
+    
+    $user = new Usuarios($_SESSION["Id_Cliente"]);
+
+    $data = new Polirubro();
+    $body = $data->getBodyEmail($id_pedido, $user);
+    $data->sendMail($id_pedido, $user, $body);
+
+    $user->closeConnection();
+    $order->closeConnection();
+
+    die('true');
+}

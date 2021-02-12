@@ -6,6 +6,11 @@ Class Polirubro {
 
     const GOOGLE_API = '6LehItsUAAAAAJgi5I6XbtuH6sRzbFhiYNQwZSed';
     const SITE_KEY = '6LehItsUAAAAAKkyZXB_Aon0DNX7zqMl8OE7jgAO';
+    const ADDRESS = 'Sargento Cabral 234, 2550 Bell Ville, Córdoba';
+    const PHONE = '(03537) 410102';
+    const TIMES = '09:00 am a 20:00 pm';
+    const WHATSAPP = '(3537) 536-991';
+    const EMAIL = 'info@polirrubrosgarro.com.ar';
 
     public function __construct() {
 
@@ -95,159 +100,118 @@ Class Polirubro {
         return $html;
     }
 
-    public static function ConsultarID_Pedido($Id_Cliente) {
+    public function getBodyEmail($id_pedido, $user) {
 
-        global $cnn;
-        $sql = "SELECT * FROM PEDIDOS_CABE WHERE (Id_Cliente = $Id_Cliente) AND (Cerrado = 0)";
-        if (!$rsPedCab = mysqli_query($cnn, $sql)) {
-            $Id_Pedido = 0;
-            $_SESSION["ErrMsg"] = "<h3>Error al consultar la cabecera del pedido. Reintente o contacte a la empresa.</h3>";
-        } else {
-            $cantiPedCab = mysqli_num_rows($rsPedCab);
-            // Si el cliente tiene al menos un pedido abierto, tomo los datos.
-            if ($cantiPedCab > 0) {
-                while ($datoPedCab = mysqli_fetch_array($rsPedCab)) {
-                    $Id_Pedido = $datoPedCab["Id_Pedido"];
-                }
-            } else {
-                $Id_Pedido = 0;
-            }
-        }
-        mysqli_free_result($rsPedCab);
-        return $Id_Pedido;
-    }
-    
-    public static function ConsultarCodExistente($Id_Pedido, $CodProducto) {
-        global $cnn;
-        $sql = "SELECT * FROM PEDIDOS_DETA WHERE (Id_Pedido = $Id_Pedido) AND (CodProducto = '$CodProducto')";
-        if (!$rsPedDet = mysqli_query($cnn, $sql)) {
-            return 0;
-            $_SESSION["ErrMsg"] = "<h3>Error al consultar el detalle del pedido. Reintente o contacte a la empresa.</h3>";
-        } else {
-            $cantiPedDet = mysqli_num_rows($rsPedDet);
-            mysqli_free_result($rsPedDet);
-            if ($cantiPedDet > 0) {
-                return 1;
-            } else {
-                return 0;
-            }
-        }
-    }
-    
-    public static function ArrayDetallePedido($Id_Pedido) {
-        global $cnn;
+        $date = date("Y-m-d");
+        $ip = $_SERVER['REMOTE_ADDR'];
+        $total = 0;
         
-        $sql = "SELECT * FROM PEDIDOS_DETA WHERE (Id_Pedido = $Id_Pedido)";
+        // Construyo el Cuerpo del Mail.
+        $body = "<h2>Pedido Web Polirrubros Garro</h2>
+                <p align='center'><strong>Polirrubros de Miguel Garro</strong><br>
+                Pasaje Bujados 173 - 2550 Bell Ville, Córdoba<br>
+                Tel.: (03537) 410102 - E-Mail: 
+                <a href='mailto:info@polirrubrosgarro.com.ar'>info@polirrubrosgarro.com.ar</a>
+                </p>
+                <p align='left'>
+                <strong>Pedido</strong>: ".$id_pedido."
+                <br><strong>Cliente</strong>: ".$user->getID()." - ".$user->getNombre()."
+                <br><strong>Localidad</strong>: ".$user->getLocalidad()."
+                <br><strong>E-Mail</strong>: ".$user->getMail()."
+                <br><strong>Fecha de este registro (A&ntilde;o-Mes-D&iacute;a)</strong>: ".$date."
+                <br><strong>IP del cliente</strong>: ".$ip."
+                </p>
+                <p>
+                <table width='100%' border='0' cellspacing='0' cellpadding='5' align='left'>
+                <tr bgcolor='#CDCDCD'>
+                <th width='10%' height='20' align='right' valign='middle'><b>C&oacute;d. Producto</b></th>
+                <th width='10%' height='20' align='center' valign='middle'><b>Cantidad</b></th>
+                <th width='40%' height='20' align='left' valign='middle'><b>Producto</b></th>
+                <th width='20%' height='20' align='left' valign='middle'><b>Notas</b></th>
+                <th width='10%' height='20' align='right' valign='middle'><b>Pre. Uni.</b></th>
+                <th width='10%' height='20' align='right' valign='middle'><b>Pre. Tot.</b></th>
+                </tr>";
+  
+        $pedido = new Pedidos();
+        $detalle = new Detalles();
+        $results = $detalle->getDetallesPedido($id_pedido);
 
-        if (!$rsPedDet = mysqli_query($cnn, $sql)) {
-            $detalle = 0;
-            $_SESSION["ErrMsg"] = "<h3>Error al consultar el detalle del pedido. Reintente o contacte a la empresa.</h3>";
-        } else {
-            $cantiPedDet = mysqli_num_rows($rsPedDet);
-            // Si el cliente tiene al menos un pedido abierto, tomo los datos.
-            if ($cantiPedDet > 0) {
-                $detalle = array(); // Defino el array.
-                while ($datoPedDet = mysqli_fetch_array($rsPedDet)) {
-                    array_push($detalle, $datoPedDet["Id_Producto"]);
-                }
-            } else {
-                $detalle = 0;
-            }
-        }
-        mysqli_free_result($rsPedDet);
-        return $detalle;
-    }
-    
-    public static function BorrarProductoDetallePedido($Id_Pedido, $Id_Producto) {
-        global $cnn;
-        $sql = "DELETE FROM PEDIDOS_DETA WHERE (Id_Pedido = $Id_Pedido) AND (Id_Producto = $Id_Producto)";
+        if ( $results->num_rows > 0 ) :
+            while ( $product = $results->fetch_object() ) :
 
-        if (!@mysqli_query ($cnn, $sql)) {
-            $_SESSION["ErrMsg"] = "<h3>Error al borrar el producto del carrito. Reintente o contacte a la empresa.</h3>";
-            return 0;
-        } else {
-            return 1;
-        }
-    }
-    
-    public static function CerrarPedido($Id_Pedido) {
-        global $cnn;
-        $FechaFin = date ("Y-m-d");
-        $sql = "UPDATE PEDIDOS_CABE SET FechaFin = '$FechaFin', Cerrado = 1 WHERE (Id_Pedido = $Id_Pedido)";
+                $total = $pedido->sumTotalCart($product->ImpTotal);
 
-        if (!@mysqli_query ($cnn, $sql)) {
-            $_SESSION["ErrMsg"] = "<h3>Error al cerrar el pedido $Id_Pedido. Reintente o contacte a la empresa.</h3>";
-            return 0;
-        } else {
-            return 1;
-        }
-    }
-    
-    public static function ActualizarPedido($Id_Pedido) {
-        global $cnn;
-        $_SESSION["ErrMsg"] = "";
-        $msgErr = "";
-        $msgAct = "";
-        $msgDel = "";
+                $body .= "<tr>
+                        <td width='10%' height='20' align='right' valign='middle'><b>".$product->CodProducto."</b></td>
+                        <td width='10%' height='20' align='center' valign='middle'><b>".$product->Cantidad."</b></td>
+                        <td width='40%' height='20' align='left' valign='middle'>".$product->Nombre."</td>
+                        <td width='20%' height='20' align='left' valign='middle'>".$product->Notas."</td>
+                        <td width='10%' height='20' align='right' valign='middle'>".number_format($product->PreVtaFinal1, 2, '.', ',')."</td>
+                        <td width='10%' height='20' align='right' valign='middle'>".number_format($product->ImpTotal, 2, '.', ',')."</td>
+                        </tr>";
+            endwhile;
+        endif;
+
+        $body .= "<tr>
+                <td colspan='6' height='20' align='left' valign='middle'>
+                <strong>Total de art&iacute;culos</strong>: ".$results->num_rows."
+                <br><strong>Importe total del pedido</strong>: $".number_format($total, 2, '.', ',')."
+                </td>
+                </tr>
+                </table></p>";
         
-        // Primero consulto el detalle del pedido.
-        $sql = "SELECT CodProducto, Nombre, PreVtaFinal1, ImpTotal FROM PEDIDOS_DETA WHERE (Id_Pedido = $Id_Pedido)";
+        $detalle->closeConnection();     
 
-        if (!$rsPedDet = mysqli_query($cnn, $sql)) {
-            // Si hay un error en el SQL.
-            $msgErr = "<h3>Error al consultar el detalle del pedido $Id_Pedido.</h3>";
-        } else {
-            
-            $cantiPedDet = mysqli_num_rows($rsPedDet);
-            
-            if ($cantiPedDet > 0) {
-                // Si el producto existe, verifico el precio.
-                while ($datoPedDet = mysqli_fetch_array($rsPedDet)) {
-                    // Verifico que el producto existe en la tabla productos.
-                    $sql = "SELECT PreVtaFinal1 FROM productos WHERE CodProducto = '".$datoPedDet["CodProducto"]."'";
-                    if (!$rsProd = mysqli_query($cnn, $sql)) {
-                        // Si hay un error en el SQL.
-                        $msgErr = $msgErr."<h3>Problema al consultar el producto ".$datoPedDet["CodProducto"].".</h3>";
-                    } else {
-                        $cantiProd = mysqli_num_rows($rsProd);
-                        
-                        if ($cantiProd > 0) {
-                            while ($datoProd = mysqli_fetch_array($rsProd)) {
-                                if ($datoPedDet["PreVtaFinal1"] != $datoProd["PreVtaFinal1"]) {
-                                    // Si el precio es diferente, lo actualizo en el detalle del pedido.
-                                    $sql = "UPDATE PEDIDOS_DETA SET 
-                                            PreVtaFinal1 = ".$datoProd["PreVtaFinal1"].", 
-                                            ImpTotal = (Cantidad * ".$datoProd["PreVtaFinal1"].") 
-                                            WHERE (Id_Pedido = $Id_Pedido) AND (CodProducto = '".$datoPedDet["CodProducto"]."')";
-                                    
-                                    if (!@mysqli_query ($cnn, $sql)) {
-                                        $msgErr = $msgErr."<h3>Error al actualizar detalle del pedido $Id_Pedido.</h3>";
-                                    } else  {
-                                        $msgAct = $msgAct."<h3>Se actualiz&oacute; el precio del producto ".$datoPedDet["CodProducto"]." | ".$datoPedDet["Nombre"]."</h3>";
-                                    }
-                                }
-                            }
-                        } else {
-                            $sql = "DELETE FROM PEDIDOS_DETA 
-                                    WHERE (Id_Pedido = $Id_Pedido) AND (CodProducto = '".$datoPedDet["CodProducto"]."')";
-                            if (!@mysqli_query ($cnn, $sql)) {
-                                $msgErr = $msgErr."<h3>Error al borrar el producto del detalle del pedido $Id_Pedido.</h3>";
-                            } else {
-                                $msgDel = $msgDel."<h3>No se encontr&oacute; el producto: ".$datoPedDet["CodProducto"]." y fue borrado del pedido.</h3>";
-                            }
-                        }
-                    }
-                }
-            } else {
-                // Si el pedido no tiene ningún ítem.
-                $msgErr = "<h3>El pedido $Id_Pedido no tiene &iacute;tems.</h3>";
-            }
-        }
-        
-        mysqli_free_result($rsProd);
-        $_SESSION["ErrMsg"] = $msgErr.$msgAct.$msgDel;
-        return 1;
+        return $body;
     }
+
+    public function sendMail($id_pedido, $user, $cuerpo) {
+        // Datos de la cuenta de correo utilizada para enviar vía SMTP
+        $smtpHost = "hu000235.ferozo.com";  // Dominio alternativo brindado en el email de alta 
+        $smtpUsuario = "web@polirrubrosgarro.com.ar";  // Mi cuenta de correo
+        $smtpClave = "DLG*nTf2fG";  // Mi contraseña
+        $nombre = "Web Polirrubros Garro";
+        
+        // Email donde se enviaran los datos cargados en el formulario de contacto
+        $emailDestino = "info@polirrubrosgarro.com.ar";
+        
+        $mail = new PHPMailer();
+        $mail->IsSMTP();
+        $mail->SMTPAuth = true;
+        $mail->Port = 587; 
+        $mail->IsHTML(true); 
+        $mail->CharSet = "utf-8";
+        
+        $mail->Host = $smtpHost; 
+        $mail->Username = $smtpUsuario; 
+        $mail->Password = $smtpClave;
+        
+        $mail->From = $smtpUsuario; // Email desde donde envío el correo.
+        $mail->FromName = $nombre;
+        $mail->AddAddress($emailDestino); // Copia para el vendedor.
+        $mail->AddAddress($user->getMail()); // Copia para el cliente.
+        $mail->AddReplyTo($emailDestino); // Esto es para que al recibir el correo y poner Responder, lo haga a la cuenta del vendedor.
+        $mail->Subject = "Web Polirrubros - Pedido: ".$id_pedido; // Este es el titulo del email.
+        $mail->Body = "{$cuerpo}"; // Texto del email en formato HTML
+        //$mail->AltBody = "{$mensaje} \n\n Formulario de ejemplo Web Polirrubros"; // Texto sin formato HTML
+        
+        $mail->SMTPOptions = array(
+            'ssl' => array(
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true
+            )
+        ); 
+
+        if ( $mail->Send() ) {
+            $msgEnvio = "Una copia del pedido fue enviada al correo ".$user->getMail();
+        } else {
+            $msgEnvio = "Ocurrió un error inesperado al enviar el correo.";
+        }
+
+        return $msgEnvio;
+    }
+
 }
 
 new Polirubro;

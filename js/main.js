@@ -477,4 +477,35 @@ $(document).ready( function () {
         });
     })
 
+    /*--------------------
+        Finally Order
+    ---------------------*/
+    $('#js-finally-order').click( function (e) {
+
+        e.preventDefault();
+
+        var id_pedido = $(this).attr('data-id');
+    
+        var formData = new FormData();
+            formData.append('action', 'finallyOrder');
+            formData.append('id_pedido', id_pedido );
+    
+        jQuery.ajax({
+            cache: false,
+            url: 'inc/functions/ajax-requests.php',
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                if (response == 'true') {
+                    $('#js-order-message').html('<h2 class="text-success text-center">El Pedido fue enviado con exito!</h2>');
+                    $("#js-dynamic-cart").load( $(location).attr("href") + ' #js-data-cart' );
+                } else {
+                    $('#js-finally-order').html('<small class="text-white">Ocurrio un error, por favor recarge la pagina e intente nuevamente.</small>');
+                }
+            }
+        });
+    })
+
 });

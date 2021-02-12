@@ -3,14 +3,11 @@
         <div class="row">
             <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="footer__about">
-                    <div class="footer__about__logo">
-                        <a href="/"><img src="img/logo.jpg" alt=""></a>
-                    </div>
                     <ul>
-                        <li><b>Direccion:</b> Sargento Cabral 234, 2550 Bell Ville, Córdoba</li>
-                        <li><b>Telefono:</b> (03537) 410102</li>
-                        <li><b>WhatsApp:</b> (3537) 536-991</li>
-                        <li><b>Email:</b> info@polirrubrosgarro.com.ar</li>
+                        <li><b>Direccion:</b> <?php echo Polirubro::ADDRESS; ?></li>
+                        <li><b>Telefono:</b> <?php echo Polirubro::PHONE; ?></li>
+                        <li><b>WhatsApp:</b> <?php echo Polirubro::WHATSAPP; ?></li>
+                        <li><b>Email:</b> <?php echo Polirubro::EMAIL; ?></li>
                     </ul>
                 </div>
             </div>
@@ -27,12 +24,17 @@
             </div>
             <div class="col-lg-4 col-md-12">
                 <div class="footer__widget">
-                    <h6>Suscribite a Nuetro Newsletter</h6>
-                    <p>Recibi en tu email, todas nuestras ofertas</p>
-                    <form action="#">
+                    <div class="footer__about__logo">
+                        <a href="/"><img src="img/logo.jpg" alt=""></a>
+                    </div>
+                    <br><br>
+                    <h6>Buscanos en nuestras redes</h6>
+                    <br>
+                    <!--<p>Recibi en tu email, todas nuestras ofertas</p>
+                     <form action="#">
                         <input type="text" placeholder="Ingresa tu email">
                         <button type="Enviar" class="site-btn">Suscribirme</button>
-                    </form>
+                    </form> -->
                     <div class="footer__widget__social">
                         <a href="#"><i class="fa fa-facebook"></i></a>
                         <a href="#"><i class="fa fa-instagram"></i></a>
@@ -46,8 +48,11 @@
             <div class="col-lg-12">
                 <div class="footer__copyright">
                     <div class="footer__copyright__text">
-                        <p>Copyright &copy;<script>document.write(new Date().getFullYear());</script> Todos los derechos reservados</p></div>
-                    <div class="footer__copyright__payment"><img src="img/payment-item.png" alt=""></div>
+                        <p>Copyright &copy;<script>document.write(new Date().getFullYear());</script> Todos los derechos reservados</p>
+                    </div>
+                    <div class="footer__copyright__payment">
+                        <!-- <img src="img/payment-item.png" alt=""> -->
+                    </div>
                 </div>
             </div>
         </div>
