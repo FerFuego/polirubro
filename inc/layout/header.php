@@ -19,18 +19,13 @@
             <li class="<?php echo (Polirubro::normalize_title() === '')? 'active':''?>"><a href="./">Inicio</a></li>
             <li class="<?php echo (Polirubro::normalize_title() === 'Nosotros')? 'active':''?>"><a href="./nosotros.php">Nosotros</a></li>
             <li class="<?php echo (Polirubro::normalize_title() === 'Productos')? 'active':''?>"><a href="./productos.php">Productos</a></li>
-            <!-- <li><a href="#">Paginas</a>
-                <ul class="header__menu__dropdown">
-                    <li><a href="./shop-details.html">Shop Details</a></li>
-                    <li><a href="./shoping-cart.html">Shoping Cart</a></li>
-                    <li><a href="./checkout.html">Check Out</a></li>
-                    <li><a href="./blog-details.html">Blog Details</a></li>
-                </ul>
-            </li> -->
             <?php if ( isset($_SESSION["id_user"]) ) : ?>
                 <li class="<?php echo (Polirubro::normalize_title() === 'Carrito')? 'active':''?>"><a href="./carrito.php">Carrito</a></li>
             <?php endif; ?>
             <li class="<?php echo (Polirubro::normalize_title() === 'Contacto')? 'active':''?>"><a href="./contacto.php">Contacto</a></li>
+            <?php if ( Polirubro::is_Admin() ) : ?>
+                <li class="<?php echo (Polirubro::normalize_title() === 'CPanel')? 'active':''?>"><a href="./cpanel.php">Administrador</a></li>
+            <?php endif; ?>
         </ul>
     </nav>
 
@@ -95,18 +90,13 @@
                         <li class="<?php echo (Polirubro::normalize_title() === '')? 'active':''?>"><a href="./">Inicio</a></li>
                         <li class="<?php echo (Polirubro::normalize_title() === 'Nosotros')? 'active':''?>"><a href="./nosotros.php">Nosotros</a></li>
                         <li class="<?php echo (Polirubro::normalize_title() === 'Productos')? 'active':''?>"><a href="./productos.php">Productos</a></li>
-                            <!-- <li><a href="#">Paginas</a>
-                            <ul class="header__menu__dropdown">
-                                <li><a href="./shop-details.html">Shop Details</a></li>
-                                <li><a href="./shoping-cart.html">Shoping Cart</a></li>
-                                <li><a href="./checkout.html">Check Out</a></li>
-                                <li><a href="./blog-details.html">Blog Details</a></li>
-                            </ul>
-                        </li> -->
                         <?php if ( isset($_SESSION["id_user"]) ) : ?>
                             <li class="<?php echo (Polirubro::normalize_title() === 'Carrito')? 'active':''?>"><a href="./carrito.php">Carrito</a></li>
                         <?php endif; ?>
                         <li class="<?php echo (Polirubro::normalize_title() === 'Contacto')? 'active':''?>"><a href="./contacto.php">Contacto</a></li>
+                        <?php if ( Polirubro::is_Admin() ) : ?>
+                            <li class="<?php echo (Polirubro::normalize_title() === 'CPanel')? 'active':''?>"><a href="./cpanel.php">Administrador</a></li>
+                        <?php endif; ?>
                     </ul>
                 </nav>
             </div>
@@ -120,3 +110,6 @@
     </div>
     
 </header>
+
+
+<?php print_r(Polirubro::is_Admin()); ?>

@@ -11,6 +11,7 @@
     $id_grupo   = (isset($_GET["id_grupo"])     ? filter_var($_GET["id_grupo"],    FILTER_VALIDATE_INT) : "");
     $page       = (isset($_GET["page"])         ? filter_var($_GET["page"],        FILTER_VALIDATE_INT) : 1);
     $search     = (isset($_GET['s'])            ? filter_var($_GET['s'],           FILTER_SANITIZE_STRING) : "");
+    $opcion     = (isset($_GET['opcion'])       ? filter_var($_GET['opcion'],      FILTER_SANITIZE_STRING) : "");
     $limit      = 21; //Limito la busqueda
     $links      = 6; // limito los items a mostrar en el paginador
 ?>

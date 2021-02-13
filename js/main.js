@@ -353,6 +353,9 @@ $(document).ready( function () {
                 if (response == 'true') {
                     $('.js-login-message').html('<small class="text-success">Usuario Validado, Redireccionando...</small>');
                     location.reload();
+                } else if (response == 'admin') {
+                    $('.js-login-message').html('<small class="text-success">Usuario Validado, Redireccionando...</small>');
+                    location.href = 'cpanel.php';
                 } else if (response == 'Captcha Incorrecto!') {
                     $('.js-login-message').html('<small class="text-danger">'+response+'</small>');
                 } else {

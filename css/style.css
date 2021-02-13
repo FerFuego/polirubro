@@ -1311,6 +1311,24 @@ ol {
   visibility: hidden;
 }
 
+.sidebar-cpanel {
+  background-color: #7fad39;
+  padding-right: 0;
+  padding-left: 0;
+}
+.sidebar-cpanel ul li a {
+  color: #fff !important;
+  font-weight: 600;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+.sidebar-cpanel ul li:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+.sidebar-cpanel ul li .active {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
 /*---------------------
   Shop Grid
 -----------------------*/

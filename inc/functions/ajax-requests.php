@@ -28,12 +28,19 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'actionLogi
     $result = $access->loginProcess();
 
     if ( $result->num_rows > 0 ) :
-        while ( $user = $result->fetch_object() ) {
+        while ( $user = $result->fetch_object() ) :
+
             $_SESSION["id_user"]    = session_id();
             $_SESSION["Id_Cliente"] = $user->Id_Cliente;
             $_SESSION["user"]       = $user->Usuario;
-            $login = 'true';
-        }
+
+            if ($user->is_admin == '1') {
+                $login = 'admin';
+            } else {
+                $login = 'true';
+            }
+
+        endwhile;
     endif;
 
     echo $login;

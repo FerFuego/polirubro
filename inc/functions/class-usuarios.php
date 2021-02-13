@@ -11,6 +11,7 @@ class Usuarios {
     public $Usuario;
     private $Password;
     public $ListaPrecioDef;
+    public $is_Admin;
     protected $obj;
 
     public function __construct($id=0) {
@@ -28,6 +29,7 @@ class Usuarios {
             $this->Usuario = $row['Usuario'];
             $this->Password = $row['Password'];
             $this->ListaPrecioDef = $row['ListaPrecioDef'];
+            $this->is_Admin = $row['is_admin'];
         }
     }
 
@@ -42,6 +44,45 @@ class Usuarios {
     public function getUsuarios(){
         $this->obj = new sQuery();
         $result = $this->obj->executeQuery("SELECT * FROM clientes ORDER BY Nombre");
+        return $result;
+    }
+
+    public function is_Admin() {
+        $this->obj = new sQuery();
+        $result = $this->obj->executeQuery("SELECT * FROM clientes WHERE Id_Cliente = $this->Id_Cliente AND is_admin = 1 LIMIT 1");
+
+        return $this->obj->getResultados();
+    }
+
+    public function getUsersCpanel($opcion) {
+
+        $query = "SELECT * FROM clientes ORDER BY Nombre";
+
+        $this->obj = new sQuery();
+        $this->obj->executeQuery($query);
+
+        $result = [
+            'total' => $this->obj->getResultados(),
+            'query' => $query,
+            'params' => 'opcion=' . $opcion
+        ];
+
+        return $result;
+    }
+
+    public function getUsersSearch($search) {
+
+        $query = "SELECT * FROM clientes WHERE Nombre LIKE '%$search%' OR Id_Cliente LIKE '%$search%'";
+
+        $this->obj = new sQuery();
+        $result = $this->obj->executeQuery($query);
+
+        $result = [
+            'total' => $this->obj->getResultados(),
+            'query' => $query,
+            'params' => 's='.$search
+        ];
+
         return $result;
     }
 

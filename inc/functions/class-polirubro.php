@@ -17,6 +17,7 @@ Class Polirubro {
         require('autoload.php');
 
         $this->getItemsSession();
+
     }
 
     public static function normalize_title() {
@@ -210,6 +211,18 @@ Class Polirubro {
         }
 
         return $msgEnvio;
+    }
+
+    public static function is_Admin() {
+
+        if (! isset($_SESSION["Id_Cliente"])) {
+            return false;
+        }
+        
+        // if is Admin return true 
+        $user = new Usuarios($_SESSION["Id_Cliente"]);
+        $result = $user->is_Admin();
+        return $result; 
     }
 
 }

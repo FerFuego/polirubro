@@ -252,3 +252,25 @@
         }
     }
 }
+
+.sidebar-cpanel {
+    background-color: #7fad39;
+    padding-right: 0;
+    padding-left: 0;
+    ul {
+        li {
+            a {
+                color: #fff !important;
+                font-weight: 600;
+                padding-right: 15px;
+                padding-left: 15px;
+            }
+            &:hover {
+                background-color: rgba(#000, .2);
+            }
+            .active {
+                background-color: rgba(#000, .2);
+            }
+        }
+    }
+}
