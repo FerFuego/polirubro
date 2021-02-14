@@ -511,4 +511,75 @@ $(document).ready( function () {
         });
     })
 
+    /*--------------------
+        Modals
+    --------------------*/
+        /*--------------------
+            SET Client Data
+        ---------------------*/
+        $('#js-form-cli').submit( function (e) {
+
+            e.preventDefault();
+
+            var values = {};
+
+            $.each($(this).serializeArray(), function(i, field) {
+                values[field.name] = field.value;
+            });
+        
+            var formData = new FormData();
+                formData.append('action', 'deleteProductCart');
+                formData.append('id_item', values.id_item );
+        
+            jQuery.ajax({
+                cache: false,
+                url: 'inc/functions/ajax-requests.php',
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response == 'true') {
+                        location.reload();
+                    } else {
+                        $('.js-cart-message').html('<small class="text-danger">Ocurrio un error, por favor recarge la pagina e intente nuevamente.</small>');
+                    }
+                }
+            });
+        })
 });
+
+/*--------------------
+    GET Client Data
+--------------------*/
+function getClientdata(obj) {
+    var id_client = $(obj).attr('data-cli');
+    var data;
+    var formData = new FormData();
+        formData.append('action', 'dataClient');
+        formData.append('id_client', id_client );
+    
+    jQuery.ajax({
+        cache: false,
+        url: 'inc/functions/ajax-requests.php',
+        type: 'POST',
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function (response) {
+            if (response == 'false' || response == 'undefines') {
+                $('#js-finally-order').html('<small class="text-white">Ocurrio un error, por favor recarge la pagina e intente nuevamente.</small>');
+            } else {
+                data = JSON.parse(response);         
+                $('#id').val(data.Id_Cliente);
+                $('#name').val(data.Nombre);
+                $('#locality').val(data.Localidad);
+                $('#mail').val(data.Mail);
+                $('#username').val(data.Usuario);
+                $('#pass_cli').val(data.Password);
+                $('#price').val(data.ListaPrecioDef);
+                $('#is_admin_cli').val(data.is_Admin);
+            }
+        }
+    });
+}

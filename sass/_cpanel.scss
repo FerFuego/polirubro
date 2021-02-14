@@ -1,0 +1,11 @@
+.form-cli {
+    .form-group {
+        display: column;
+        input,
+        select,
+        textarea {
+            width: 100%;
+            border: 1px solid #dee2e6;
+        }
+    }
+}

@@ -9,7 +9,7 @@ class Usuarios {
     public $Localidad;
     public $Mail;
     public $Usuario;
-    private $Password;
+    public $Password;
     public $ListaPrecioDef;
     public $is_Admin;
     protected $obj;

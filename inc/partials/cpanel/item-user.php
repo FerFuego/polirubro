@@ -12,7 +12,7 @@
         <?php echo $user->Password; ?>
     </td>
     <td class="shoping__cart__item__update text-center">
-        <a href=""><span onclick="$(this).closest('form').submit();" class="icon_refresh" title="Actualizar"></span></a>
+        <span onclick="getClientdata(this);" data-cli="<?php echo $user->Id_Cliente; ?>" data-toggle="modal" data-target="#clientModal" class="icon_pencil-edit" title="Editar"></span>
     </td>
     <td class="shoping__cart__item__close text-center">
         <form class="js-form-delete">

@@ -58,6 +58,12 @@
 </section>
 <!-- Cart Section End -->
 
+<!-- Modals -->
+<?php require_once('inc/parts/cpanel/modals/modal-clients.php'); ?>
+<?php require_once('inc/parts/cpanel/modals/modal-products.php'); ?>
+<?php require_once('inc/parts/cpanel/modals/modal-banners.php'); ?>
+<!-- End Modals -->
+
 <!-- Footer Section Begin -->
 <?php require_once('inc/layout/footer.php'); ?>
 <!-- Footer Section End -->

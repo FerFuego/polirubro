@@ -3458,5 +3458,14 @@ ol {
     font-size: 24px;
   }
 }
+.form-cli .form-group {
+  display: column;
+}
+.form-cli .form-group input,
+.form-cli .form-group select,
+.form-cli .form-group textarea {
+  width: 100%;
+  border: 1px solid #dee2e6;
+}
 
 /*# sourceMappingURL=style.css.map */

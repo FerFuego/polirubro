@@ -206,3 +206,21 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'finallyOrd
 
     die('true');
 }
+
+/**
+ * Request of Data Client
+ */
+if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'dataClient') {
+
+    $id_client = (isset($_POST['id_client']) ? filter_var($_POST['id_client'], FILTER_VALIDATE_INT) : null);
+    
+    if ( $id_client ) {
+        $user = new Usuarios($id_client);
+        $user->closeConnection();
+
+        echo json_encode($user); 
+        die();
+    }
+
+    die('false');
+}
