@@ -95,7 +95,7 @@
                         <?php endif; ?>
                         <li class="<?php echo (Polirubro::normalize_title() === 'Contacto')? 'active':''?>"><a href="./contacto.php">Contacto</a></li>
                         <?php if ( Polirubro::is_Admin() ) : ?>
-                            <li class="<?php echo (Polirubro::normalize_title() === 'CPanel')? 'active':''?>"><a href="./cpanel.php">Administrador</a></li>
+                            <li class="<?php echo (Polirubro::normalize_title() === 'CPanel')? 'active':''?>"><a href="./cpanel.php">Admin</a></li>
                         <?php endif; ?>
                     </ul>
                 </nav>
@@ -110,6 +110,3 @@
     </div>
     
 </header>
-
-
-<?php print_r(Polirubro::is_Admin()); ?>

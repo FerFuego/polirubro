@@ -70,7 +70,7 @@ class Usuarios {
         return $result;
     }
 
-    public function getUsersSearch($search) {
+    public function getUsersSearch($opcion, $search) {
 
         $query = "SELECT * FROM clientes WHERE Nombre LIKE '%$search%' OR Id_Cliente LIKE '%$search%'";
 
@@ -80,15 +80,39 @@ class Usuarios {
         $result = [
             'total' => $this->obj->getResultados(),
             'query' => $query,
-            'params' => 's='.$search
+            'params' => ($opcion ? 'opcion='. $opcion .'&' : null).'s='.$search
         ];
 
         return $result;
     }
 
+    public function getCountClients(){
+        $this->obj = new sQuery();
+        $this->obj->executeQuery("SELECT * FROM clientes WHERE Id_Cliente NOT IN (1, 99999)");
+        return $this->obj->getResultados();
+    }
+
+    public function insert() {
+
+        $this->obj = new sQuery();
+        $this->obj->executeQuery("INSERT INTO clientes (Id_Cliente, Nombre, Localidad, Mail, Usuario, Password, ListaPrecioDef) VALUES ('$this->Id_Cliente','$this->Nombre','$this->Localidad','$this->Mail','$this->Usuario','$this->Password','$this->ListaPrecioDef')");
+    }
+
+    public function update() {
+
+        $this->obj = new sQuery();
+        $this->obj->executeQuery("UPDATE clientes SET Nombre = '$this->Nombre', Localidad = '$this->Localidad', Mail = '$this->Mail', Usuario = '$this->Usuario', Password = '$this->Password', ListaPrecioDef = '$this->ListaPrecioDef' WHERE (Id_Cliente = '$this->Id_Cliente')");
+    }
+
+    public function delete() {
+
+        $this->obj = new sQuery();
+        $this->obj->executeQuery("DELETE FROM clientes WHERE (Id_Cliente = '$this->Id_Cliente')");
+    }
+
     public function closeConnection(){
-        $this->obj->Clean();
-		$this->obj->Close();
+        @$this->obj->Clean();
+		@$this->obj->Close();
 	} 
 
 }

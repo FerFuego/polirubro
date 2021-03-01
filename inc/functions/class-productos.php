@@ -91,6 +91,12 @@ class Productos {
         return $result;
     }
 
+    public function getCountProducts(){
+        $this->obj = new sQuery();
+        $this->obj->executeQuery("SELECT * FROM productos");
+        return $this->obj->getResultados();
+    }
+
     public static function getImage($CodProducto) {
 
         if (file_exists("../fotos/".$CodProducto.".JPG")) {
@@ -164,6 +170,18 @@ class Productos {
 
     public function getResultados() {
         $this->obj->getResults();
+    }
+
+    public function update() {
+
+        $this->obj = new sQuery();
+        $this->obj->executeQuery("UPDATE productos SET Nombre = '$this->nombre', Novedad = '$this->novedad', Oferta = '$this->oferta', Observaciones = '$this->observaciones' WHERE (CodProducto = '$this->cod_producto')");
+    }
+
+    public function delete() {
+
+        $this->obj = new sQuery();
+        $this->obj->executeQuery("DELETE FROM productos WHERE (CodProducto = '$this->cod_producto')");
     }
 
     public function closeConnection(){

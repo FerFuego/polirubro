@@ -224,3 +224,107 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'dataClient
 
     die('false');
 }
+
+/**
+ * Request of Set data Client
+ */
+if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'operationClient') {
+
+    $id   = (isset($_POST['id']) ? filter_var($_POST['id'], FILTER_VALIDATE_INT) : null);
+    $type = (isset($_POST['type']) ? filter_var($_POST['type'], FILTER_SANITIZE_STRING) : null);
+    $name = (isset($_POST['name']) ? filter_var($_POST['name'], FILTER_SANITIZE_STRING) : null);
+    $mail = (isset($_POST['mail']) ? filter_var($_POST['mail'], FILTER_SANITIZE_STRING) : null);
+    $price = (isset($_POST['price']) ? filter_var($_POST['price'], FILTER_VALIDATE_INT) : null);
+    $locality = (isset($_POST['locality']) ? filter_var($_POST['locality'], FILTER_SANITIZE_STRING) : null);
+    $username = (isset($_POST['username']) ? filter_var($_POST['username'], FILTER_SANITIZE_STRING) : null);
+    $password = (isset($_POST['password']) ? filter_var($_POST['password'], FILTER_SANITIZE_STRING) : null);
+
+    if ( $type == 'new') {
+        $user = new Usuarios();
+        $user->Id_Cliente = $id;
+        $user->Nombre = $name;
+        $user->Localidad = $locality;
+        $user->Mail = $mail;
+        $user->Usuario = $username;
+        $user->Password = $password;
+        $user->ListaPrecioDef = $price;
+        $user->insert();
+        $user->closeConnection();
+        die('true');
+    }
+
+    if ( $type == 'edit' ) {
+        $user = new Usuarios();
+        $user->Id_Cliente = $id;
+        $user->Nombre = $name;
+        $user->Localidad = $locality;
+        $user->Mail = $mail;
+        $user->Usuario = $username;
+        $user->Password = $password;
+        $user->ListaPrecioDef = $price;
+        $user->update();
+        $user->closeConnection();
+        die('true');
+    }
+
+    if ( $type == 'delete' ) {
+        $user = new Usuarios();
+        $user->Id_Cliente = $id;
+        $user->delete();
+        $user->closeConnection();
+        die('true');
+    }
+
+    die('false');
+}
+
+/**
+ * Request of Data Product
+ */
+if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'dataProduct') {
+
+    $cod_product = (isset($_POST['cod_product']) ? filter_var($_POST['cod_product'], FILTER_VALIDATE_INT) : null);
+    
+    if ( $cod_product ) {
+        $prod = new Productos($cod_product);
+        $prod->closeConnection();
+
+        echo json_encode($prod); 
+        die();
+    }
+
+    die('false');
+}
+
+/**
+ * Request of Set data Product
+ */
+if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'operationProduct') {
+
+    $cod_prod   = (isset($_POST['cod_prod']) ? filter_var($_POST['cod_prod'], FILTER_VALIDATE_INT) : null);
+    $name_prod  = (isset($_POST['name_prod']) ? filter_var($_POST['name_prod'], FILTER_SANITIZE_STRING) : null);
+    $type   = (isset($_POST['type_prod']) ? filter_var($_POST['type_prod'], FILTER_SANITIZE_STRING) : null);
+    $news   = (isset($_POST['news']) ? filter_var($_POST['news'], FILTER_VALIDATE_INT) : null);
+    $offer  = (isset($_POST['offer']) ? filter_var($_POST['offer'], FILTER_VALIDATE_INT) : null);
+    $observation = (isset($_POST['observation']) ? filter_var($_POST['observation'], FILTER_SANITIZE_STRING) : null);
+
+    if ( $type == 'edit' ) {
+        $prod = new Productos($cod_prod);
+        $prod->nombre = $name_prod;
+        if ($news) $prod->novedad = $news;
+        if ($offer) $prod->oferta = $offer;
+        $prod->observaciones = $observation;
+        $prod->update();
+        $prod->closeConnection();
+        die('true');
+    }
+
+    if ( $type == 'delete' ) {
+        $prod = new Productos($cod_prod);
+        $prod->delete();
+        $prod->closeConnection();
+        die('true');
+    }
+
+    die('false');
+}

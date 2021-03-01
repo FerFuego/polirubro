@@ -68,6 +68,18 @@ class Pedidos {
         return $data;
     }
 
+    public function getCountOpenPedidos(){
+        $this->obj = new sQuery();
+        $this->obj->executeQuery("SELECT * FROM pedidos_cabe WHERE Cerrado = 0");
+        return $this->obj->getResultados();
+    }
+
+    public function getTotalOrderByMonth() {
+        $this->obj = new sQuery();
+        $result = $this->obj->executeQuery("SELECT MONTH(FechaIni) mes, YEAR(FechaIni) ano, COUNT(*) total FROM pedidos_cabe WHERE YEAR(FechaIni) = YEAR(CURDATE()) AND Cerrado = 1 GROUP BY MONTH(FechaIni), YEAR(FechaIni) ORDER BY YEAR(FechaIni), MONTH(FechaIni) DESC");
+        return $result;
+    }
+
     public function sumTotalCart($totalParcial) {
         $this->totalFinal = $this->totalFinal + $totalParcial;
     }

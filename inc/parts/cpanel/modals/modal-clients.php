@@ -10,8 +10,11 @@
       </div>
       <div class="modal-body">
         <form class="form-cli" id="js-form-cli">
-            <input type="hidden" name="type" value="Edit">
-            <input type="hidden" name="id" value="">
+            <input type="hidden" name="type" id="type_cli" value="new">
+            <div class="form-group">
+                <label for="name">ID Cliente</label>
+                <input type="text" name="id" id="id_cli">
+            </div>
             <div class="form-group">
                 <label for="name">Nombre</label>
                 <input type="text" name="name" id="name">
@@ -22,7 +25,7 @@
             </div>
             <div class="form-group">
                 <label for="mail">Mail</label>
-                <input type="enail" name="mail" id="mail">
+                <input type="email" name="mail" id="mail">
             </div>
             <div class="form-group">
                 <label for="username">Usuario</label>
@@ -36,15 +39,11 @@
                 <label for="price">Lista Precios</label>
                 <input type="text" name="price" id="price">
             </div>
-            <div class="form-group">
-                <label for="id_admin">Es Admin?</label>
-                <input type="text" name="id_admin" id="id_admin_cli">
-            </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" onclick="$('#js-form-cli').submit();">Guardar Cambios</button>
       </div>
     </div>
   </div>

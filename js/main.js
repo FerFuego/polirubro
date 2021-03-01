@@ -528,8 +528,136 @@ $(document).ready( function () {
             });
         
             var formData = new FormData();
-                formData.append('action', 'deleteProductCart');
-                formData.append('id_item', values.id_item );
+                formData.append('action', 'operationClient');
+                formData.append('type', values.type);
+                formData.append('id', values.id);
+                formData.append('name', values.name);
+                formData.append('locality', values.locality);
+                formData.append('mail', values.mail);
+                formData.append('username', values.username);
+                formData.append('password', values.password);
+                formData.append('price', values.price);
+        
+            jQuery.ajax({
+                cache: false,
+                url: 'inc/functions/ajax-requests.php',
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response == 'true') {
+                        location.reload();
+                    } else {
+                        $('.js-cart-message').html('<small class="text-danger">Ocurrio un error, por favor recarge la pagina e intente nuevamente.</small>');
+                    }
+                }
+            });
+        })
+
+        /*--------------------
+            Delete Client
+        ---------------------*/
+        $('.js-form-cli-delete').submit( function (e) {
+
+            e.preventDefault();
+
+            if (!confirm("Seguro desea eliminar el cliente?")){
+                return false;
+            }
+            
+            var values = {};
+            
+            $.each($(this).serializeArray(), function(i, field) {
+                values[field.name] = field.value;
+            });
+
+            $('#item_user_'+values.id_item).css('background-color','rgba(255,0,0, .5)'); // Add red background tr
+        
+            var formData = new FormData();
+                formData.append('action', 'operationClient');
+                formData.append('type', 'delete');
+                formData.append('id', values.id_item);
+        
+            jQuery.ajax({
+                cache: false,
+                url: 'inc/functions/ajax-requests.php',
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response == 'true') {
+                        location.reload();
+                    } else {
+                        $('.js-cart-message').html('<small class="text-danger">Ocurrio un error, por favor recarge la pagina e intente nuevamente.</small>');
+                    }
+                }
+            });
+        })
+
+        /*--------------------
+            SET Product Data
+        ---------------------*/
+        $('#js-form-prod').submit( function (e) {
+
+            e.preventDefault();
+
+            var values = {};
+
+            $.each($(this).serializeArray(), function(i, field) {
+                values[field.name] = field.value;
+            });
+        
+            var formData = new FormData();
+                formData.append('action', 'operationProduct');
+                formData.append('type_prod', values.type_prod);
+                formData.append('cod_prod', values.cod_prod);
+                formData.append('name_prod', values.name_prod);
+                formData.append('news', values.news);
+                formData.append('offer', values.offer);
+                formData.append('observation', values.observation);
+        
+            jQuery.ajax({
+                cache: false,
+                url: 'inc/functions/ajax-requests.php',
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response == 'true') {
+                        location.reload();
+                    } else {
+                        $('.js-cart-message').html('<small class="text-danger">Ocurrio un error, por favor recarge la pagina e intente nuevamente.</small>');
+                    }
+                }
+            });
+        })
+
+        /*--------------------
+            Delete Product
+        ---------------------*/
+        $('.js-form-prod-delete').submit( function (e) {
+
+            e.preventDefault();
+
+            if (!confirm("Seguro desea eliminar el producto?")){
+                return false;
+            }
+            
+            var values = {};
+            
+            $.each($(this).serializeArray(), function(i, field) {
+                values[field.name] = field.value;
+            });
+
+            $('#item_prod_'+ values.id_item).css('background-color','rgba(255,0,0, .5)'); // Add red background tr
+        
+            var formData = new FormData();
+                formData.append('action', 'operationProduct');
+                formData.append('type_prod', 'delete');
+                formData.append('cod_prod', values.id_item);
         
             jQuery.ajax({
                 cache: false,
@@ -548,6 +676,29 @@ $(document).ready( function () {
             });
         })
 });
+/*--------------------
+    Clean Client Modal
+--------------------*/
+function cleanModal() {
+
+    $.each($('#js-form-cli').serializeArray(), function(i, field) {
+        $('#'+field.name).val('');
+    });
+
+    $('#id_cli').val('');
+    $('#pass_cli').val('');
+    $('#type_cli').val('new');
+}
+
+/*--------------------
+    Clean Prod Modal
+--------------------*/
+function cleanProdModal() {
+
+    $.each($('#js-form-prod').serializeArray(), function(i, field) {
+        $('#'+field.name).val('');
+    });
+}
 
 /*--------------------
     GET Client Data
@@ -555,6 +706,9 @@ $(document).ready( function () {
 function getClientdata(obj) {
     var id_client = $(obj).attr('data-cli');
     var data;
+
+    cleanModal();
+
     var formData = new FormData();
         formData.append('action', 'dataClient');
         formData.append('id_client', id_client );
@@ -571,14 +725,48 @@ function getClientdata(obj) {
                 $('#js-finally-order').html('<small class="text-white">Ocurrio un error, por favor recarge la pagina e intente nuevamente.</small>');
             } else {
                 data = JSON.parse(response);         
-                $('#id').val(data.Id_Cliente);
+                $('#id_cli').val(data.Id_Cliente);
+                $('#type_cli').val('edit');
                 $('#name').val(data.Nombre);
                 $('#locality').val(data.Localidad);
                 $('#mail').val(data.Mail);
                 $('#username').val(data.Usuario);
                 $('#pass_cli').val(data.Password);
                 $('#price').val(data.ListaPrecioDef);
-                $('#is_admin_cli').val(data.is_Admin);
+            }
+        }
+    });
+}
+
+/*--------------------
+    GET Product Data
+--------------------*/
+function getProddata(obj) {
+    var cod_product = $(obj).attr('data-prod');
+    var data;
+
+    cleanProdModal();
+
+    var formData = new FormData();
+        formData.append('action', 'dataProduct');
+        formData.append('cod_product', cod_product );
+    
+    jQuery.ajax({
+        cache: false,
+        url: 'inc/functions/ajax-requests.php',
+        type: 'POST',
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function (response) {
+            if (response == 'false' || response == 'undefines') {
+                $('#js-finally-order').html('<small class="text-white">Ocurrio un error, por favor recarge la pagina e intente nuevamente.</small>');
+            } else {
+                data = JSON.parse(response); 
+                $('#cod_prod').val(data.cod_producto);
+                $('#type_prod').val('edit');
+                $('#name_prod').val(data.nombre);
+                $('#observation').val(data.observaciones);
             }
         }
     });

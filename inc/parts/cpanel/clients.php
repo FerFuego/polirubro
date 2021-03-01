@@ -1,4 +1,8 @@
 <div class="shoping__cart__table">
+    <div class="d-flex justify-content-between mb-2">
+        <button data-toggle="modal" onclick="cleanModal();" data-target="#clientModal" class="site-btn">Nuevo Usuario</button>
+        <?php require 'inc/partials/cpanel/search-user.php'; ?>
+    </div>
     <table class="table table-bordered table-striped">
         <thead>
             <tr>
@@ -12,8 +16,15 @@
         </thead>
         <tbody>
             <?php 
+                
                 $users = new Usuarios();
-                $result = $users->getUsersCpanel($opcion);
+
+                if ( $search != '') {
+                    $result = $users->getUsersSearch($opcion, $search);
+                } else {
+                    $result = $users->getUsersCpanel($opcion);
+                }
+
                 $users->closeConnection();
 
                 $paginator = new Paginator( $result['query'], $result['total'] );
@@ -25,7 +36,7 @@
                     endwhile;
                 else : ?>
                     <tr>
-                        <td colspan="5"><h3>No existen usuarios</h3></td>
+                        <td colspan="6"><h3>No existen usuarios</h3></td>
                     </tr>
                 <?php endif;
 

@@ -166,6 +166,7 @@ ol {
   padding: 13px 30px 12px;
   background: #7fad39;
   border: none;
+  height: 50px;
 }
 
 /* Preloder */
@@ -409,7 +410,7 @@ ol {
 .header__menu ul li {
   list-style: none;
   display: inline-block;
-  margin-right: 50px;
+  margin-right: 35px;
   position: relative;
 }
 .header__menu ul li .header__menu__dropdown {
@@ -1311,21 +1312,20 @@ ol {
   visibility: hidden;
 }
 
-.sidebar-cpanel {
+.sidebar-cpanel .sidebar-container {
   background-color: #7fad39;
-  padding-right: 0;
-  padding-left: 0;
+  height: 100%;
 }
-.sidebar-cpanel ul li a {
+.sidebar-cpanel .sidebar-container ul li a {
   color: #fff !important;
   font-weight: 600;
   padding-right: 15px;
   padding-left: 15px;
 }
-.sidebar-cpanel ul li:hover {
+.sidebar-cpanel .sidebar-container ul li:hover {
   background-color: rgba(0, 0, 0, 0.2);
 }
-.sidebar-cpanel ul li .active {
+.sidebar-cpanel .sidebar-container ul li .active {
   background-color: rgba(0, 0, 0, 0.2);
 }
 
@@ -3463,9 +3463,13 @@ ol {
 }
 .form-cli .form-group input,
 .form-cli .form-group select,
+.form-cli .form-group .nice-select,
 .form-cli .form-group textarea {
-  width: 100%;
   border: 1px solid #dee2e6;
+  border-radius: 5px;
+  padding: 2px 10px;
+  height: 42px;
+  width: 100%;
 }
 
 /*# sourceMappingURL=style.css.map */

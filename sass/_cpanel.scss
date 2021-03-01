@@ -3,9 +3,13 @@
         display: column;
         input,
         select,
+        .nice-select,
         textarea {
-            width: 100%;
             border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 2px 10px;
+            height: 42px;
+            width: 100%;
         }
     }
 }
