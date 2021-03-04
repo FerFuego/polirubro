@@ -675,6 +675,87 @@ $(document).ready( function () {
                 }
             });
         })
+
+        /*--------------------
+            Insert Banner Data
+        ---------------------*/
+        $('#js-form-banner').submit( function (e) {
+
+            e.preventDefault();
+
+            var values = {};
+            var files = $('#image')[0].files;
+
+            $.each($(this).serializeArray(), function(i, field) {
+                values[field.name] = field.value;
+            });
+        
+            var formData = new FormData();
+                formData.append('action', 'operationBanner');
+                formData.append('type', values.type);
+                formData.append('order', values.order);
+                formData.append('file', files[0]);
+                formData.append('title', values.title);
+                formData.append('text', values.text);
+                formData.append('link', values.link);
+        
+            jQuery.ajax({
+                cache: false,
+                url: 'inc/functions/ajax-requests.php',
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response == 'true') {
+                        location.reload();
+                    } else {
+                        $('.js-cart-message').html('<small class="text-danger">Ocurrio un error, por favor recarge la pagina e intente nuevamente.</small>');
+                    }
+                }
+            });
+        })
+
+        /*--------------------
+            Delete Banner
+        ---------------------*/
+        $('.js-form-banner-delete').submit( function (e) {
+
+            e.preventDefault();
+
+            if (!confirm("Seguro desea eliminar el banner?")){
+                return false;
+            }
+            
+            var values = {};
+            
+            $.each($(this).serializeArray(), function(i, field) {
+                values[field.name] = field.value;
+            });
+
+            $('#item_banner_'+ values.id_item).css('background-color','rgba(255,0,0, .5)'); // Add red background tr
+        
+            var formData = new FormData();
+                formData.append('action', 'operationBanner');
+                formData.append('type', 'delete');
+                formData.append('id_banner', values.id_item);
+        
+            jQuery.ajax({
+                cache: false,
+                url: 'inc/functions/ajax-requests.php',
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response == 'true') {
+                        location.reload();
+                    } else {
+                        $('.js-cart-message').html('<small class="text-danger">Ocurrio un error, por favor recarge la pagina e intente nuevamente.</small>');
+                    }
+                }
+            });
+        })
 });
 /*--------------------
     Clean Client Modal

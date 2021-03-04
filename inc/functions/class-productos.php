@@ -172,14 +172,23 @@ class Productos {
         $this->obj->getResults();
     }
 
-    public function update() {
+    public function importProducts($sql) {
+        try {
+            $this->obj = new sQuery();
+            $this->obj->executeQuery("TRUNCATE TABLE productos");
+            $this->obj->executeQuery($sql);
+            return $this->obj->getResultados();
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+    }
 
+    public function update() {
         $this->obj = new sQuery();
         $this->obj->executeQuery("UPDATE productos SET Nombre = '$this->nombre', Novedad = '$this->novedad', Oferta = '$this->oferta', Observaciones = '$this->observaciones' WHERE (CodProducto = '$this->cod_producto')");
     }
 
     public function delete() {
-
         $this->obj = new sQuery();
         $this->obj->executeQuery("DELETE FROM productos WHERE (CodProducto = '$this->cod_producto')");
     }

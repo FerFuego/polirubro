@@ -328,3 +328,57 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'operationP
 
     die('false');
 }
+
+/**
+ * Request of Set data Banner
+ */
+if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'operationBanner') {
+
+    $type   = (isset($_POST['type'])  ? filter_var($_POST['type'], FILTER_SANITIZE_STRING) : null);
+    $orden  = (isset($_POST['order']) ? filter_var($_POST['order'], FILTER_VALIDATE_INT) : null);
+    $title  = (isset($_POST['title']) ? filter_var($_POST['title'], FILTER_SANITIZE_STRING) : null);
+    $text   = (isset($_POST['text'])  ? filter_var($_POST['text'], FILTER_SANITIZE_STRING) : null);
+    $link   = (isset($_POST['link'])  ? filter_var($_POST['link'], FILTER_SANITIZE_STRING) : null);
+    $id_banner = (isset($_POST['id_banner']) ? filter_var($_POST['id_banner'], FILTER_VALIDATE_INT) : null);
+    $response  = 0;
+
+    if ( $type == 'new' ) {
+            
+        if(isset($_FILES['file']['name'])){
+            $filename = $_FILES['file']['name'];
+            $prefijo = substr(md5(uniqid(rand())),0,6);
+            $path = "img/slider/".$prefijo.'_'.$filename;
+            $location = "../../img/slider/".$prefijo.'_'.$filename;
+            $imageFileType = pathinfo($location,PATHINFO_EXTENSION);
+            $imageFileType = strtolower($imageFileType);
+            // Valid extensions
+            $valid_extensions = array("jpg","jpeg","png");
+            // Check file extension
+            if(in_array(strtolower($imageFileType), $valid_extensions)) {
+                // Upload file
+                if(move_uploaded_file($_FILES['file']['tmp_name'],$location)){
+                    $response = $path;
+                }
+            }
+        }
+
+        $banner = new Banners();
+        $banner->orden = $orden;
+        $banner->image = $response;
+        $banner->title = $title;
+        $banner->text = $text;
+        $banner->link = $link;
+        $banner->insert();
+        $banner->closeConnection();
+        die('true');
+    }
+
+    if ( $type == 'delete' ) {
+        $banner = new Banners($id_banner);
+        $banner->delete();
+        $banner->closeConnection();
+        die('true');
+    }
+
+    die('false');
+}

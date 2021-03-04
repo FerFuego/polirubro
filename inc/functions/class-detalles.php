@@ -49,7 +49,6 @@ class Detalles {
 
 
     public function getDetallesPedido($Id_Pedido) {
-
         $this->obj = new sQuery();
         $result = $this->obj->executeQuery("SELECT * FROM pedidos_deta WHERE (Id_Pedido = $Id_Pedido)");
 
@@ -71,19 +70,16 @@ class Detalles {
     }
 
     public function insertDetalle() {
-        
         $this->obj = new sQuery();
         $this->obj->executeQuery("INSERT INTO pedidos_deta ( Id_Pedido, Id_Producto, CodProducto, Nombre, PreVtaFinal1, Cantidad, ImpTotal, Notas) VALUES ('$this->Id_Pedido','$this->Id_Producto','$this->CodProducto','$this->Nombre','$this->PreVtaFinal1','$this->Cantidad','$this->ImpTotal','$this->Notas')");
     }
 
     public function updateDetalle() {
-        
         $this->obj = new sQuery();
         $this->obj->executeQuery("UPDATE pedidos_deta SET Cantidad='$this->Cantidad', ImpTotal='$this->ImpTotal', Notas='$this->Notas' WHERE Auto='$this->Auto'");
     }
 
     public function deleteDetalle() {
-
         $this->obj = new sQuery();
         $this->obj->executeQuery("DELETE FROM pedidos_deta WHERE Auto = '$this->Auto'");
     }
