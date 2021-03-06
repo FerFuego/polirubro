@@ -264,10 +264,13 @@ $('.sublistCTA').on('click', function () {
         contentType: false,
         processData: false,
         beforeSend: function () {
-            //
+            $('.item').removeClass('active');
+            $('.sublist').hide();
+            obj.addClass('active');
         },
         success: function (response) {
-            obj.next('.sublist').html(response);
+            obj.next('.sublist').show();
+            obj.next('.sublist').html(response); 
         }
     });
 });
@@ -275,14 +278,15 @@ $('.sublistCTA').on('click', function () {
 /*--------------------
     Get Grupo
 ---------------------*/
-$('.lastlistCTA').on('click', function () {
+function loadGroupCategory (subrubro) {
+
+    event.preventDefault();
 
     var obj = $(this);
-    var id_subrubro = obj.attr('data-subrubro');
 
     var formData = new FormData();
         formData.append('action', 'getGrupoByIdSubRubro');
-        formData.append('id_subrubro', id_subrubro);
+        formData.append('id_subrubro', subrubro);
 
     jQuery.ajax({
         cache: false,
@@ -292,12 +296,23 @@ $('.lastlistCTA').on('click', function () {
         contentType: false,
         processData: false,
         beforeSend: function () {
-            //
+            $('.sub-item').removeClass('active');
+            $('.lastlist').hide();
+            $('.'+subrubro).addClass('active');
+            console.log($(this).parent().parent())
         },
         success: function (response) {
-            obj.next('.lastlist').html(response);
+            $('.lastlist_' + subrubro).show();
+            $('.lastlist_' + subrubro).html(response);
         }
     });
+}
+
+/*--------------------
+    Order By Price
+---------------------*/
+$('#select-order-prod').on('change', function(){
+    $('#form-order-prod').submit();
 })
 
 /*----------------------
@@ -401,8 +416,11 @@ $(document).ready( function () {
                 if (response == 'true') {
                     $('.js-login-message').html('<small class="text-success">Agregado al carrito!</small>');
                     $("#js-dynamic-cart").load( $(location).attr("href") + ' #js-data-cart' );
+                    toastr.success('Agregado al carrito!');
                 } else {
                     $('.js-login-message').html('<small class="text-danger">Ocurrio un error, por favor recarge la pagina e intente nuevamente.</small>');
+                    toastr.success('Ocurrio un error, por favor recarge la pagina e intente nuevamente.');
+                    
                 }
             }
         });
@@ -441,6 +459,7 @@ $(document).ready( function () {
                     location.reload();
                 } else {
                     $('.js-cart-message').html('<small class="text-danger">Ocurrio un error, por favor recarge la pagina e intente nuevamente.</small>');
+                    toastr.success('Ocurrio un error, por favor recarge la pagina e intente nuevamente.');
                 }
             }
         });
@@ -475,6 +494,7 @@ $(document).ready( function () {
                     location.reload();
                 } else {
                     $('.js-cart-message').html('<small class="text-danger">Ocurrio un error, por favor recarge la pagina e intente nuevamente.</small>');
+                    toastr.success('Ocurrio un error, por favor recarge la pagina e intente nuevamente.');
                 }
             }
         });
@@ -502,10 +522,11 @@ $(document).ready( function () {
             processData: false,
             success: function (response) {
                 if (response == 'true') {
-                    $('#js-order-message').html('<h2 class="text-success text-center">El Pedido fue enviado con exito!</h2>');
+                    //$('#js-order-message').html('<h2 class="text-success text-center">El Pedido fue enviado con exito!</h2>');
                     $("#js-dynamic-cart").load( $(location).attr("href") + ' #js-data-cart' );
+                    toastr.success('El Pedido fue enviado con exito!');
                 } else {
-                    $('#js-finally-order').html('<small class="text-white">Ocurrio un error, por favor recarge la pagina e intente nuevamente.</small>');
+                    toastr.error('Ocurrio un error, por favor recarge la pagina e intente nuevamente.');
                 }
             }
         });
@@ -549,7 +570,7 @@ $(document).ready( function () {
                     if (response == 'true') {
                         location.reload();
                     } else {
-                        $('.js-cart-message').html('<small class="text-danger">Ocurrio un error, por favor recarge la pagina e intente nuevamente.</small>');
+                        toastr.error('Ocurrio un error, por favor recarge la pagina e intente nuevamente.');
                     }
                 }
             });
@@ -590,7 +611,7 @@ $(document).ready( function () {
                     if (response == 'true') {
                         location.reload();
                     } else {
-                        $('.js-cart-message').html('<small class="text-danger">Ocurrio un error, por favor recarge la pagina e intente nuevamente.</small>');
+                        toastr.error('Ocurrio un error, por favor recarge la pagina e intente nuevamente.');
                     }
                 }
             });
@@ -629,7 +650,7 @@ $(document).ready( function () {
                     if (response == 'true') {
                         location.reload();
                     } else {
-                        $('.js-cart-message').html('<small class="text-danger">Ocurrio un error, por favor recarge la pagina e intente nuevamente.</small>');
+                        toastr.error('Ocurrio un error, por favor recarge la pagina e intente nuevamente.');
                     }
                 }
             });
@@ -670,7 +691,7 @@ $(document).ready( function () {
                     if (response == 'true') {
                         location.reload();
                     } else {
-                        $('.js-cart-message').html('<small class="text-danger">Ocurrio un error, por favor recarge la pagina e intente nuevamente.</small>');
+                        toastr.error('Ocurrio un error, por favor recarge la pagina e intente nuevamente.');
                     }
                 }
             });
@@ -710,7 +731,7 @@ $(document).ready( function () {
                     if (response == 'true') {
                         location.reload();
                     } else {
-                        $('.js-cart-message').html('<small class="text-danger">Ocurrio un error, por favor recarge la pagina e intente nuevamente.</small>');
+                        toastr.error('Ocurrio un error, por favor recarge la pagina e intente nuevamente.');
                     }
                 }
             });
@@ -751,7 +772,7 @@ $(document).ready( function () {
                     if (response == 'true') {
                         location.reload();
                     } else {
-                        $('.js-cart-message').html('<small class="text-danger">Ocurrio un error, por favor recarge la pagina e intente nuevamente.</small>');
+                        toastr.error('Ocurrio un error, por favor recarge la pagina e intente nuevamente.');
                     }
                 }
             });
@@ -803,7 +824,7 @@ function getClientdata(obj) {
         processData: false,
         success: function (response) {
             if (response == 'false' || response == 'undefines') {
-                $('#js-finally-order').html('<small class="text-white">Ocurrio un error, por favor recarge la pagina e intente nuevamente.</small>');
+                toastr.error('Ocurrio un error, por favor recarge la pagina e intente nuevamente.');
             } else {
                 data = JSON.parse(response);         
                 $('#id_cli').val(data.Id_Cliente);
@@ -841,7 +862,7 @@ function getProddata(obj) {
         processData: false,
         success: function (response) {
             if (response == 'false' || response == 'undefines') {
-                $('#js-finally-order').html('<small class="text-white">Ocurrio un error, por favor recarge la pagina e intente nuevamente.</small>');
+                toastr.error('Ocurrio un error, por favor recarge la pagina e intente nuevamente.');
             } else {
                 data = JSON.parse(response); 
                 $('#cod_prod').val(data.cod_producto);

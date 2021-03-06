@@ -9,6 +9,9 @@
     $id_rubro   = (isset($_GET["id_rubro"])     ? filter_var($_GET["id_rubro"],    FILTER_VALIDATE_INT) : "");
     $id_subrubro = (isset($_GET["id_subrubro"]) ? filter_var($_GET["id_subrubro"], FILTER_VALIDATE_INT) : "");
     $id_grupo   = (isset($_GET["id_grupo"])     ? filter_var($_GET["id_grupo"],    FILTER_VALIDATE_INT) : "");
+    $minamount  = (isset($_GET["minamount"])    ? filter_var(str_replace('$','',$_GET["minamount"]),   FILTER_VALIDATE_INT) : null);
+    $maxamount  = (isset($_GET["maxamount"])    ? filter_var(str_replace('$','',$_GET["maxamount"]),   FILTER_VALIDATE_INT) : null);
+    $order      = (isset($_GET['order'])        ? filter_var($_GET['order'],       FILTER_SANITIZE_STRING) : "");
     $page       = (isset($_GET["page"])         ? filter_var($_GET["page"],        FILTER_VALIDATE_INT) : 1);
     $search     = (isset($_GET['s'])            ? filter_var($_GET['s'],           FILTER_SANITIZE_STRING) : "");
     $opcion     = (isset($_GET['opcion'])       ? filter_var($_GET['opcion'],      FILTER_SANITIZE_STRING) : "");

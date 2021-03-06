@@ -1,5 +1,29 @@
 <div class="sidebar">
     <div class="sidebar__item">
+        <h4>Precio</h4>
+        <div class="price-range-wrap">
+            <div class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"
+                data-min="10" data-max="10000">
+                <div class="ui-slider-range ui-corner-all ui-widget-header"></div>
+                <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
+                <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
+            </div>
+            <div class="range-slider">
+                <form class="d-flex justify-content-around" method="GET">
+                    <input type="hidden" name="id_rubro" value="<?php echo $id_rubro; ?>">
+                    <input type="hidden" name="id_subrubro" value="<?php echo $id_subrubro; ?>">
+                    <input type="hidden" name="id_grupo" value="<?php echo $id_grupo; ?>">
+                    <input type="hidden" name="order" value="<?php echo $order; ?>">
+                    <div class="price-input">
+                        <input type="text" name="minamount" id="minamount" value="<?php echo $minamount; ?>">
+                        <input type="text" name="maxamount" id="maxamount" value="<?php echo $maxamount; ?>">
+                    </div>
+                    <input type="submit" class="site-btn-min" value="Filtrar">
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="sidebar__item">
         <h4>Categorias</h4>
         <ul>
             <?php 
@@ -17,23 +41,6 @@
             <?php endwhile; 
                 $rubros->closeConnection(); ?>
         </ul>
-    </div>
-    <div class="sidebar__item">
-        <h4>Precio</h4>
-        <div class="price-range-wrap">
-            <div class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"
-                data-min="10" data-max="540">
-                <div class="ui-slider-range ui-corner-all ui-widget-header"></div>
-                <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
-                <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
-            </div>
-            <div class="range-slider">
-                <div class="price-input">
-                    <input type="text" id="minamount">
-                    <input type="text" id="maxamount">
-                </div>
-            </div>
-        </div>
     </div>
     <!-- <div class="sidebar__item sidebar__item__color--option">
         <h4>Colores</h4>

@@ -262,7 +262,7 @@
                 font-size: 14px;
                 color: $heading-color-2;
                 text-transform: uppercase;
-                font-weight: 700;
+                font-weight: 600;
                 letter-spacing: 2px;
                 @include transition(all, .3s);
                 padding: 5px 0;
@@ -324,7 +324,7 @@
 
         span {
             color: $heading-color-2;
-            font-weight: 700;
+            font-weight: 600;
         }
     }
 }

@@ -43,7 +43,7 @@
                         $productos->closeConnection();
                     } else {
                         $productos = new Productos();
-                        $result    = $productos->getProducts($id_rubro, $id_subrubro, $id_grupo);
+                        $result    = $productos->getProducts($id_rubro, $id_subrubro, $id_grupo, $minamount, $maxamount, $order);
                         $productos->closeConnection();
                     }
 
@@ -54,16 +54,21 @@
                 <div class="filter__item">
                     <div class="row">
                         <div class="col-lg-4 col-md-5">
-                            <div class="filter__sort">
-                                <span>Ordenar Por</span>
-                                <select>
-                                    <option value="0">Defecto</option>
-                                    <option value="0">Menor Precio</option>
-                                    <option value="0">Mayor Precio</option>
-                                    <option value="0">Antiguos</option>
-                                    <option value="0">Recientes</option>
-                                </select>
-                            </div>
+                            <form id="form-order-prod" class="d-flex justify-content-around" method="GET">
+                                <input type="hidden" name="id_rubro" value="<?php echo $id_rubro; ?>">
+                                <input type="hidden" name="id_subrubro" value="<?php echo $id_subrubro; ?>">
+                                <input type="hidden" name="id_grupo" value="<?php echo $id_grupo; ?>">
+                                <input type="hidden" name="minamount" id="minamount" value="<?php echo $minamount; ?>">
+                                <input type="hidden" name="maxamount" id="maxamount" value="<?php echo $maxamount; ?>">
+                                <div class="filter__sort">
+                                    <span>Ordenar Por</span>
+                                    <select name="order" id="select-order-prod">
+                                        <option value="0">Defecto</option>
+                                        <option value="ASC" <?php echo ($order == 'ASC') ? 'selected': ''; ?>>Menor Precio</option>
+                                        <option value="DESC" <?php echo ($order == 'DESC') ? 'selected': ''; ?>>Mayor Precio</option>
+                                    </select>
+                                </div>
+                            </form>
                         </div>
                         <div class="col-lg-8 col-md-7">
                             <div class="filter__found">

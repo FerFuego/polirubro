@@ -106,7 +106,7 @@ ol {
 
   h2 {
     color: $normal-color;
-    font-weight: 700;
+    font-weight: 600;
     position: relative;
 
     &:after {
@@ -154,7 +154,7 @@ ol {
   padding: 10px 28px 10px;
   color: $white-color;
   text-transform: uppercase;
-  font-weight: 700;
+  font-weight: 600;
   background: $primary-color;
   border: 0;
   letter-spacing: 2px;
@@ -170,6 +170,18 @@ ol {
   background: $primary-color;
   border: none;
   height: 50px;
+}
+
+.site-btn-min {
+  font-size: 14px;
+  color: #ffffff;
+  font-weight: 800;
+  text-transform: uppercase;
+  display: inline-block;
+  padding: 4px 17px;
+  background: #7fad39;
+  border: none;
+  height: 28px;
 }
 
 /* Preloder */

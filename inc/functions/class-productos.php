@@ -70,14 +70,16 @@ class Productos {
     public function getNombre(){ return $this->nombre; }
     public function PreVtaFinal1(){ return $this->precio_venta_final_1; }
 
-    public function getProducts($id_rubro, $id_subrubro, $id_grupo){
+    public function getProducts($id_rubro, $id_subrubro, $id_grupo, $minamount, $maxamount, $order){
 
         $where = '1=1';
         $where .= ( $id_rubro ) ? ' AND Id_Rubro='. $id_rubro : '';
         $where .= ( $id_subrubro ) ? ' AND Id_SubRubro='. $id_subrubro : '';
         $where .= ( $id_grupo ) ? ' AND Id_Grupo='. $id_grupo : '';
+        $where .= ( $minamount && $maxamount ) ? ' AND PreVtaFinal1 BETWEEN '.$minamount.' AND '.$maxamount : '';
+        $orderBy = ( $order ) ? ' ORDER BY PreVtaFinal1 '.$order : ' ORDER BY Nombre';
 
-        $query = "SELECT * FROM productos WHERE $where ORDER BY Nombre";
+        $query = "SELECT * FROM productos WHERE $where $orderBy";
 
         $this->obj = new sQuery();
         $this->obj->executeQuery($query);
@@ -85,7 +87,7 @@ class Productos {
         $result = [
             'total' => $this->obj->getResultados(),
             'query' => $query,
-            'params' => 'id_rubro='.$id_rubro.'&id_subrubro='.$id_subrubro.'&id_grupo='.$id_grupo
+            'params' => 'id_rubro='.$id_rubro.'&id_subrubro='.$id_subrubro.'&id_grupo='.$id_grupo. (($minamount && $maxamount) ? '&minamount='.$minamount.'&maxamount='.$maxamount : '') . (($order) ? '&order='.$order : '')
         ];
 
         return $result;

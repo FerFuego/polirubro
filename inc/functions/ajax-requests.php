@@ -57,12 +57,12 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'getSubRubr
     $object = new Subrubros();
     $result = $object->getSubRubroByIdRubro($id_rubro);
 
-    $html = '<div class="d-block">';
+    $html = '<div class="d-block"> <h5>SubCategorias</h5>';
 
     while ( $row = $result->fetch_object() ) {
         $html .= '<div>';
-        $html .= '<a href="productos.php?id_rubro='. $row->Id_Rubro.'&id_subrubro='.$row->Id_SubRubro.'" class="item sub-item lastlistCTA" data-subrubro="'. $row->Id_SubRubro .'">'. $row->Nombre .'<span></span></a>';
-        $html .= '<div class="lastlist"></div>';
+        $html .= '<a href="productos.php?id_rubro='. $row->Id_Rubro.'&id_subrubro='.$row->Id_SubRubro.'" class="item sub-item lastlistCTA '. $row->Id_SubRubro .'" data-subrubro="'. $row->Id_SubRubro .'">'. $row->Nombre .'<span onclick="loadGroupCategory('. $row->Id_SubRubro .')"></span></a>';
+        $html .= '<div class="lastlist lastlist_'. $row->Id_SubRubro .'"></div>';
         $html .= '</div>';
     }
 
@@ -77,15 +77,15 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'getSubRubr
  */
 if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'getGrupoByIdSubRubro') {
 
-    $id_grupo = filter_var($_POST["id_grupo"], FILTER_VALIDATE_INT);
+    $id_subrubro = filter_var($_POST["id_subrubro"], FILTER_VALIDATE_INT);
 
     $object = new Subrubros();
-    $result = $object->getSubRubroByIdGrupo($id_grupo);
+    $result = $object->getGrupoByIdSubRubro($id_subrubro);
 
-    $html = '<div>';
+    $html = '<div> <h5>Grupos</h5>';
 
     while ( $row = $result->fetch_object() ) {
-        $html .= '<a href="productos.php?id_rubro='. $row->Id_Rubro.'&id_subrubro='.$row->Id_SubRubro.'&id_grupo='.$row->Id_Grupo.'" class="item sub-item">'. $row->Nombre .'<span></span></a>';
+        $html .= '<a href="productos.php?id_rubro='. $row->Id_Rubro.'&id_subrubro='.$row->Id_SubRubro.'&id_grupo='.$row->Id_Grupo.'" class="item sub-item">'. $row->Nombre .'</a>';
     }
 
     $html .= '</div>';
