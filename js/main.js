@@ -532,6 +532,52 @@ $(document).ready( function () {
         });
     })
 
+    /*--------------------------
+        Update Configuration
+    ----------------------------*/
+    $('#form-general').submit( function(e){
+
+        e.preventDefault();
+
+        var values = {};
+        var logo = $('#logo')[0].files;
+        var banner = $('#banner')[0].files;
+
+        $.each($(this).serializeArray(), function(i, field) {
+            values[field.name] = field.value;
+        });
+    
+        var formData = new FormData();
+            formData.append('action', 'operationConfiguration');
+            formData.append('logo', logo[0]);
+            formData.append('banner', banner[0]);
+            formData.append('email', values.email);
+            formData.append('telefono', values.telefono);
+            formData.append('atencion', values.atencion);
+            formData.append('direccion', values.direccion);
+            formData.append('whatsapp', values.whatsapp);
+            formData.append('instagram', values.instagram);
+            formData.append('facebook', values.facebook);
+            formData.append('twitter', values.twitter);
+    
+        jQuery.ajax({
+            cache: false,
+            url: 'inc/functions/ajax-requests.php',
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                if (response == 'true') {
+                    toastr.success('Datos Cargados Correctamente!');
+                } else {
+                    toastr.error('Ocurrio un error, por favor recarge la pagina e intente nuevamente.');
+                }
+            }
+        });
+
+    });
+
     /*--------------------
         Modals
     --------------------*/

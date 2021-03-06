@@ -11,7 +11,7 @@
       <div class="modal-body">
 	  	<form class="form-cli" id="js-form-banner" enctype="multipart/form-data">
             <input type="hidden" name="type" id="type_banner" value="new">
-			<div class="form-group">
+			      <div class="form-group">
                 <label for="order">Numero de aparicion</label>
                 <input type="text" name="order" id="order" placeholder="Numero de aparicion ej: 1">
             </div>

@@ -382,3 +382,79 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'operationB
 
     die('false');
 }
+
+/**
+ * Request of Set data Configuration
+ */
+if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'operationConfiguration') {
+
+    $response  = 0;
+    $logo = null;
+    $banner = null;
+    $email = (isset($_POST['email']) ? filter_var($_POST['email'], FILTER_SANITIZE_EMAIL) : null);
+    $telefono = (isset($_POST['telefono']) ? filter_var($_POST['telefono'], FILTER_SANITIZE_STRING) : null);
+    $atencion = (isset($_POST['atencion']) ? filter_var($_POST['atencion'], FILTER_SANITIZE_STRING) : null);
+    $direccion = (isset($_POST['direccion']) ? filter_var($_POST['direccion'], FILTER_SANITIZE_STRING) : null);
+    $whatsapp = (isset($_POST['whatsapp']) ? filter_var($_POST['whatsapp'], FILTER_SANITIZE_STRING) : null);
+    $instagram = (isset($_POST['instagram']) ? filter_var($_POST['instagram'], FILTER_SANITIZE_STRING) : null);
+    $facebook = (isset($_POST['facebook']) ? filter_var($_POST['facebook'], FILTER_SANITIZE_STRING) : null);
+    $twitter = (isset($_POST['twitter']) ? filter_var($_POST['twitter'], FILTER_SANITIZE_STRING) : null);
+
+    
+    try {
+
+        if(isset($_FILES['logo']['name'])){
+            $filename = $_FILES['logo']['name'];
+            $prefijo = substr(md5(uniqid(rand())),0,6);
+            $path = "img/config/".$prefijo.'_'.$filename;
+            $location = "../../img/config/".$prefijo.'_'.$filename;
+            $imageFileType = pathinfo($location,PATHINFO_EXTENSION);
+            $imageFileType = strtolower($imageFileType);
+            // Valid extensions
+            $valid_extensions = array("jpg","jpeg","png");
+            // Check file extension
+            if(in_array(strtolower($imageFileType), $valid_extensions)) {
+                // Upload file
+                if(move_uploaded_file($_FILES['logo']['tmp_name'],$location)){
+                    $logo = $path;
+                }
+            }
+        }
+
+        if(isset($_FILES['banner']['name'])){
+            $filename = $_FILES['banner']['name'];
+            $prefijo = substr(md5(uniqid(rand())),0,6);
+            $path = "img/config/".$prefijo.'_'.$filename;
+            $location = "../../img/config/".$prefijo.'_'.$filename;
+            $imageFileType = pathinfo($location,PATHINFO_EXTENSION);
+            $imageFileType = strtolower($imageFileType);
+            // Valid extensions
+            $valid_extensions = array("jpg","jpeg","png");
+            // Check file extension
+            if(in_array(strtolower($imageFileType), $valid_extensions)) {
+                // Upload file
+                if(move_uploaded_file($_FILES['banner']['tmp_name'],$location)){
+                    $banner = $path;
+                }
+            }
+        }
+
+        $general = new Configuracion();
+        if ($logo) $general->logo = $logo;
+        if ($banner) $general->banner = $banner;
+        $general->telefono = $telefono;
+        $general->email = $email;
+        $general->direccion = $direccion;
+        $general->atencion = $atencion;
+        $general->whatsapp = $whatsapp;
+        $general->facebook = $facebook;
+        $general->instagram = $instagram;
+        $general->twitter = $twitter;
+        $general->update();
+        $general->closeConnection();
+        die('true');
+
+    } catch (Exception $e) {
+        die('false');
+    }
+}

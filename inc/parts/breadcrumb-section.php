@@ -1,4 +1,4 @@
-<section class="breadcrumb-section set-bg" data-setbg="img/breadcrumb.jpg">
+<section class="breadcrumb-section set-bg" data-setbg="<?php echo $general->banner; ?>">
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">

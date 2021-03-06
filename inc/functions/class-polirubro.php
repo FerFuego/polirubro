@@ -6,11 +6,6 @@ Class Polirubro {
 
     const GOOGLE_API = '6LehItsUAAAAAJgi5I6XbtuH6sRzbFhiYNQwZSed';
     const SITE_KEY = '6LehItsUAAAAAKkyZXB_Aon0DNX7zqMl8OE7jgAO';
-    const ADDRESS = 'Sargento Cabral 234, 2550 Bell Ville, Córdoba';
-    const PHONE = '(03537) 410102';
-    const TIMES = '09:00 am a 20:00 pm';
-    const WHATSAPP = '(3537) 536-991';
-    const EMAIL = 'info@polirrubrosgarro.com.ar';
 
     public function __construct() {
 

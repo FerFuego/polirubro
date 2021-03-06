@@ -29,7 +29,7 @@
                     $productos->closeConnection();
                 } else {
                     $productos = new Productos();
-                    $result    = $productos->getProducts($id_rubro, $id_subrubro, $id_grupo);
+                    $result    = $productos->getProducts($id_rubro, $id_subrubro, $id_grupo, $minamount, $maxamount, $order);
                     $productos->closeConnection();
                 }
 

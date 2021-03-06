@@ -4,10 +4,10 @@
             <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="footer__about">
                     <ul>
-                        <li><b>Direccion:</b> <?php echo Polirubro::ADDRESS; ?></li>
-                        <li><b>Telefono:</b> <?php echo Polirubro::PHONE; ?></li>
-                        <li><b>WhatsApp:</b> <?php echo Polirubro::WHATSAPP; ?></li>
-                        <li><b>Email:</b> <?php echo Polirubro::EMAIL; ?></li>
+                        <li><b>Direccion:</b> <?php echo $general->direccion; ?></li>
+                        <li><b>Telefono:</b> <?php echo $general->telefono; ?></li>
+                        <li><b>WhatsApp:</b> <?php echo $general->whatsapp; ?></li>
+                        <li><b>Email:</b> <?php echo $general->email; ?></li>
                     </ul>
                 </div>
             </div>
@@ -25,10 +25,12 @@
             <div class="col-lg-4 col-md-12">
                 <div class="footer__widget">
                     <div class="footer__about__logo">
-                        <a href="/"><img src="img/logo.jpg" alt=""></a>
+                        <a href="/"><img src="<?php echo $general->logo; ?>" alt="logo"></a>
                     </div>
                     <br><br>
-                    <h6>Buscanos en nuestras redes</h6>
+                    <?php if ($general->facebook || $general->instagram || $general->twitter) : ?>
+                        <h6>Buscanos en nuestras redes</h6>
+                    <?php endif; ?>
                     <br>
                     <!--<p>Recibi en tu email, todas nuestras ofertas</p>
                      <form action="#">
@@ -36,10 +38,15 @@
                         <button type="Enviar" class="site-btn">Suscribirme</button>
                     </form> -->
                     <div class="footer__widget__social">
-                        <a href="#"><i class="fa fa-facebook"></i></a>
-                        <a href="#"><i class="fa fa-instagram"></i></a>
-                        <a href="#"><i class="fa fa-twitter"></i></a>
-                        <a href="#"><i class="fa fa-pinterest"></i></a>
+                        <?php if ($general->facebook) : ?>
+                            <a href="<?php echo $general->facebook; ?>" targte="_blank"><i class="fa fa-facebook"></i></a>
+                        <?php endif; ?>
+                        <?php if ($general->instagram) : ?>
+                            <a href="<?php echo $general->instagram; ?>" targte="_blank"><i class="fa fa-instagram"></i></a>
+                        <?php endif; ?>
+                        <?php if ($general->twitter) : ?>
+                            <a href="<?php echo $general->twitter; ?>" targte="_blank"><i class="fa fa-twitter"></i></a>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>

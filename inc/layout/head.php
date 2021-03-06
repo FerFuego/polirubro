@@ -17,6 +17,7 @@
     $opcion     = (isset($_GET['opcion'])       ? filter_var($_GET['opcion'],      FILTER_SANITIZE_STRING) : "");
     $limit      = 21; //Limito la busqueda
     $links      = 6; // limito los items a mostrar en el paginador
+    $general = new Configuracion();
 ?>
 
 <!DOCTYPE html>

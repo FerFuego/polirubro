@@ -11,8 +11,8 @@
                 <i class="fa fa-whatsapp"></i>
             </div>
             <div class="hero__search__phone__text">
-                <a href="https://wa.me/543537536991" target="_blank"><h5><?php echo Polirubro::WHATSAPP; ?></h5></a>
-                <span>Atencion Lunes a Viernes</span>
+                <a href="https://wa.me/<?php echo str_replace(['(',')',' ','-'],['','','',''],$general->whatsapp); ?>" target="_blank"><h5><?php echo $general->whatsapp; ?></h5></a>
+                <span><?php echo $general->atencion; ?></span>
             </div>
         </div>
     </div>    

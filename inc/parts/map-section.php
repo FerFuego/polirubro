@@ -5,8 +5,8 @@
         <div class="inside-widget">
             <h4>Bell Ville</h4>
             <ul>
-                <li>Telefono: <?php echo Polirubro::PHONE; ?></li>
-                <li>Direccion: <?php echo Polirubro::ADDRESS; ?></li>
+                <li>Telefono: <?php echo $general->telefono; ?></li>
+                <li>Direccion: <?php echo $general->direccion; ?></li>
             </ul>
         </div>
     </div>
