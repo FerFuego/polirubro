@@ -74,7 +74,7 @@ Class Polirubro {
             $pedido = new Pedidos();
             $result = $pedido->getPedidoAbierto($_SESSION["Id_Cliente"]);
 
-            if ( $result['num_rows'] > 0 ) : 
+            if ( $result && $result['num_rows'] > 0 ) : 
 
                 $detalle = new Detalles();
                 $resumen = $detalle->getPedidoResumen($result['Id_Pedido']);

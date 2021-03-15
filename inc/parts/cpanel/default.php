@@ -118,12 +118,14 @@
             <?php 
                 $orders = new Pedidos();
                 $orders = $orders->getTotalOrderByMonth();
+                if ($orders) :
                 while ( $row = $orders->fetch_object() ) : ?>
                 <tr>
                     <td><?php echo $row->mes .'/'. $row->ano; ?></td>
                     <td><?php echo $row->total; ?></td>
                 </tr>
-            <?php endwhile; ?>
+            <?php endwhile; 
+            endif;?>
         </tbody>
     </table>
 </div>

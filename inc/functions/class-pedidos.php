@@ -55,15 +55,22 @@ class Pedidos {
 
     public function getPedidoAbierto($Id_Cliente) {
 
+        $data = [
+            'num_rows' => 0,
+            'Id_Pedido' => null,
+        ];
+
         $this->obj = new sQuery();
         $result = $this->obj->executeQuery("SELECT * FROM pedidos_cabe WHERE (Id_Cliente = $Id_Cliente) AND (Cerrado = 0)");
 
-        $row = $result->fetch_object();
-
-        $data = [
-            'num_rows' => $result->num_rows,
-            'Id_Pedido' => ($row) ? $row->Id_Pedido : null,
-        ];
+        if ($result) {   
+            $row = $result->fetch_object();
+            
+            $data = [
+                'num_rows' => $result->num_rows,
+                'Id_Pedido' => ($row) ? $row->Id_Pedido : null,
+            ];
+        }
 
         return $data;
     }
