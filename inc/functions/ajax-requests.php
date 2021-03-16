@@ -110,7 +110,7 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'insertProd
     $result = $order->getPedidoAbierto($_SESSION["Id_Cliente"]);
     $order->closeConnection(); 
 
-    if ( $result['num_rows'] == 0 ) :
+    if ( $result && $result['num_rows'] == 0 ) :
 
         $user = new Usuarios($_SESSION["Id_Cliente"]);
 
@@ -125,7 +125,7 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'insertProd
 
     endif;
 
-    if ( $result['Id_Pedido'] < 1 ) die('false');
+    if ($result['Id_Pedido'] < 1 ) die('false');
     
     $detail = new Detalles();
     $detail->Id_Pedido = $result['Id_Pedido'];
