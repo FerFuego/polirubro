@@ -81,7 +81,7 @@ Class Polirubro {
 
                 $html .='<div class="header__cart" id="js-dynamic-cart">
                     <ul id="js-data-cart">
-                        <li><a href="/carrito.php" title="Ver Carrito"><b>Pedido</b> <i class="fa fa-shopping-bag"></i> <span>' .$resumen.'</span></a></li>
+                        <li><a href="./carrito.php" title="Ver Carrito"><b>Pedido</b> <i class="fa fa-shopping-bag"></i> <span>' .$resumen.'</span></a></li>
                     </ul>
                 </div>';
 

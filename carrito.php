@@ -96,7 +96,7 @@
                         <ul>
                             <li>Total <span>$<?php echo number_format($pedido->getTotalFinal(), 2,',','.'); ?></span></li>
                         </ul>
-                        <a href="/finalizar-pedido.php" class="primary-btn">Revision Final del Pedido</a>
+                        <a href="./finalizar-pedido.php" class="primary-btn">Revision Final del Pedido</a>
                     </div>
                 </div>
             </div>
