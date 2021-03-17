@@ -1,6 +1,4 @@
-<!-- Head Section Begin -->
 <?php require_once('inc/layout/head.php'); ?>
-<!-- Head Section End -->
 
 <!-- Header Section Begin -->
 <?php require_once('inc/layout/header.php'); ?>
@@ -31,10 +29,6 @@
                 <!-- Breadcrumb Section End -->
             </div>
             <div class="col-lg-9 col-md-7">
-                
-                <!-- Offer Section Begin -->
-                <?php require_once('inc/parts/offert-section.php'); ?>
-                <!-- Offer Section End -->
 
                 <?php 
                     if ( $search != '') {
@@ -97,6 +91,10 @@
                 <?php endif; ?>
 
                 <?php $paginator->closeConnection(); ?>
+
+                <!-- Offer Section Begin -->
+                <?php require_once('inc/parts/offert-section.php'); ?>
+                <!-- Offer Section End -->
 
             </div>
         </div>

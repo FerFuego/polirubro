@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Autoload of Classes
  */

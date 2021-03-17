@@ -1,6 +1,4 @@
-<!-- Head Section Begin -->
 <?php require_once('inc/layout/head.php'); ?>
-<!-- Head Section End -->
 
 <!-- Header Section Begin -->
 <?php require_once('inc/layout/header.php'); ?>

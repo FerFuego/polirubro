@@ -210,7 +210,7 @@ Class Polirubro {
 
     public static function is_Admin() {
 
-        if (! isset($_SESSION["Id_Cliente"])) {
+        if (!isset($_SESSION["Id_Cliente"])) {
             return false;
         }
         

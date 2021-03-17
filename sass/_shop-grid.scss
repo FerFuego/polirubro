@@ -7,7 +7,7 @@
 }
 
 .product__discount {
-    padding-bottom: 50px;
+    padding-top: 80px;
 }
 
 .product__discount__title {
@@ -176,7 +176,6 @@
 
 .filter__item {
     padding-top: 45px;
-    border-top: 1px solid $border;
     padding-bottom: 20px;
 }
 
@@ -281,14 +280,16 @@
     border: 1px solid #ebebeb;
 
     .product__code {
+        background-color: #7fad39;
         position: absolute;
-        left: 15px;
+        left: 0;
         top: 5px;
+        padding: 0 12px;
         h5 {
             font-size: 16px;
-            color: #252525;
+            color: #fff;
             font-weight: 600;
-            line-height: 45px;
+            line-height: 33px;
             text-align: center;
         }
     }

@@ -119,13 +119,17 @@
                 $orders = new Pedidos();
                 $orders = $orders->getTotalOrderByMonth();
                 if ($orders) :
-                while ( $row = $orders->fetch_object() ) : ?>
-                <tr>
-                    <td><?php echo $row->mes .'/'. $row->ano; ?></td>
-                    <td><?php echo $row->total; ?></td>
-                </tr>
-            <?php endwhile; 
-            endif;?>
+                    while ( $row = $orders->fetch_object() ) : ?>
+                        <tr>
+                            <td><?php echo $row->mes .'/'. $row->ano; ?></td>
+                            <td><?php echo $row->total; ?></td>
+                        </tr>
+                    <?php endwhile; 
+                else : ?>
+                    <tr>
+                        <td colspan="2"><h3>No existen registros</h3></td>
+                    </tr>
+            <?php endif; ?>
         </tbody>
     </table>
 </div>

@@ -1,6 +1,4 @@
-<!-- Head Section Begin -->
 <?php require_once('inc/layout/head.php'); ?>
-<!-- Head Section End -->
 
 <!-- Header Section Begin -->
 <?php require_once('inc/layout/header.php'); ?>
@@ -122,7 +120,7 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="col-lg-12">
+                    <!-- <div class="col-lg-12">
                         <div class="product__details__tab">
                             <ul class="nav nav-tabs" role="tablist">
                                 <li class="nav-item">
@@ -172,7 +170,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </section>

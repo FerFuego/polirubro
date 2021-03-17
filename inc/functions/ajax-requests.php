@@ -1,9 +1,8 @@
-<?php
+<?php 
+session_start();
 /*-----------------------
     Ajax Requests
 -----------------------*/
-session_start();
-
 require('class-polirubro.php');
 
 /**

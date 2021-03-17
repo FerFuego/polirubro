@@ -1,6 +1,4 @@
-<!-- Head Section Begin -->
 <?php require_once('inc/layout/head.php'); ?>
-<!-- Head Section End -->
 
 <!-- Verify Admin -->
 <?php if ( ! Polirubro::is_Admin()) {
