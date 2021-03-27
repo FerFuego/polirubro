@@ -5,13 +5,13 @@
  */
 class Connection {
 
-    protected $conn;
+    var $conn;
     
 	function __construct() {	
 
-		$con['server']="localhost"; 
-        $con['base']="polirubro";	
-		$con['user']="root"; 
+		$con['server']=""; 
+        $con['base']="";	
+		$con['user']=""; 
 		$con['pass']="";	
         
 		$result = new mysqli($con['server'], $con['user'], $con['pass'], $con['base']);

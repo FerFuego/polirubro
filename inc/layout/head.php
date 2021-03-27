@@ -1,5 +1,4 @@
 <?php session_start(); ?>
-
 <!-- php Functions -->
 <?php require('inc/functions/class-polirubro.php'); ?>
 
