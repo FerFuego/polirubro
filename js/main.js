@@ -744,14 +744,17 @@ $(document).ready( function () {
         })
 
         /*--------------------
-            Insert Banner Data
+            SET Banner Data
         ---------------------*/
         $('#js-form-banner').submit( function (e) {
 
             e.preventDefault();
 
             var values = {};
-            var files = $('#image')[0].files;
+            var files = false;
+            if ($('#imagePreview').val()) {
+                var files = $('#imagePreview')[0].files;
+            }
 
             $.each($(this).serializeArray(), function(i, field) {
                 values[field.name] = field.value;
@@ -759,12 +762,15 @@ $(document).ready( function () {
         
             var formData = new FormData();
                 formData.append('action', 'operationBanner');
+                formData.append('id_banner', values.id_banner);
                 formData.append('type', values.type);
                 formData.append('order', values.order);
                 formData.append('file', files[0]);
                 formData.append('title', values.title);
                 formData.append('text', values.text);
                 formData.append('link', values.link);
+
+                console.log(formData);
         
             jQuery.ajax({
                 cache: false,
@@ -774,6 +780,7 @@ $(document).ready( function () {
                 contentType: false,
                 processData: false,
                 success: function (response) {
+                    console.log(response);
                     if (response == 'true') {
                         location.reload();
                     } else {
@@ -824,9 +831,25 @@ $(document).ready( function () {
             });
         })
 });
-/*--------------------
+
+/*-----------------------
+    Show Preview Image
+-----------------------*/
+$("#imagePreview").change(function(e) {
+    for (var i = 0; i < e.originalEvent.srcElement.files.length; i++) {
+        var file = e.originalEvent.srcElement.files[i];
+        var img = document.getElementById("preview-img");
+        var reader = new FileReader();
+        reader.onloadend = function() {
+            img.src = reader.result;
+        }
+        reader.readAsDataURL(file);
+    }
+});
+
+/*----------------------
     Clean Client Modal
---------------------*/
+----------------------*/
 function cleanModal() {
 
     $.each($('#js-form-cli').serializeArray(), function(i, field) {
@@ -915,6 +938,45 @@ function getProddata(obj) {
                 $('#type_prod').val('edit');
                 $('#name_prod').val(data.nombre);
                 $('#observation').val(data.observaciones);
+            }
+        }
+    });
+}
+
+/*--------------------
+    GET Banner Data
+--------------------*/
+function getBannerdata(obj) {
+    var id_banner = $(obj).attr('data-ban');
+    var data;
+
+    cleanModal();
+
+    var formData = new FormData();
+        formData.append('action', 'dataBanner');
+        formData.append('id_banner', id_banner );
+    
+    jQuery.ajax({
+        cache: false,
+        url: 'inc/functions/ajax-requests.php',
+        type: 'POST',
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function (response) {
+            if (response == 'false' || response == 'undefines') {
+                toastr.error('Ocurrio un error, por favor recarge la pagina e intente nuevamente.');
+            } else {
+                data = JSON.parse(response);         
+                $('#type_ban').val('edit');
+                $('#id_banner').val(data.Id_banner);
+                $('#order').val(data.orden);
+                $('#title').val(data.title);
+                $('#text').val(data.text);
+                $('#link').val(data.link);
+
+                var img = document.getElementById("preview-img");
+                img.src = data.image;
             }
         }
     });

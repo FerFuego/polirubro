@@ -1,7 +1,7 @@
-<?php 
-session_start();
+<?php session_start();
+
 /*-----------------------
-    Ajax Requests
+Ajax Requests
 -----------------------*/
 require('class-polirubro.php');
 
@@ -15,13 +15,13 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'actionLogi
     $recaptcha = (isset($_POST['g-recaptcha-response']) ? $_POST['g-recaptcha-response'] : null);
     $login = 'false';
 
-   /*  $request = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".Polirubro::GOOGLE_API."&response=".$recaptcha."&remoteip=".$_SERVER['REMOTE_ADDR']);
+    $request = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".Polirubro::GOOGLE_API."&response=".$recaptcha."&remoteip=".$_SERVER['REMOTE_ADDR']);
     $response = json_decode($request);
     
     if ( $response->success === false ) {
         echo 'Captcha Incorrecto!';
         die();
-    } */
+    }
 
     $access = new Login($user, $pass);
     $result = $access->loginProcess();
@@ -29,7 +29,7 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'actionLogi
     if ( $result->num_rows > 0 ) :
         while ( $user = $result->fetch_object() ) :
 
-            $_SESSION["id_user"]    = session_id();
+            $_SESSION["id_user"]    = rand(0,999);
             $_SESSION["Id_Cliente"] = $user->Id_Cliente;
             $_SESSION["user"]       = $user->Usuario;
 
@@ -124,7 +124,7 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'insertProd
 
     endif;
 
-    if ($result['Id_Pedido'] < 1 ) die('false');
+    if ( $result['Id_Pedido'] < 1 ) die('false');
     
     $detail = new Detalles();
     $detail->Id_Pedido = $result['Id_Pedido'];
@@ -329,6 +329,24 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'operationP
 }
 
 /**
+ * Request of Data Banner
+ */
+if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'dataBanner') {
+
+    $id_banner = (isset($_POST['id_banner']) ? filter_var($_POST['id_banner'], FILTER_VALIDATE_INT) : null);
+    
+    if ( $id_banner ) {
+        $bann = new Banners($id_banner);
+        $bann->closeConnection();
+
+        echo json_encode($bann); 
+        die();
+    }
+
+    die('false');
+}
+
+/**
  * Request of Set data Banner
  */
 if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'operationBanner') {
@@ -341,26 +359,24 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'operationB
     $id_banner = (isset($_POST['id_banner']) ? filter_var($_POST['id_banner'], FILTER_VALIDATE_INT) : null);
     $response  = 0;
 
-    if ( $type == 'new' ) {
-            
-        if(isset($_FILES['file']['name'])){
-            $filename = $_FILES['file']['name'];
-            $prefijo = substr(md5(uniqid(rand())),0,6);
-            $path = "img/slider/".$prefijo.'_'.$filename;
-            $location = "../../img/slider/".$prefijo.'_'.$filename;
-            $imageFileType = pathinfo($location,PATHINFO_EXTENSION);
-            $imageFileType = strtolower($imageFileType);
-            // Valid extensions
-            $valid_extensions = array("jpg","jpeg","png");
-            // Check file extension
-            if(in_array(strtolower($imageFileType), $valid_extensions)) {
-                // Upload file
-                if(move_uploaded_file($_FILES['file']['tmp_name'],$location)){
-                    $response = $path;
-                }
+    if(isset($_FILES['file']['name'])){
+        $filename = $_FILES['file']['name'];
+        $prefijo = substr(md5(uniqid(rand())),0,6);
+        $path = "img/slider/".$prefijo.'_'.$filename;
+        $location = "../../img/slider/".$prefijo.'_'.$filename;
+        $imageFileType = pathinfo($location,PATHINFO_EXTENSION);
+        $imageFileType = strtolower($imageFileType);
+        // Valid extensions
+        $valid_extensions = array("jpg","jpeg","png");
+        // Check file extension
+        if(in_array(strtolower($imageFileType), $valid_extensions)) {
+            // Upload file
+            if(move_uploaded_file($_FILES['file']['tmp_name'],$location)){
+                $response = $path;
             }
         }
-
+    }
+    if ( $type == 'new' ) {
         $banner = new Banners();
         $banner->orden = $orden;
         $banner->image = $response;
@@ -368,6 +384,20 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'operationB
         $banner->text = $text;
         $banner->link = $link;
         $banner->insert();
+        $banner->closeConnection();
+        die('true');
+    }
+
+    if ( $type == 'edit' ) {
+        $banner = new Banners($id_banner);
+        $banner->orden = $orden;
+        if ( $response !== 0 ) {
+            $banner->image = $response;
+        }
+        $banner->title = $title;
+        $banner->text = $text;
+        $banner->link = $link;
+        $banner->update();
         $banner->closeConnection();
         die('true');
     }

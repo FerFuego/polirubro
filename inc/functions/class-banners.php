@@ -38,7 +38,7 @@ class Banners {
 
     public function getBanners() {
         $this->obj = new sQuery();
-        $result = $this->obj->executeQuery("SELECT * FROM banners ORDER BY Id_banner");
+        $result = $this->obj->executeQuery("SELECT * FROM banners ORDER BY orden");
         return $result;
     }
 
@@ -49,7 +49,7 @@ class Banners {
 
     public function update() {
         $this->obj = new sQuery();
-        $this->obj->executeQuery("UPDATE banners SET order = '$this->order', image = '$this->image', title = '$this->title', text = '$this->text', link = '$this->link' WHERE (Id_banner = '$this->Id_banner')");
+        $this->obj->executeQuery("UPDATE banners SET orden = '$this->orden', image = '$this->image', title = '$this->title', text = '$this->text', link = '$this->link' WHERE (Id_banner = '$this->Id_banner')");
     }
 
     public function delete() {

@@ -10,6 +10,7 @@
                 <th class="text-left">Titulo</th>
                 <th class="text-left">Texto</th>
                 <th class="text-left">Link</th>
+                <th class="text-left">Editar</th>
                 <th class="text-left">Eliminar</th>
             </tr>
         </thead>

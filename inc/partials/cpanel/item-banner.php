@@ -17,7 +17,7 @@
         <?php echo $banner->link; ?>
     </td>
     <td class="shoping__cart__item__update text-center">
-        <span onclick="getBannerData(this);" data-cli="<?php echo $banner->Id_banner; ?>" data-toggle="modal" data-target="#bannerModal" class="icon_pencil-edit" title="Editar"></span>
+        <span onclick="getBannerdata(this);" data-ban="<?php echo $banner->Id_banner; ?>" data-toggle="modal" data-target="#bannerModal" class="icon_pencil-edit" title="Editar"></span>
     </td>
     <td class="shoping__cart__item__close text-center">
         <form class="js-form-banner-delete">
