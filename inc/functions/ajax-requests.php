@@ -487,3 +487,71 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'operationC
         die('false');
     }
 }
+
+
+/**
+ * Request of Set data Banner
+ */
+if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'operationBanner') {
+
+    $type   = (isset($_POST['type'])  ? filter_var($_POST['type'], FILTER_SANITIZE_STRING) : null);
+    $order  = (isset($_POST['order']) ? filter_var($_POST['order'], FILTER_VALIDATE_INT) : null);
+    $title  = (isset($_POST['title']) ? filter_var($_POST['title'], FILTER_SANITIZE_STRING) : null);
+    $link   = (isset($_POST['link'])  ? filter_var($_POST['link'], FILTER_SANITIZE_STRING) : null);
+    $color   = (isset($_POST['color'])  ? filter_var($_POST['color'], FILTER_SANITIZE_STRING) : null);
+    $id_categ = (isset($_POST['id_categ']) ? filter_var($_POST['id_categ'], FILTER_VALIDATE_INT) : null);
+    $response  = 0;
+
+    if(isset($_FILES['file']['name'])){
+        $filename = $_FILES['file']['name'];
+        $prefijo = substr(md5(uniqid(rand())),0,6);
+        $path = "img/categories/".$prefijo.'_'.$filename;
+        $location = "../../img/categories/".$prefijo.'_'.$filename;
+        $imageFileType = pathinfo($location,PATHINFO_EXTENSION);
+        $imageFileType = strtolower($imageFileType);
+        // Valid extensions
+        $valid_extensions = array("jpg","jpeg","png");
+        // Check file extension
+        if(in_array(strtolower($imageFileType), $valid_extensions)) {
+            // Upload file
+            if(move_uploaded_file($_FILES['file']['tmp_name'],$location)){
+                $response = $path;
+            }
+        }
+    }
+
+    if ( $type == 'new' ) {
+        $categ = new Categories();
+        $categ->title = $title;
+        $categ->order = $order;
+        $categ->color = $color;
+        $categ->icon = $response;
+        $categ->link = $link;
+        $categ->insert();
+        $categ->closeConnection();
+        die('true');
+    }
+
+    if ( $type == 'edit' ) {
+        $categ = new Categories($id_categ);
+        if ( $response !== 0 ) {
+            $categ->icon = $response;
+        }
+        $categ->order = $order;
+        $categ->title = $title;
+        $categ->color = $color;
+        $categ->link = $link;
+        $categ->update();
+        $categ->closeConnection();
+        die('true');
+    }
+
+    if ( $type == 'delete' ) {
+        $categ = new Categories($id_categ);
+        $categ->delete();
+        $categ->closeConnection();
+        die('true');
+    }
+
+    die('false');
+}
