@@ -3,7 +3,7 @@
         <h4>Precio</h4>
         <div class="price-range-wrap">
             <div class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"
-                data-min="10" data-max="2000">
+                data-min="10" data-max="10000">
                 <div class="ui-slider-range ui-corner-all ui-widget-header"></div>
                 <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
                 <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
@@ -20,6 +20,9 @@
                     </div>
                     <input type="submit" class="site-btn-min" value="Filtrar">
                 </form>
+                <?php if ( isset($minamount) || isset($maxamount) ) : ?>
+                    <p class="mt-3 mb-0 text-success">Filtrado de $<?php echo $minamount; ?> a $<?php echo $maxamount; ?>.-</p>
+                <?php endif; ?>
             </div>
         </div>
     </div>

@@ -1069,6 +1069,7 @@ ol {
 
 .hero__search__phone__text {
   overflow: hidden;
+  max-width: 140px;
 }
 .hero__search__phone__text h5 {
   color: #1c1c1c;

@@ -26,40 +26,19 @@ Class Polirubro {
 
     public static function getItemsSession() {
 
-        $html = '';
-
         if (isset ($_SESSION["user"])) {
 
-            $html .= '<div class="header__top__right__auth">'.
-                        '<strong>'.$_SESSION['user'].'</strong>'.
-                        '<a href="logout.php"><i class="fa fa-sign-out"></i> Cerrar Sesi&oacute;n</a>'.
-                    '</div>';
+            ob_start();
+            include ('inc/partials/item-session.php');
+            $html = ob_get_contents();
+            ob_end_clean();
+
         } else {
 
-            $html .= '<div class="header__top__right__auth">
-                <a href="#" onclick="formToggle();"><i class="fa fa-user"></i> Ingresar</a>
-                <form class="form-login d-none" id="js-formx-login">
-                    <div class="form-group">
-                        <label for="usuario">Usuario</label>
-                        <input type="text" name="user" class="form-control user" id="user" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="password">Contrase&ntilde;a</label>
-                        <input type="password" name="pass" class="form-control pass" id="pass" required>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="g-recaptcha" data-sitekey="'.self::SITE_KEY.'"></div>
-                    </div>
-
-                    <div class="form-group">
-                        <input type="submit" class="btn btn-primary" value="Entrar">
-                    </div>
-
-                    <div class="js-login-message"></div>
-                </form>
-            </div>';
+            ob_start();
+            include ('inc/partials/login-form.php');
+            $html = ob_get_contents();
+            ob_end_clean();
         }
 
         return $html;
