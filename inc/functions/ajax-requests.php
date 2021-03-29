@@ -356,6 +356,7 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'operationB
     $title  = (isset($_POST['title']) ? filter_var($_POST['title'], FILTER_SANITIZE_STRING) : null);
     $text   = (isset($_POST['text'])  ? filter_var($_POST['text'], FILTER_SANITIZE_STRING) : null);
     $link   = (isset($_POST['link'])  ? filter_var($_POST['link'], FILTER_SANITIZE_STRING) : null);
+    $small   = (isset($_POST['small'])  ? filter_var($_POST['small'], FILTER_SANITIZE_STRING) : null);
     $id_banner = (isset($_POST['id_banner']) ? filter_var($_POST['id_banner'], FILTER_VALIDATE_INT) : null);
     $response  = 0;
 
@@ -383,6 +384,7 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'operationB
         $banner->title = $title;
         $banner->text = $text;
         $banner->link = $link;
+        $banner->small = $small;
         $banner->insert();
         $banner->closeConnection();
         die('true');
@@ -397,6 +399,7 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'operationB
         $banner->title = $title;
         $banner->text = $text;
         $banner->link = $link;
+        $banner->small = $small;
         $banner->update();
         $banner->closeConnection();
         die('true');

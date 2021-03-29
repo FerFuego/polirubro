@@ -16,6 +16,9 @@
     <td class="text-left">
         <?php echo $banner->link; ?>
     </td>
+    <td class="text-left">
+        <?php echo $banner->small; ?>
+    </td>
     <td class="shoping__cart__item__update text-center">
         <span onclick="getBannerdata(this);" data-ban="<?php echo $banner->Id_banner; ?>" data-toggle="modal" data-target="#bannerModal" class="icon_pencil-edit" title="Editar"></span>
     </td>

@@ -37,6 +37,13 @@
 						<label for="link">Boton Link (opcional)</label>
 						<input type="text" name="link" id="link">
 					</div>
+					<div class="form-group">
+						<label for="link">Es Mini Banner? (opcional)</label>
+						<select name="small" id="small">
+							<option value="No">No</option>
+							<option value="Si">Si</option>
+						</select>
+					</div>
 				</form>
 			</div>
 			<div class="modal-footer">

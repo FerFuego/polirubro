@@ -769,6 +769,7 @@ $(document).ready( function () {
                 formData.append('title', values.title);
                 formData.append('text', values.text);
                 formData.append('link', values.link);
+                formData.append('small', values.small);
         
             jQuery.ajax({
                 cache: false,
@@ -1085,6 +1086,7 @@ function getBannerdata(obj) {
                 $('#title').val(data.title);
                 $('#text').val(data.text);
                 $('#link').val(data.link);
+                $('#small').val(data.small);
 
                 var img = document.getElementById("preview-img");
                 img.src = data.image;

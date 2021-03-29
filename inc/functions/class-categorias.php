@@ -28,7 +28,7 @@ class Categorias {
 
     public function getCategories() {
         $this->obj = new sQuery();
-        $result = $this->obj->executeQuery("SELECT * FROM categorias");
+        $result = $this->obj->executeQuery("SELECT * FROM categorias ORDER BY orden");
         return $result;
     }
 

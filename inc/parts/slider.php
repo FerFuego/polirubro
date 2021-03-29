@@ -4,7 +4,7 @@
             <div class="home__slider owl-banner-carousel owl-carousel">
                 <?php 
                     $banners = new Banners();
-                    $result = $banners->getBanners();
+                    $result = $banners->getBannersSlider();
 
                     while ( $banner = $result->fetch_object() ) : ?>
 
