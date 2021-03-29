@@ -769,8 +769,6 @@ $(document).ready( function () {
                 formData.append('title', values.title);
                 formData.append('text', values.text);
                 formData.append('link', values.link);
-
-                console.log(formData);
         
             jQuery.ajax({
                 cache: false,
@@ -780,7 +778,6 @@ $(document).ready( function () {
                 contentType: false,
                 processData: false,
                 success: function (response) {
-                    console.log(response);
                     if (response == 'true') {
                         location.reload();
                     } else {
@@ -830,6 +827,91 @@ $(document).ready( function () {
                 }
             });
         })
+
+        /*--------------------
+            SET Categ Data
+        ---------------------*/
+        $('#js-form-categ').submit( function (e) {
+
+            e.preventDefault();
+
+            var values = {};
+            var files = false;
+            if ($('#imagePreviewCateg').val()) {
+                var files = $('#imagePreviewCateg')[0].files;
+            }
+
+            $.each($(this).serializeArray(), function(i, field) {
+                values[field.name] = field.value;
+            });
+        
+            var formData = new FormData();
+                formData.append('action', 'operationCateg');
+                formData.append('id_categ', values.id_categ);
+                formData.append('type', values.type);
+                formData.append('order', values.order);
+                formData.append('file', files[0]);
+                formData.append('title', values.title);
+                //formData.append('color', values.color);
+                formData.append('link', values.link);
+        
+            jQuery.ajax({
+                cache: false,
+                url: 'inc/functions/ajax-requests.php',
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response == 'true') {
+                        location.reload();
+                    } else {
+                        toastr.error('Ocurrio un error, por favor recarge la pagina e intente nuevamente.');
+                    }
+                }
+            });
+        })
+
+        /*--------------------
+            Delete Categ
+        ---------------------*/
+        $('.js-form-categ-delete').submit( function (e) {
+
+            e.preventDefault();
+
+            if (!confirm("Seguro desea eliminar la categoria?")){
+                return false;
+            }
+            
+            var values = {};
+            
+            $.each($(this).serializeArray(), function(i, field) {
+                values[field.name] = field.value;
+            });
+
+            $('#item_categ_'+ values.id_item).css('background-color','rgba(255,0,0, .5)'); // Add red background tr
+        
+            var formData = new FormData();
+                formData.append('action', 'operationCateg');
+                formData.append('type', 'delete');
+                formData.append('id_categ', values.id_item);
+        
+            jQuery.ajax({
+                cache: false,
+                url: 'inc/functions/ajax-requests.php',
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response == 'true') {
+                        location.reload();
+                    } else {
+                        toastr.error('Ocurrio un error, por favor recarge la pagina e intente nuevamente.');
+                    }
+                }
+            });
+        })
 });
 
 /*-----------------------
@@ -839,6 +921,18 @@ $("#imagePreview").change(function(e) {
     for (var i = 0; i < e.originalEvent.srcElement.files.length; i++) {
         var file = e.originalEvent.srcElement.files[i];
         var img = document.getElementById("preview-img");
+        var reader = new FileReader();
+        reader.onloadend = function() {
+            img.src = reader.result;
+        }
+        reader.readAsDataURL(file);
+    }
+});
+
+$("#imagePreviewCateg").change(function(e) {
+    for (var i = 0; i < e.originalEvent.srcElement.files.length; i++) {
+        var file = e.originalEvent.srcElement.files[i];
+        var img = document.getElementById("preview-img-categ");
         var reader = new FileReader();
         reader.onloadend = function() {
             img.src = reader.result;
@@ -865,8 +959,25 @@ function cleanModal() {
     Clean Prod Modal
 --------------------*/
 function cleanProdModal() {
-
     $.each($('#js-form-prod').serializeArray(), function(i, field) {
+        $('#'+field.name).val('');
+    });
+}
+
+/*----------------------
+    Clean Banner Modal
+----------------------*/
+function cleanBannerModal() {
+    $.each($('#js-form-banner').serializeArray(), function(i, field) {
+        $('#'+field.name).val('');
+    });
+}
+
+/*----------------------
+    Clean Categ Modal
+----------------------*/
+function cleanCategModal() {
+    $.each($('#js-form-categ').serializeArray(), function(i, field) {
         $('#'+field.name).val('');
     });
 }
@@ -950,7 +1061,7 @@ function getBannerdata(obj) {
     var id_banner = $(obj).attr('data-ban');
     var data;
 
-    cleanModal();
+    cleanBannerModal();
 
     var formData = new FormData();
         formData.append('action', 'dataBanner');
@@ -977,6 +1088,45 @@ function getBannerdata(obj) {
 
                 var img = document.getElementById("preview-img");
                 img.src = data.image;
+            }
+        }
+    });
+}
+
+/*--------------------
+    GET Categ Data
+--------------------*/
+function getCategdata(obj) {
+    var id_categ = $(obj).attr('data-categ');
+    var data;
+
+    cleanCategModal();
+
+    var formData = new FormData();
+        formData.append('action', 'dataCateg');
+        formData.append('id_categ', id_categ );
+    
+    jQuery.ajax({
+        cache: false,
+        url: 'inc/functions/ajax-requests.php',
+        type: 'POST',
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function (response) {
+            if (response == 'false' || response == 'undefines') {
+                toastr.error('Ocurrio un error, por favor recarge la pagina e intente nuevamente.');
+            } else {
+                data = JSON.parse(response);         
+                $('#type_categ').val('edit');
+                $('#id_categ').val(data.id_categ);
+                $('#order_categ').val(data.order);
+                $('#title_categ').val(data.title);
+                //$('#color').val(data.color);
+                $('#link_categ').val(data.link);
+
+                var img = document.getElementById("preview-img-categ");
+                img.src = data.icon;
             }
         }
     });

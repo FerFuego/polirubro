@@ -3,14 +3,14 @@
         <div class="row">
             <div class="categories__slider owl-carousel">
                 <?php 
-                    $rubros = new Rubros();
-                    $result = $rubros->getRubros();
+                    $categs = new Categorias();
+                    $result = $categs->getCategories();
 
                     while( $categ = $result->fetch_object() ) :
                         require 'inc/partials/category-card.php'; 
                     endwhile;
 
-                    $rubros->closeConnection(); ?>
+                    $categs->closeConnection(); ?>
             </div>
         </div>
     </div>

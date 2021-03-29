@@ -2,15 +2,15 @@
 /**
  * Categorias Class
  */
-class Categories {
+class Categorias {
 
-    protected $obj;
     public $id_categ;
     public $order;
     public $title;
     public $icon;
     public $color;
     public $link;
+    protected $obj;
 
     public function __construct($id=0) {
         if ($id != 0) {
@@ -19,7 +19,7 @@ class Categories {
             $row = mysqli_fetch_assoc($result);
             $this->id_categ = $row['id_categ'];
             $this->title = $row['title'];
-            $this->order = $row['order'];
+            $this->order = $row['orden'];
             $this->color = $row['color'];
             $this->icon = $row['icon'];
             $this->link = $row['link'];
@@ -28,21 +28,22 @@ class Categories {
 
     public function getCategories() {
         $this->obj = new sQuery();
-        $result = $this->obj->executeQuery("SELECT * FROM categorias ORDER BY id_order");
+        $result = $this->obj->executeQuery("SELECT * FROM categorias");
         return $result;
     }
 
-    public function insertCategory() {
+    public function insert() {
         $this->obj = new sQuery();
-        $this->obj->executeQuery("INSERT INTO categorias ( title, order, color, icon, link ) VALUES ('$this->title','$this->order','$this->color'.'$this->icon','$this->link')");
+        $result = $this->obj->executeQuery("INSERT INTO categorias (title, orden, color, icon, link) VALUES ('$this->title','$this->order','$this->color','$this->icon','$this->link')");
+        return $result;
     }
 
-    public function updateCategories() {
+    public function update() {
         $this->obj = new sQuery();
-        $this->obj->executeQuery("UPDATE categorias SET title='$this->title', order='$this->order', color='$this->color', icon='$this->icon', link='$this->link' WHERE id_categ='$this->id_categ'");
+        $this->obj->executeQuery("UPDATE categorias SET title='$this->title', orden='$this->order', color='$this->color', icon='$this->icon', link='$this->link' WHERE id_categ='$this->id_categ'");
     }
 
-    public function deleteCategories() {
+    public function delete() {
         $this->obj = new sQuery();
         $this->obj->executeQuery("DELETE FROM categorias WHERE id_categ='$this->id_categ'");
     }

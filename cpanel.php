@@ -35,6 +35,9 @@
                     case 'banners':
                         require_once('inc/parts/cpanel/banners.php');
                         break;
+                    case 'categories':
+                        require_once('inc/parts/cpanel/categories.php');
+                        break;
                     default:
                         require_once('inc/parts/cpanel/default.php');
                         break;
@@ -49,6 +52,7 @@
 <?php require_once('inc/parts/cpanel/modals/modal-clients.php'); ?>
 <?php require_once('inc/parts/cpanel/modals/modal-products.php'); ?>
 <?php require_once('inc/parts/cpanel/modals/modal-banners.php'); ?>
+<?php require_once('inc/parts/cpanel/modals/modal-category.php'); ?>
 <!-- End Modals -->
 
 <!-- Footer Section Begin -->

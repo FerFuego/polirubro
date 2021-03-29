@@ -488,17 +488,35 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'operationC
     }
 }
 
+/**
+ * Request of Data Categ
+ */
+if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'dataCateg') {
+
+    $id_categ = (isset($_POST['id_categ']) ? filter_var($_POST['id_categ'], FILTER_VALIDATE_INT) : null);
+    
+    if ( $id_categ ) {
+        $categ = new Categorias($id_categ);
+        $categ->closeConnection();
+
+        echo json_encode($categ); 
+        die();
+    }
+
+    die('false');
+}
+
 
 /**
  * Request of Set data Banner
  */
-if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'operationBanner') {
+if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'operationCateg') {
 
     $type   = (isset($_POST['type'])  ? filter_var($_POST['type'], FILTER_SANITIZE_STRING) : null);
     $order  = (isset($_POST['order']) ? filter_var($_POST['order'], FILTER_VALIDATE_INT) : null);
     $title  = (isset($_POST['title']) ? filter_var($_POST['title'], FILTER_SANITIZE_STRING) : null);
     $link   = (isset($_POST['link'])  ? filter_var($_POST['link'], FILTER_SANITIZE_STRING) : null);
-    $color   = (isset($_POST['color'])  ? filter_var($_POST['color'], FILTER_SANITIZE_STRING) : null);
+    //$color   = (isset($_POST['color'])  ? filter_var($_POST['color'], FILTER_SANITIZE_STRING) : null);
     $id_categ = (isset($_POST['id_categ']) ? filter_var($_POST['id_categ'], FILTER_VALIDATE_INT) : null);
     $response  = 0;
 
@@ -521,10 +539,10 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'operationB
     }
 
     if ( $type == 'new' ) {
-        $categ = new Categories();
+        $categ = new Categorias();
         $categ->title = $title;
         $categ->order = $order;
-        $categ->color = $color;
+        $categ->color = NULL;
         $categ->icon = $response;
         $categ->link = $link;
         $categ->insert();
@@ -533,13 +551,13 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'operationB
     }
 
     if ( $type == 'edit' ) {
-        $categ = new Categories($id_categ);
+        $categ = new Categorias($id_categ);
         if ( $response !== 0 ) {
             $categ->icon = $response;
         }
         $categ->order = $order;
         $categ->title = $title;
-        $categ->color = $color;
+        $categ->color = NULL;
         $categ->link = $link;
         $categ->update();
         $categ->closeConnection();
@@ -547,7 +565,7 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'operationB
     }
 
     if ( $type == 'delete' ) {
-        $categ = new Categories($id_categ);
+        $categ = new Categorias($id_categ);
         $categ->delete();
         $categ->closeConnection();
         die('true');
