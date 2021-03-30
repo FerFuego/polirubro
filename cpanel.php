@@ -20,7 +20,7 @@
 
         <?php require_once('inc/parts/cpanel/sidebar.php'); ?>
         
-        <div class="col-9">
+        <div class="col-xs-12 col-sm-9">
             <?php
                 switch ($opcion) {
                     case 'importar':

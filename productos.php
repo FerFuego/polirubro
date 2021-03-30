@@ -72,7 +72,7 @@
 
                 <div class="filter__item">
                     <div class="row">
-                        <div class="col-lg-4 col-md-5">
+                        <div class="col-lg-4 col-md-5 d-none d-sm-block">
                             <form id="form-order-prod" class="d-flex justify-content-around" method="GET">
                                 <input type="hidden" name="id_rubro" value="<?php echo $id_rubro; ?>">
                                 <input type="hidden" name="id_subrubro" value="<?php echo $id_subrubro; ?>">

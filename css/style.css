@@ -952,6 +952,12 @@ ol {
   right: -220px;
   width: 220px;
 }
+@media (max-width: 768px) {
+  .hero__categories ul li .sublist {
+    right: 0;
+    z-index: 30;
+  }
+}
 .hero__categories ul li .sublist a {
   font-size: 16px;
   line-height: 39px;
@@ -980,6 +986,12 @@ ol {
   margin-top: -40px;
   right: -200px;
   width: 200px;
+}
+@media (max-width: 768px) {
+  .hero__categories ul li .lastlist {
+    right: 0;
+    z-index: 20;
+  }
 }
 .hero__categories ul li .lastlist a {
   padding-left: 15px;
@@ -3274,10 +3286,10 @@ ol {
   }
 
   .humberger__menu__wrapper {
-    width: 300px;
+    width: 345px;
     background: #ffffff;
     position: fixed;
-    left: -300px;
+    left: -345px;
     top: 0;
     height: 100%;
     overflow-y: auto;
@@ -3564,10 +3576,10 @@ ol {
   }
 
   .humberger__menu__wrapper {
-    width: 300px;
+    width: 345px;
     background: #ffffff;
     position: fixed;
-    left: -300px;
+    left: -345px;
     top: 0;
     height: 100%;
     overflow-y: auto;

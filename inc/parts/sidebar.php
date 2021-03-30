@@ -24,11 +24,11 @@
                 <?php if ( isset($minamount) || isset($maxamount) ) : ?>
                     <p class="mt-3 mb-0 text-success">Filtrado de $<?php echo $minamount; ?> a $<?php echo $maxamount; ?>.-</p>
                 <?php endif; ?>
-                
+
             </div>
         </div>
     </div>
-    <div class="sidebar__item">
+    <div class="sidebar__item d-none d-sm-block">
         <h4>Categorias</h4>
         <ul>
             <?php 
@@ -120,7 +120,7 @@
 
         if ( $results->num_rows > 0 ) : ?>
 
-            <div class="sidebar__item">
+            <div class="sidebar__item d-none d-sm-block">
                 <div class="latest-product__text">
                     <h4>Ultimos Productos</h4>
                     <div class="latest-product__slider owl-carousel">

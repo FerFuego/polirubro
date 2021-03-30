@@ -126,6 +126,12 @@
                 margin-top: -40px;
                 right: -220px;
                 width: 220px;
+
+                @media (max-width: 768px) {
+                    right: 0;
+                    z-index: 30;
+                }
+
                 a {
                     font-size: 16px;
                     line-height: 39px;
@@ -157,6 +163,12 @@
                 margin-top: -40px;
                 right: -200px;
                 width: 200px;
+
+                @media (max-width: 768px) {
+                    right: 0;
+                    z-index: 20;
+                }
+
                 a {
                     padding-left: 15px;
                     &:hover {
