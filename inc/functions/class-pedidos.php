@@ -89,6 +89,7 @@ class Pedidos {
 
     public function sumTotalCart($totalParcial) {
         $this->totalFinal = $this->totalFinal + $totalParcial;
+        return $this->totalFinal;
     }
 
     public function insertPedido(Usuarios $user) {
