@@ -1,6 +1,6 @@
 <div class="row">
 
-    <div class="col-4">
+    <div class="col-xs col-sm-4">
         <div class="card text-white bg-danger mb-3" style="max-width: 18rem;">
             <div class="card-body">
                 <h5 class="card-title">Cantidad de Productos</h5>
@@ -10,7 +10,7 @@
         </div>
     </div>
 
-    <div class="col-4">
+    <div class="col-xs col-sm-4">
         <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
             <div class="card-body">
                 <h5 class="card-title">Pedidos Abiertos</h5>
@@ -20,7 +20,7 @@
         </div>
     </div>
 
-    <div class="col-4">
+    <div class="col-xs col-sm-4">
         <div class="card text-white bg-info mb-3" style="max-width: 18rem;">
             <div class="card-body">
                 <h5 class="card-title">Cantidad de Clientes</h5>

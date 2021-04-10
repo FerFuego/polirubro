@@ -29,6 +29,31 @@
                 <!-- Breadcrumb Section End -->
             </div>
             <div class="col-lg-9 col-md-7">
+                <div class="col-lg-12">
+                    <?php if ((isset($_GET['id_rubro']) && $_GET['id_rubro'] != '') || 
+                            (isset($_GET['id_subrubro']) && $_GET['id_subrubro'] != '') ||
+                            (isset($_GET['id_subrubro']) && $_GET['id_grupo'] != '')) : ?>
+                        <h4>Filtrado por: 
+                            <span class="mt-3 mb-0 text-success" style="font-size: 18px;">
+
+                                <?php if ( isset($_GET['id_rubro']) && $_GET['id_rubro'] != '') : 
+                                    $rubro = new Rubros($_GET['id_rubro']); ?>
+                                    <a href="productos.php?id_rubro=<?php echo $rubro->id_rubro; ?>" class="text-success"><?php echo $rubro->nombre; ?></a>
+                                <?php endif; ?>
+
+                                <?php if ( isset($_GET['id_subrubro']) && $_GET['id_subrubro'] != '') : 
+                                    $subrubro = new Subrubros($_GET['id_subrubro']); ?>
+                                    / <a href="productos.php?id_rubro=<?php echo $rubro->id_rubro; ?>&id_subrubro=<?php echo $subrubro->id_subrubro; ?>" class="text-success"><?php echo $subrubro->nombre; ?></a>
+                                <?php endif; ?>
+
+                                <?php if ( isset($_GET['id_grupo']) && $_GET['id_grupo'] != '') :
+                                    $grupo = new Grupos($_GET['id_grupo']); ?>
+                                    <?php echo ' / ' . $grupo->nombre; ?>
+                                <?php endif; ?>
+                            </span>
+                        </h4>
+                    <?php endif; ?>
+                </div>
 
                 <?php 
                     if ( $search != '') {
@@ -47,7 +72,7 @@
 
                 <div class="filter__item">
                     <div class="row">
-                        <div class="col-lg-4 col-md-5">
+                        <div class="col-lg-4 col-md-5 d-none d-sm-block">
                             <form id="form-order-prod" class="d-flex justify-content-around" method="GET">
                                 <input type="hidden" name="id_rubro" value="<?php echo $id_rubro; ?>">
                                 <input type="hidden" name="id_subrubro" value="<?php echo $id_subrubro; ?>">
@@ -65,7 +90,7 @@
                             </form>
                         </div>
                         <div class="col-lg-8 col-md-7">
-                            <div class="filter__found">
+                            <div class="filter__found mt-1">
                                 <h6 class="text-right"><span><?php echo $result['total']; ?></span> Productos encontrados</h6>
                             </div>
                         </div>

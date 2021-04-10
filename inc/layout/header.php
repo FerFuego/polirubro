@@ -16,7 +16,7 @@
 
     <nav class="humberger__menu__nav mobile-menu">
         <ul>
-            <li class="<?php echo (Polirubro::normalize_title() === '')? 'active':''?>"><a href="./">Inicio</a></li>
+            <li class="<?php echo (Polirubro::normalize_title() === '')? 'active':''?>"><a href="./">Home</a></li>
             <li class="<?php echo (Polirubro::normalize_title() === 'Nosotros')? 'active':''?>"><a href="./nosotros.php">Nosotros</a></li>
             <li class="<?php echo (Polirubro::normalize_title() === 'Productos')? 'active':''?>"><a href="./productos.php">Productos</a></li>
             <?php if ( isset($_SESSION["id_user"]) ) : ?>
@@ -24,7 +24,12 @@
             <?php endif; ?>
             <li class="<?php echo (Polirubro::normalize_title() === 'Contacto')? 'active':''?>"><a href="./contacto.php">Contacto</a></li>
             <?php if ( Polirubro::is_Admin() ) : ?>
-                <li class="<?php echo (Polirubro::normalize_title() === 'CPanel')? 'active':''?>"><a href="./cpanel.php">Administrador</a></li>
+                <li><a href="cpanel.php" class="<?php echo (!isset($opcion) || $opcion == '') ? 'active' : '';?> item">Dashboard</a></li>
+                <li><a href="cpanel.php?opcion=importar" class="<?php echo (isset($opcion) && $opcion == 'importar') ? 'active' : '';?> item">Importar Productos</a></li>
+                <li><a href="cpanel.php?opcion=productos" class="<?php echo (isset($opcion) && $opcion == 'productos') ? 'active' : '';?> item">Gestion de Productos</a></li>
+                <li><a href="cpanel.php?opcion=clientes" class="<?php echo (isset($opcion) && $opcion == 'clientes') ? 'active' : '';?> item">Gestion de Clientes</a></li>
+                <li><a href="cpanel.php?opcion=banners" class="<?php echo (isset($opcion) && $opcion == 'banners') ? 'active' : '';?> item">Gestion de Banners</a></li>
+                <li><a href="cpanel.php?opcion=categories" class="<?php echo (isset($opcion) && $opcion == 'categories') ? 'active' : '';?> item">Gestion de Categorias</a></li>
             <?php endif; ?>
         </ul>
     </nav>

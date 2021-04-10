@@ -22,7 +22,7 @@
 <div class="container mt-5 mb-5">
     <div class="row">
 
-        <div class="col-6">
+        <div class="col-xs-12 col-sm-6">
             <h2>Acerca de Nosotros</h2><hr>
             <p>Somos una empresa muy joven que nació con el sueño de realizar el trabajo que más le gustaba a Miguel... ser vendedor...
             Pero este sueño fue transformándose en una realidad, y esta se encargó de ir marcándonos un camino... el de crecer a medida que nuestros clientes lo necesitaban, tratando de cubrir sus necesidades.
@@ -32,7 +32,7 @@
             Si... porque día a día trabajamos dando lo mejor de nosotros, y luchando por seguir mejorando, sabiendo que nos falta mucho por corregir y aprender, pero lo hacemos con la tranquilidad de que ponemos el corazón en este negocio, porque amamos lo que hacemos y tenemos muy claro que sin USTED todo es imposible.</p>
         </div>
 
-        <div class="col-6">
+        <div class="col-xs-12 col-sm-6">
             <img class="mt-5 pt-3 pb-3" src="img/empresa.jpg" alt="nosotros">
         </div>
 

@@ -1,4 +1,4 @@
-<div class="sidebar sidebar-cpanel col-3">
+<div class="sidebar sidebar-cpanel col-3 d-none d-sm-block">
     <div class="sidebar-container">
         <div class="sidebar__item text-center pt-3">
             <h3 class="text-white">Panel de Control</h3>
