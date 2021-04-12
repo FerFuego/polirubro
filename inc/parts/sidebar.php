@@ -1,44 +1,53 @@
 <div class="sidebar">
     <div class="sidebar__item">
-        <h4>Categorias</h4>
-        <ul>
-            <li><a href="#">ART EMBALAJE REGALOS</a></li>
-            <li><a href="#">BAZAR</a></li>
-            <li><a href="#">BIJOUTERIE</a></li>
-            <li><a href="#">FERRETERIA</a></li>
-            <li><a href="#">FLETE</a></li>
-            <li><a href="#">JUGUETES</a></li>
-            <li><a href="#">JUGUETES GRANDES</a></li>
-            <li><a href="#">KIOSCO</a></li>
-            <li><a href="#">LIBRERIA</a></li>
-            <li><a href="#">LIBRERIA - ACCESORIO</a></li>
-            <li><a href="#">NAVIDAD</a></li>
-            <li><a href="#">OFERTAS</a></li>
-            <li><a href="#">PELUCHES</a></li>
-            <li><a href="#">REGALERIA IMPORTADA</a></li>
-            <li><a href="#">RESMAS</a></li>
-            <li><a href="#">ROPA INTERIOR</a></li>
-            <li><a href="#">TEXTIL</a></li>
-        </ul>
-    </div>
-    <div class="sidebar__item">
         <h4>Precio</h4>
         <div class="price-range-wrap">
             <div class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"
-                data-min="10" data-max="540">
+                data-min="10" data-max="10000">
                 <div class="ui-slider-range ui-corner-all ui-widget-header"></div>
                 <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
                 <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
             </div>
             <div class="range-slider">
-                <div class="price-input">
-                    <input type="text" id="minamount">
-                    <input type="text" id="maxamount">
-                </div>
+                <form class="d-flex justify-content-around" method="GET">
+                    <input type="hidden" name="id_rubro" value="<?php echo $id_rubro; ?>">
+                    <input type="hidden" name="id_subrubro" value="<?php echo $id_subrubro; ?>">
+                    <input type="hidden" name="id_grupo" value="<?php echo $id_grupo; ?>">
+                    <input type="hidden" name="order" value="<?php echo $order; ?>">
+                    <div class="price-input">
+                        <input type="text" name="minamount" id="minamount" value="<?php echo $minamount; ?>">
+                        <input type="text" name="maxamount" id="maxamount" value="<?php echo $maxamount; ?>">
+                    </div>
+                    <input type="submit" class="site-btn-min" value="Filtrar">
+                </form>
+
+                <?php if ( isset($minamount) || isset($maxamount) ) : ?>
+                    <p class="mt-3 mb-0 text-success">Filtrado de $<?php echo $minamount; ?> a $<?php echo $maxamount; ?>.-</p>
+                <?php endif; ?>
+
             </div>
         </div>
     </div>
-    <div class="sidebar__item sidebar__item__color--option">
+    <div class="sidebar__item d-none d-sm-block">
+        <h4>Categorias</h4>
+        <ul>
+            <?php 
+                $rubros = new Rubros();
+                $result = $rubros->getRubros();
+
+                while ( $rubro = $result->fetch_object() ) : ?>
+                    <li>
+                        <a href="productos.php?id_rubro=<?php echo $rubro->Id_Rubro; ?>" id="<?php echo $rubro->Id_Rubro; ?>" data-rubro="<?php echo $rubro->Id_Rubro; ?>" class="item sublistCTA">
+                            <?php echo $rubro->Nombre; ?>
+                            <span></span>
+                        </a>
+                        <div class="sublist"></div>
+                    </li>
+            <?php endwhile; 
+                $rubros->closeConnection(); ?>
+        </ul>
+    </div>
+    <!-- <div class="sidebar__item sidebar__item__color--option">
         <h4>Colores</h4>
         <div class="sidebar__item__color sidebar__item__color--white">
             <label for="white">
@@ -76,7 +85,7 @@
                 <input type="radio" id="green">
             </label>
         </div>
-    </div>
+    </div> -->
     <!-- <div class="sidebar__item">
         <h4>Popular Size</h4>
         <div class="sidebar__item__size">
@@ -104,69 +113,28 @@
             </label>
         </div>
     </div> -->
-    <div class="sidebar__item">
-        <div class="latest-product__text">
-            <h4>Ultimos Productos</h4>
-            <div class="latest-product__slider owl-carousel">
-                <div class="latest-prdouct__slider__item">
-                    <a href="#" class="latest-product__item">
-                        <div class="latest-product__item__pic">
-                            <img src="img/product/product-5.jpg" alt="">
-                        </div>
-                        <div class="latest-product__item__text">
-                            <h6>Crab Pool Security</h6>
-                            <span>$30.00</span>
-                        </div>
-                    </a>
-                    <a href="#" class="latest-product__item">
-                        <div class="latest-product__item__pic">
-                            <img src="img/product/product-6.jpg" alt="">
-                        </div>
-                        <div class="latest-product__item__text">
-                            <h6>Crab Pool Security</h6>
-                            <span>$30.00</span>
-                        </div>
-                    </a>
-                    <a href="#" class="latest-product__item">
-                        <div class="latest-product__item__pic">
-                            <img src="img/product/product-7.jpg" alt="">
-                        </div>
-                        <div class="latest-product__item__text">
-                            <h6>Crab Pool Security</h6>
-                            <span>$30.00</span>
-                        </div>
-                    </a>
-                </div>
-                <div class="latest-prdouct__slider__item">
-                    <a href="#" class="latest-product__item">
-                        <div class="latest-product__item__pic">
-                            <img src="img/product/product-5.jpg" alt="">
-                        </div>
-                        <div class="latest-product__item__text">
-                            <h6>Crab Pool Security</h6>
-                            <span>$30.00</span>
-                        </div>
-                    </a>
-                    <a href="#" class="latest-product__item">
-                        <div class="latest-product__item__pic">
-                            <img src="img/product/product-6.jpg" alt="">
-                        </div>
-                        <div class="latest-product__item__text">
-                            <h6>Crab Pool Security</h6>
-                            <span>$30.00</span>
-                        </div>
-                    </a>
-                    <a href="#" class="latest-product__item">
-                        <div class="latest-product__item__pic">
-                            <img src="img/product/product-7.jpg" alt="">
-                        </div>
-                        <div class="latest-product__item__text">
-                            <h6>Crab Pool Security</h6>
-                            <span>$30.00</span>
-                        </div>
-                    </a>
+
+    <?php
+        $news = new Productos();
+        $results = $news->getProductNews(10);
+
+        if ( $results->num_rows > 0 ) : ?>
+
+            <div class="sidebar__item d-none d-sm-block">
+                <div class="latest-product__text">
+                    <h4>Ultimos Productos</h4>
+                    <div class="latest-product__slider owl-carousel">
+                        <?php   
+                            while ( $product = $results->fetch_object() ) :
+                                require 'inc/partials/sidebar-card.php';
+                            endwhile;
+
+                            $news->closeConnection();
+                        ?>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
+
+    <?php endif; ?>
+
 </div>

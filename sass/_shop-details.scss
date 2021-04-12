@@ -28,7 +28,7 @@
 
     h3 {
         color: $heading-color-2;
-        font-weight: 700;
+        font-weight: 600;
         margin-bottom: 16px;
     }
 
@@ -52,6 +52,13 @@
         color: #dd2222;
         font-weight: 600;
         margin-bottom: 15px;
+    }
+
+    .product__details__note {
+        border: 1px solid #dee2e6;
+        height: 100px;
+        width: 375px;
+        margin-bottom: 10px;
     }
 
     p {
@@ -84,7 +91,7 @@
             line-height: 36px;
 
             b {
-                font-weight: 700;
+                font-weight: 600;
                 width: 170px;
                 display: inline-block;
             }
@@ -187,7 +194,7 @@
             a {
                 font-size: 16px;
                 color: #999999;
-                font-weight: 700;
+                font-weight: 600;
                 border: none;
                 border-top-left-radius: 0;
                 border-top-right-radius: 0;
@@ -200,7 +207,7 @@
         padding-top: 44px;
 
         h6 {
-            font-weight: 700;
+            font-weight: 600;
             color: #333333;
             margin-bottom: 26px;
         }

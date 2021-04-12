@@ -7,7 +7,7 @@
 }
 
 .product__discount {
-    padding-bottom: 50px;
+    padding-top: 80px;
 }
 
 .product__discount__title {
@@ -131,7 +131,7 @@
     .product__item__price {
         font-size: 18px;
         color: $normal-color;
-        font-weight: 700;
+        font-weight: 600;
 
         span {
             display: inline-block;
@@ -176,7 +176,6 @@
 
 .filter__item {
     padding-top: 45px;
-    border-top: 1px solid $border;
     padding-bottom: 20px;
 }
 
@@ -201,7 +200,7 @@
         padding-right: 30px;
         font-size: 16px;
         color: $normal-color;
-        font-weight: 700;
+        font-weight: 600;
         cursor: pointer;
 
         span {
@@ -249,7 +248,7 @@
 
         span {
             color: $normal-color;
-            font-weight: 700;
+            font-weight: 600;
             margin-right: 5px;
         }
     }
@@ -278,6 +277,22 @@
 
 .product__item {
     margin-bottom: 50px;
+    border: 1px solid #ebebeb;
+
+    .product__code {
+        background-color: #7fad39;
+        position: absolute;
+        left: 0;
+        top: 5px;
+        padding: 0 12px;
+        h5 {
+            font-size: 16px;
+            color: #fff;
+            font-weight: 600;
+            line-height: 33px;
+            text-align: center;
+        }
+    }
 
     &:hover {
 
@@ -287,6 +302,13 @@
                 bottom: 20px;
             }
         }
+    }
+
+    span {
+        font-size: 14px;
+        color: #b2b2b2;
+        display: block;
+        margin-bottom: 4px;
     }
 }
 
@@ -362,7 +384,7 @@
 
     h5 {
         color: $heading-color-2;
-        font-weight: 700;
+        font-weight: 600;
     }
 }
 
@@ -376,7 +398,7 @@
         border: 1px solid #b2b2b2;
         font-size: 14px;
         color: #b2b2b2;
-        font-weight: 700;
+        font-weight: 600;
         line-height: 28px;
         text-align: center;
         margin-right: 16px;
@@ -391,5 +413,11 @@
         &:last-child {
             margin-right: 0;
         }
+    }
+
+    a.active {
+        background: $primary-color;
+        border-color: $primary-color;
+        color: $white-color;
     }
 }

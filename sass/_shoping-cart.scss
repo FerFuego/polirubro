@@ -21,7 +21,7 @@
 
             th {
                 font-size: 20px;
-                font-weight: 700;
+                font-weight: 600;
                 color: $normal-color;
                 padding-bottom: 20px;
 
@@ -36,8 +36,8 @@
             tr {
 
                 td {
-                    padding-top: 30px;
-                    padding-bottom: 30px;
+                    padding-top: 15px;
+                    padding-bottom: 15px;
                     border-bottom: 1px solid $border;
 
                     &.shoping__cart__item {
@@ -58,15 +58,35 @@
                     &.shoping__cart__price {
                         font-size: 18px;
                         color: $normal-color;
-                        font-weight: 700;
+                        font-weight: 600;
                         width: 100px;
+                    }
+
+                    &.shoping__cart__note {
+                        font-size: 18px;
+                        color: $normal-color;
+                        font-weight: 600;
+                        width: 200px;
+                        textarea {
+                            border: 1px solid #ebebeb;
+                        }
                     }
 
                     &.shoping__cart__total {
                         font-size: 18px;
                         color: $normal-color;
-                        font-weight: 700;
+                        font-weight: 600;
                         width: 110px;
+                    }
+
+                    &.shoping__cart__item__update {
+                        text-align: right;
+
+                        span {
+                            font-size: 16px;
+                            color: #b2b2b2;
+                            cursor: pointer;
+                        }
                     }
 
                     &.shoping__cart__item__close {
@@ -127,7 +147,7 @@
     h5 {
         font-size: 20px;
         color: $normal-color;
-        font-weight: 700;
+        font-weight: 600;
         margin-bottom: 25px;
     }
 
@@ -165,7 +185,7 @@
 
     h5 {
         color: $normal-color;
-        font-weight: 700;
+        font-weight: 600;
         font-size: 20px;
         margin-bottom: 28px;
     }
@@ -176,7 +196,7 @@
         li {
             font-size: 16px;
             color: $normal-color;
-            font-weight: 700;
+            font-weight: 600;
             list-style: none;
             overflow: hidden;
             border-bottom: 1px solid $border;

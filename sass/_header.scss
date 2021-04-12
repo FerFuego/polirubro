@@ -47,6 +47,9 @@
 .header__top__right {
     text-align: right;
     padding: 10px 0 13px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
 }
 
 .header__top__right__social {
@@ -147,21 +150,45 @@
 }
 
 .header__top__right__auth {
-    display: inline-block;
+    display: flex;
+    align-items: center;
+
+    strong {
+        position: relative;
+        padding-right: 13px;
+        &::after {
+            position: absolute;
+            right: -20px;
+            top: 1px;
+            height: 20px;
+            width: 1px;
+            background: #000000;
+            opacity: 0.1;
+            content: "";
+            margin-right: 15px;
+            margin-left: 15px;
+        }
+    }
 
     a {
         display: block;
+        padding-left: 21px;
         font-size: 14px;
         color: $normal-color;
 
         i {
             margin-right: 6px;
         }
+
     }
 }
 
 .header__logo {
     padding: 15px 0;
+
+    @media (max-width: 768px) {
+        width: 80%;
+    }
 
     a {
         display: inline-block;
@@ -176,7 +203,7 @@
         li {
             list-style: none;
             display: inline-block;
-            margin-right: 50px;
+            margin-right: 35px;
             position: relative;
 
             .header__menu__dropdown {
@@ -239,7 +266,7 @@
                 font-size: 14px;
                 color: $heading-color-2;
                 text-transform: uppercase;
-                font-weight: 700;
+                font-weight: 600;
                 letter-spacing: 2px;
                 @include transition(all, .3s);
                 padding: 5px 0;
@@ -268,6 +295,7 @@
 
             a {
                 position: relative;
+                color: #000000;
 
                 i {
                     font-size: 18px;
@@ -282,7 +310,7 @@
                     color: $white-color;
                     line-height: 13px;
                     text-align: center;
-                    font-weight: 700;
+                    font-weight: 300;
                     display: inline-block;
                     border-radius: 50%;
                     position: absolute;
@@ -300,7 +328,7 @@
 
         span {
             color: $heading-color-2;
-            font-weight: 700;
+            font-weight: 600;
         }
     }
 }
@@ -311,4 +339,30 @@
 
 .humberger__open {
     display: none;
+}
+
+.form-login {
+    background-color: $white-color;
+    box-shadow: 3px 3px 5px #e6e7e8;
+    position: absolute;
+    width: 344px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    right: 0;
+    top: 40px;
+    z-index: 2;
+
+    @media (max-width: 768px) {
+        max-width: 100%;
+    }
+
+    .form-group {
+        width: 100%;
+        input {
+            width: 100%;
+        }
+    }
 }
