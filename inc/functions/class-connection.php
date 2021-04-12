@@ -9,10 +9,10 @@ class Connection {
     
 	function __construct() {	
 
-		$con['server']="localhost"; 
-        $con['base']="polirubro";	
-		$con['user']="root"; 
-		$con['pass']="X28activada";	
+		$con['server']=""; 
+        $con['base']="";	
+		$con['user']=""; 
+		$con['pass']="";	
         
 		$result = new mysqli($con['server'], $con['user'], $con['pass'], $con['base']);
         
