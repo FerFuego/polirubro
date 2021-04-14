@@ -101,10 +101,10 @@ class Productos {
 
     public static function getImage($CodProducto) {
 
-        if (file_exists("../fotos/".$CodProducto.".JPG")) {
-            $img = "../fotos/".$CodProducto.".JPG";
-        } elseif (file_exists("../fotos/".$CodProducto.".jpg")) {
-            $img = "../fotos/".$CodProducto.".jpg";
+        if (file_exists("./fotos/".$CodProducto.".JPG")) {
+            $img = "./fotos/".$CodProducto.".JPG";
+        } elseif (file_exists("./fotos/".$CodProducto.".jpg")) {
+            $img = "./fotos/".$CodProducto.".jpg";
         } else {
             $img = "img/sin-imagen.jpg";
         }

@@ -22,6 +22,26 @@
             <h6><a href="detalle.php?id=<?php echo $product->CodProducto; ?>"><?php echo $product->Nombre; ?></a></h6>
             <?php if ( isset($_SESSION["id_user"]) ) : ?>
                 <span><?php echo 'Precio Lista: $ '. number_format($product->PreVtaFinal1, 2,',','.'); ?></span>
+
+                <form class="js-form-cart">
+                    <input type="hidden" name="id_product" value="<?php echo $product->Id_Producto; ?>">
+                    <input type="hidden" name="cod_product" value="<?php echo $product->CodProducto; ?>">
+                    <input type="hidden" name="name_product" value="<?php echo $product->Nombre; ?>">
+                    <input type="hidden" name="price_product" value="<?php echo $product->PreVtaFinal1; ?>">
+                    <div>
+                        <textarea type="text" name="nota" class="product__details__note" placeholder="Agregar Nota"></textarea>
+                    </div>
+
+                    <div class="product__details__quantity">
+                        <div class="quantity">
+                            <div class="pro-qty">
+                                <input type="number" name="cant" min="1" max="99999" value="1"> 
+                            </div>
+                        </div>
+                    </div>
+
+                    <input type="submit" class="primary-btn mb-2" value="AGREGAR AL CARRITO">
+                </form>
             <?php endif; ?>
         </div>
     </div>

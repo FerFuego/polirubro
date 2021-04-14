@@ -6,9 +6,11 @@
                     $categs = new Categorias();
                     $result = $categs->getCategories();
 
-                    while( $categ = $result->fetch_object() ) :
-                        require 'inc/partials/category-card.php'; 
-                    endwhile;
+                    if ( $result ) :
+                        while( $categ = $result->fetch_object() ) :
+                            require 'inc/partials/category-card.php'; 
+                        endwhile;
+                    endif;
 
                     $categs->closeConnection(); ?>
             </div>
