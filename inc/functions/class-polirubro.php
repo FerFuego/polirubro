@@ -82,11 +82,11 @@ Class Polirubro {
         $total = 0;
         
         // Construyo el Cuerpo del Mail.
-        $body = "<h2>Pedido Web Polirrubros Garro</h2>
-                <p align='center'><strong>Polirrubros de Miguel Garro</strong><br>
-                Pasaje Bujados 173 - 2550 Bell Ville, Córdoba<br>
-                Tel.: (03537) 410102 - E-Mail: 
-                <a href='mailto:info@polirrubrosgarro.com.ar'>info@polirrubrosgarro.com.ar</a>
+        $body = "<h2>Pedido Web Nuestro Polirrubros</h2>
+                <p align='center'><strong>Nuestro Polirrubros de Alejandra Barzabal</strong><br>
+                Sargento Cabral 234 - 2550 Bell Ville, C&oacute;rdoba<br>
+                Tel.: (03537) 410102 | WhatsApp: 3537-536991 | E-Mail: 
+                <a href='mailto:nuestropoli@gmail.com'>nuestropoli@gmail.com</a>
                 </p>
                 <p align='left'>
                 <strong>Pedido</strong>: ".$id_pedido."
@@ -145,7 +145,7 @@ Class Polirubro {
         $smtpHost = "hu000235.ferozo.com";  // Dominio alternativo brindado en el email de alta 
         $smtpUsuario = "web@polirrubrosgarro.com.ar";  // Mi cuenta de correo
         $smtpClave = "DLG*nTf2fG";  // Mi contraseña
-        $nombre = "Web Polirrubros Garro";
+        $nombre = "Web Nuestro Polirrubros";
         
         // Email donde se enviaran los datos cargados en el formulario de contacto
         $emailDestino = "info@polirrubrosgarro.com.ar";

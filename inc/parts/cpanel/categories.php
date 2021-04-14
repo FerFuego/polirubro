@@ -19,7 +19,7 @@
                 $categories = new Categorias();
                 $results = $categories->getCategories();
 
-                if ( $results->num_rows > 0 ) :
+                if ( $results ) :
                     while ( $categ = $results->fetch_object() ) :
                         require 'inc/partials/cpanel/item-category.php';
                     endwhile;
