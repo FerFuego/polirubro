@@ -417,9 +417,11 @@ $(document).ready( function () {
                     $('.js-login-message').html('<small class="text-success">Agregado al carrito!</small>');
                     $("#js-dynamic-cart").load( $(location).attr("href") + ' #js-data-cart' );
                     toastr.success('Agregado al carrito!');
+                } else if (response == 'exist') {
+                    toastr.error('El producto ya existe en el Carrito');
                 } else {
                     $('.js-login-message').html('<small class="text-danger">Ocurrio un error, por favor recarge la pagina e intente nuevamente.</small>');
-                    toastr.success('Ocurrio un error, por favor recarge la pagina e intente nuevamente.');
+                    toastr.error('Ocurrio un error, por favor recarge la pagina e intente nuevamente.');
                     
                 }
             }

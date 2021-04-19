@@ -69,6 +69,12 @@ class Detalles {
         return $result->num_rows;
     }
 
+    public function verifyDetalle($Id_Pedido, $CodProducto) {
+        $this->obj = new sQuery();
+        $result = $this->obj->executeQuery("SELECT * FROM PEDIDOS_DETA WHERE (Id_Pedido='$Id_Pedido') AND (CodProducto='$CodProducto')");
+        return $result;
+    }
+
     public function insertDetalle() {
         $this->obj = new sQuery();
         $this->obj->executeQuery("INSERT INTO PEDIDOS_DETA ( Id_Pedido, Id_Producto, CodProducto, Nombre, PreVtaFinal1, Cantidad, ImpTotal, Notas) VALUES ('$this->Id_Pedido','$this->Id_Producto','$this->CodProducto','$this->Nombre','$this->PreVtaFinal1','$this->Cantidad','$this->ImpTotal','$this->Notas')");
