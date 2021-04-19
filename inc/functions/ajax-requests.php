@@ -124,7 +124,14 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'insertProd
 
     endif;
 
+    // Verificar existencia de pedido
     if ( $result['Id_Pedido'] < 1 ) die('false');
+
+    // Verificar existencia en carrito
+    $verify = new Detalles();
+    $verifyResult = $verify->verifyDetalle($result['Id_Pedido'], $cod_product);
+    if ( $verifyResult->num_rows > 0 ) die('exist');
+    $verify->closeConnection();
     
     $detail = new Detalles();
     $detail->Id_Pedido = $result['Id_Pedido'];
