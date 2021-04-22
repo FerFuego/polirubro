@@ -101,7 +101,7 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'insertProd
     $id_product = (isset($_POST['id_product']) ? filter_var($_POST['id_product'], FILTER_VALIDATE_INT) : null);
     $note    = (isset($_POST['nota']) ? filter_var($_POST['nota'], FILTER_SANITIZE_STRING) : null);
     $cant    = (isset($_POST['cant']) ? filter_var($_POST['cant'], FILTER_VALIDATE_INT) : null);
-    $cod_product = (isset($_POST['cod_product']) ? filter_var($_POST['cod_product'], FILTER_VALIDATE_INT) : null);
+    $cod_product = (isset($_POST['cod_product']) ? filter_var($_POST['cod_product'], FILTER_SANITIZE_STRING) : null);
     $name_product = (isset($_POST['name_product']) ? filter_var($_POST['name_product'], FILTER_SANITIZE_STRING) : null);
     $price_product = (isset($_POST['price_product']) ? filter_var($_POST['price_product'], FILTER_SANITIZE_STRING) : null);
 
@@ -289,7 +289,7 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'operationC
  */
 if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'dataProduct') {
 
-    $cod_product = (isset($_POST['cod_product']) ? filter_var($_POST['cod_product'], FILTER_VALIDATE_INT) : null);
+    $cod_product = (isset($_POST['cod_product']) ? filter_var($_POST['cod_product'], FILTER_SANITIZE_STRING) : null);
     
     if ( $cod_product ) {
         $prod = new Productos($cod_product);
