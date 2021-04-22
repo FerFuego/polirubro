@@ -25,11 +25,11 @@
             <?php 
                 if ( $search != '') {
                     $productos = new Productos();
-                    $result    = $productos->getProductSearch($search);
+                    $result    = $productos->getProductSearch($opcion, $search);
                     $productos->closeConnection();
                 } else {
                     $productos = new Productos();
-                    $result    = $productos->getProducts($id_rubro, $id_subrubro, $id_grupo, $minamount, $maxamount, $order);
+                    $result    = $productos->getProducts($opcion, $id_rubro, $id_subrubro, $id_grupo, $minamount, $maxamount, $order);
                     $productos->closeConnection();
                 }
 

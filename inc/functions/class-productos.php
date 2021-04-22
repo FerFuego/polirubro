@@ -70,7 +70,7 @@ class Productos {
     public function getNombre(){ return $this->nombre; }
     public function PreVtaFinal1(){ return $this->precio_venta_final_1; }
 
-    public function getProducts($id_rubro, $id_subrubro, $id_grupo, $minamount, $maxamount, $order){
+    public function getProducts($opcion, $id_rubro, $id_subrubro, $id_grupo, $minamount, $maxamount, $order){
 
         $where = '1=1';
         $where .= ( $id_rubro ) ? ' AND Id_Rubro='. $id_rubro : '';
@@ -87,7 +87,7 @@ class Productos {
         $result = [
             'total' => $this->obj->getResultados(),
             'query' => $query,
-            'params' => 'id_rubro='.$id_rubro.'&id_subrubro='.$id_subrubro.'&id_grupo='.$id_grupo. (($minamount && $maxamount) ? '&minamount='.$minamount.'&maxamount='.$maxamount : '') . (($order) ? '&order='.$order : '')
+            'params' => ($opcion ? 'opcion='. $opcion .'&' : null).'id_rubro='.$id_rubro.'&id_subrubro='.$id_subrubro.'&id_grupo='.$id_grupo. (($minamount && $maxamount) ? '&minamount='.$minamount.'&maxamount='.$maxamount : '') . (($order) ? '&order='.$order : '')
         ];
 
         return $result;
@@ -112,7 +112,7 @@ class Productos {
         return $img;
     }
 
-    public function getProductSearch($search) {
+    public function getProductSearch($opcion, $search) {
 
         $query = "SELECT * FROM productos WHERE Nombre LIKE '%$search%' OR CodProducto LIKE '%$search%'";
 
@@ -122,7 +122,7 @@ class Productos {
         $result = [
             'total' => $this->obj->getResultados(),
             'query' => $query,
-            'params' => 's='.$search
+            'params' => ($opcion ? 'opcion='. $opcion .'&' : null).'s='.$search
         ];
 
         return $result;
