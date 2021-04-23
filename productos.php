@@ -58,11 +58,11 @@
                 <?php 
                     if ( $search != '') {
                         $productos = new Productos();
-                        $result    = $productos->getProductSearch($search);
+                        $result    = $productos->getProductSearch(null, $search);
                         $productos->closeConnection();
                     } else {
                         $productos = new Productos();
-                        $result    = $productos->getProducts($id_rubro, $id_subrubro, $id_grupo, $minamount, $maxamount, $order);
+                        $result    = $productos->getProducts(null, $id_rubro, $id_subrubro, $id_grupo, $minamount, $maxamount, $order);
                         $productos->closeConnection();
                     }
 
