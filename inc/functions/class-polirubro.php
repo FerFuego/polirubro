@@ -9,6 +9,8 @@ Class Polirubro {
 
     public function __construct() {
 
+        date_default_timezone_set('America/Argentina/Buenos_Aires');
+        
         require('autoload.php');
 
         $this->getItemsSession();
@@ -142,14 +144,19 @@ Class Polirubro {
 
     public function sendMail($id_pedido, $user, $cuerpo) {
         // Datos de la cuenta de correo utilizada para enviar vía SMTP
+        //$smtpHost = "hu000235.ferozo.com";  // Dominio alternativo brindado en el email de alta 
+        //$smtpUsuario = "web@polirrubrosgarro.com.ar";  // Mi cuenta de correo
+        //$smtpClave = "DLG*nTf2fG";  // Mi contraseña
+        //$nombre = "Web Nuestro Polirrubros";
+
         $smtpHost = "hu000235.ferozo.com";  // Dominio alternativo brindado en el email de alta 
-        $smtpUsuario = "web@polirrubrosgarro.com.ar";  // Mi cuenta de correo
-        $smtpClave = "DLG*nTf2fG";  // Mi contraseña
+        $smtpUsuario = "pedidos@nuestropolirrubros.com.ar";  // Mi cuenta de correo
+        $smtpClave = "k@HKlQe2xT";
         $nombre = "Web Nuestro Polirrubros";
         
-        // Email donde se enviaran los datos cargados en el formulario de contacto
-        $emailDestino = "info@polirrubrosgarro.com.ar";
-        
+        $emailDestino = "pedidos@nuestropolirrubros.com.ar";
+        $emailDestino2 = "nuestropoli@gmail.com";
+
         $mail = new PHPMailer();
         $mail->IsSMTP();
         $mail->SMTPAuth = true;
@@ -164,9 +171,10 @@ Class Polirubro {
         $mail->From = $smtpUsuario; // Email desde donde envío el correo.
         $mail->FromName = $nombre;
         $mail->AddAddress($emailDestino); // Copia para el vendedor.
+        $mail->AddAddress($emailDestino2); // Copia 2 para el vendedor.
         $mail->AddAddress($user->getMail()); // Copia para el cliente.
         $mail->AddReplyTo($emailDestino); // Esto es para que al recibir el correo y poner Responder, lo haga a la cuenta del vendedor.
-        $mail->Subject = "Web Polirrubros - Pedido: ".$id_pedido; // Este es el titulo del email.
+        $mail->Subject = "Nuestro Polirrubros - Pedido: ".$id_pedido; // Este es el titulo del email.
         $mail->Body = "{$cuerpo}"; // Texto del email en formato HTML
         //$mail->AltBody = "{$mensaje} \n\n Formulario de ejemplo Web Polirrubros"; // Texto sin formato HTML
         
@@ -199,6 +207,21 @@ Class Polirubro {
         return $result; 
     }
 
+    public static function checkUserCapabilities() {
+
+        // Usuario no logueado
+        if (!isset($_SESSION["Id_Cliente"])) {
+            return false;
+        }
+
+        // Usuario solo ve precios
+        if ($_SESSION["Id_Cliente"] == 1) {
+            return false;
+        }
+
+        // Usuario permitido
+        return true;
+    }
 }
 
 new Polirubro;

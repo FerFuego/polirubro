@@ -14,6 +14,7 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'actionLogi
     $pass = (isset($_POST['pass']) ? filter_var($_POST['pass'], FILTER_SANITIZE_STRING) : null);
     $recaptcha = (isset($_POST['g-recaptcha-response']) ? $_POST['g-recaptcha-response'] : null);
     $login = 'false';
+    $updated = false;
 
     $request = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".Polirubro::GOOGLE_API."&response=".$recaptcha."&remoteip=".$_SERVER['REMOTE_ADDR']);
     $response = json_decode($request);
@@ -42,7 +43,21 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'actionLogi
         endwhile;
     endif;
 
-    echo $login;
+    if ( $login == 'true' ) :
+        $order = new Pedidos();
+        $result = $order->getPedidoAbierto($_SESSION["Id_Cliente"]);
+        if ( $result['num_rows'] > 0 ) :
+            $updated = $order->ActualizarPedido($result['Id_Pedido']);
+        endif;
+        $order->closeConnection(); 
+    endif;
+
+    $data = [
+        'login' => $login,
+        'updated' => $updated
+    ];
+
+    echo json_encode($data);
     die();
 }
 
@@ -104,6 +119,8 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'insertProd
     $cod_product = (isset($_POST['cod_product']) ? filter_var($_POST['cod_product'], FILTER_SANITIZE_STRING) : null);
     $name_product = (isset($_POST['name_product']) ? filter_var($_POST['name_product'], FILTER_SANITIZE_STRING) : null);
     $price_product = (isset($_POST['price_product']) ? filter_var($_POST['price_product'], FILTER_SANITIZE_STRING) : null);
+
+    if (!isset($_SESSION["Id_Cliente"]) || $_SESSION["Id_Cliente"] == 0) die('false');
 
     $order = new Pedidos();
     $result = $order->getPedidoAbierto($_SESSION["Id_Cliente"]);
@@ -195,6 +212,8 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'deleteProd
 if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'finallyOrder') {
 
     $id_pedido = (isset($_POST['id_pedido']) ? filter_var($_POST['id_pedido'], FILTER_VALIDATE_INT) : null);
+    
+    if (!isset($_SESSION["Id_Cliente"]) || $_SESSION["Id_Cliente"] == 0) die('false');
 
     $order = new Pedidos($id_pedido);
     $order->FechaFin = date("Y-m-d");
@@ -582,4 +601,24 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'operationC
     }
 
     die('false');
+}
+
+/**
+ * Request of Update Cart
+ */
+if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'updateCart') {
+    
+    $Id_Pedido = isset($_POST['Id_Pedido']) ? filter_var($_POST['Id_Pedido'], FILTER_VALIDATE_INT) : null;
+    
+    if ( $Id_Pedido ) :
+        $order = new Pedidos();
+        $result = $order->getPedidoAbierto($_SESSION["Id_Cliente"]);
+        if ( $result['num_rows'] > 0 ) :
+            $updated = $order->ActualizarPedido($Id_Pedido);
+        endif;
+        $order->closeConnection(); 
+    endif;
+    
+    echo json_encode($updated);
+    die();
 }
