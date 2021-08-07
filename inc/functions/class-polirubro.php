@@ -144,18 +144,14 @@ Class Polirubro {
 
     public function sendMail($id_pedido, $user, $cuerpo) {
         // Datos de la cuenta de correo utilizada para enviar vía SMTP
-        //$smtpHost = "hu000235.ferozo.com";  // Dominio alternativo brindado en el email de alta 
-        //$smtpUsuario = "web@polirrubrosgarro.com.ar";  // Mi cuenta de correo
-        //$smtpClave = "DLG*nTf2fG";  // Mi contraseña
-        //$nombre = "Web Nuestro Polirrubros";
 
-        $smtpHost = "hu000235.ferozo.com";  // Dominio alternativo brindado en el email de alta 
-        $smtpUsuario = "pedidos@nuestropolirrubros.com.ar";  // Mi cuenta de correo
-        $smtpClave = "k@HKlQe2xT";
+        $smtpHost = "";  // Dominio alternativo brindado en el email de alta 
+        $smtpUsuario = "";  // Mi cuenta de correo
+        $smtpClave = "";
         $nombre = "Web Nuestro Polirrubros";
         
-        $emailDestino = "pedidos@nuestropolirrubros.com.ar";
-        $emailDestino2 = "nuestropoli@gmail.com";
+        $emailDestino = "";
+        $emailDestino2 = "";
 
         $mail = new PHPMailer();
         $mail->IsSMTP();
