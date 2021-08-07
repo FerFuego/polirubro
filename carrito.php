@@ -72,7 +72,7 @@
                 <div class="col-lg-12">
                     <div class="shoping__cart__btns">
                         <a href="/productos.php" class="primary-btn cart-btn">CONTINUAR COMPRANDO</a>
-                        <a href="/carrito.php" class="primary-btn cart-btn cart-btn-right">
+                        <a href="javascript:void(0);" onclick="updateCart(<?php echo $result['Id_Pedido']; ?>);" class="primary-btn cart-btn cart-btn-right">
                             <span class="icon_loading"></span>
                             Actualizar Carrito
                         </a>

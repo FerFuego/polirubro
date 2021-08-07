@@ -92,6 +92,44 @@ class Pedidos {
         return $this->totalFinal;
     }
 
+    public function ActualizarPedido($Id_Pedido){
+        
+        $deleted = 0;
+        $updated = 0;
+
+        $items = new Detalles();
+        $results = $items->getDetallesPedido($Id_Pedido);
+        
+        if ( $results->num_rows > 0 ) :
+            while ( $detalle = $results->fetch_object() ) :
+                $producto = new Productos($detalle->CodProducto);
+                if ( null !== $producto->cod_producto ) {
+                    if ( $producto->precio_venta_final_1 !== $detalle->PreVtaFinal1 ) :
+                        $items->ActualizarPrecio($Id_Pedido, $detalle->CodProducto, $producto->precio_venta_final_1);
+                        $updated++;
+                    endif;
+                } else {
+                    $d = new Detalles();
+                    $d->Auto = $detalle->Auto;
+                    $d->deleteDetalle();
+                    $d->closeConnection();
+                    $deleted++;
+                }
+                $producto->closeConnection();
+            endwhile;
+        endif;
+        
+        $items->closeConnection(); 
+
+        $data = [
+            'deleted' => $deleted,
+            'updated' => $updated
+        ];
+
+        return $data;           
+    }
+
+
     public function insertPedido(Usuarios $user) {
 
         $this->obj = new sQuery();

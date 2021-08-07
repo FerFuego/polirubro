@@ -21,7 +21,7 @@ class Detalles {
         if ($id != 0) {
             
             $this->obj = new sQuery();
-            $result = $this->obj->executeQuery("SELECT * FROM PEDIDOS_DETA WHERE Id_Pedido = '$id'");
+            $result = $this->obj->executeQuery("SELECT * FROM PEDIDOS_DETA WHERE 'Auto' = '$id'");
             $row = mysqli_fetch_assoc($result);
     
             $this->Auto = $row['Auto'];
@@ -73,6 +73,11 @@ class Detalles {
         $this->obj = new sQuery();
         $result = $this->obj->executeQuery("SELECT * FROM PEDIDOS_DETA WHERE (Id_Pedido='$Id_Pedido') AND (CodProducto='$CodProducto')");
         return $result;
+    }
+
+    public function ActualizarPrecio($Id_Pedido, $CodProducto, $PreVtaFinal1) {
+        $this->obj = new sQuery();
+        $this->obj->executeQuery("UPDATE PEDIDOS_DETA SET PreVtaFinal1 = $PreVtaFinal1, ImpTotal = (Cantidad * $PreVtaFinal1)  WHERE (Id_Pedido='$Id_Pedido') AND (CodProducto='$CodProducto')");
     }
 
     public function insertDetalle() {

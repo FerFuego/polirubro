@@ -365,17 +365,31 @@ $(document).ready( function () {
                 $('.js-login-message').html('<p>Validando...</p>');
             },
             success: function (response) {
-                if (response == 'true') {
-                    $('.js-login-message').html('<small class="text-success">Usuario Validado, Redireccionando...</small>');
-                    location.reload();
-                } else if (response == 'admin') {
-                    $('.js-login-message').html('<small class="text-success">Usuario Validado, Redireccionando...</small>');
-                    location.href = 'cpanel.php';
-                } else if (response == 'Captcha Incorrecto!') {
-                    $('.js-login-message').html('<small class="text-danger">'+response+'</small>');
-                } else {
-                    $('.js-login-message').html('<small class="text-danger">Usuario o contrseña Incorrecto!</small>');
+
+                var data = JSON.parse(response);
+                toastr.success('Pedido Actualizado Correctamente.');
+
+                if (data.updated.updated > 0) {
+                    toastr.info(data.updated.updated + ' Productos Actualizados');
                 }
+                
+                if (data.updated.deleted > 0) {
+                    toastr.info(data.updated.deleted + ' Productos Eliminados');
+                }
+
+                setTimeout(function () {
+                    if (data.login == 'true') {
+                        $('.js-login-message').html('<small class="text-success">Usuario Validado, Redireccionando...</small>');
+                        location.reload();
+                    } else if (data.login == 'admin') {
+                        $('.js-login-message').html('<small class="text-success">Usuario Validado, Redireccionando...</small>');
+                        location.href = 'cpanel.php';
+                    } else if (data.login == 'Captcha Incorrecto!') {
+                        $('.js-login-message').html('<small class="text-danger">'+data.login+'</small>');
+                    } else {
+                        $('.js-login-message').html('<small class="text-danger">Usuario o contrseña Incorrecto!</small>');
+                    }
+                }, 3000);
             }
         });
     })
@@ -1131,6 +1145,44 @@ function getCategdata(obj) {
 
                 var img = document.getElementById("preview-img-categ");
                 img.src = data.icon;
+            }
+        }
+    });
+}
+
+/*--------------------
+    Update Cart
+--------------------*/
+function updateCart(obj) {
+    var formData = new FormData();
+        formData.append('action', 'updateCart');
+        formData.append('Id_Pedido', obj );
+    
+    jQuery.ajax({
+        cache: false,
+        url: 'inc/functions/ajax-requests.php',
+        type: 'POST',
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function (response) {
+            if (response == 'false' || response == 'undefined') {
+                toastr.error('Ocurrio un error, por favor recarge la pagina e intente nuevamente.');
+            } else {
+                var data = JSON.parse(response); 
+                toastr.success('Pedido Actualizado Correctamente.');
+
+                if (data.updated > 0) {
+                    toastr.info(data.updated + ' Productos Actualizados');
+                }
+
+                if (data.deleted > 0) {
+                    toastr.info(data.deleted + ' Productos Eliminados');
+                }
+
+                setTimeout(function() {
+                    location.reload();
+                }, 3000);
             }
         }
     });
