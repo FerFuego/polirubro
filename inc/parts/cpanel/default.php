@@ -1,5 +1,5 @@
-<div class="row">
-
+<!-- Resumen Boxes -->
+<div class="row col-xs-12 col-sm-8">
     <div class="col-xs col-sm-4">
         <div class="card text-white bg-danger mb-3" style="max-width: 18rem;">
             <div class="card-body">
@@ -29,10 +29,11 @@
             </div>
         </div>
     </div>
-    
 </div>
+<!-- End Resumen Boxes -->
 
-<div class="row mt-5">
+<!-- Form Configuration -->
+<div class="row mt-5 col-xs-12 col-sm-8">
     <?php $general = new Configuracion(); ?>
     <div class="col-12">
         <h2>Datos Generales</h2><hr>
@@ -100,8 +101,10 @@
         </form>
     </div>
 </div>
+<!-- End Form Configuration -->
 
-<div class="row mt-5">
+<!-- Historic Orders -->
+<div class="row mt-5 col-xs-12 col-sm-8">
     <table class="table table-bordered table-striped ml-3 mr-3">
         <thead>
             <tr class="bg-dark text-white">
@@ -133,3 +136,4 @@
         </tbody>
     </table>
 </div>
+<!-- End Historic Orders -->

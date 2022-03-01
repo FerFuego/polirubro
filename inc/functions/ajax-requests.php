@@ -233,6 +233,50 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'finallyOrd
 }
 
 /**
+ * Request of Finally Order Admin
+ */
+if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'finallyOrderAdmin') {
+
+    $id_pedido = (isset($_POST['id_pedido']) ? filter_var($_POST['id_pedido'], FILTER_VALIDATE_INT) : null);
+    
+    if (!isset($_SESSION["Id_Cliente"]) || $_SESSION["Id_Cliente"] == 0) die('false');
+
+    $order = new Pedidos($id_pedido);
+    $order->FechaFin = date("Y-m-d");
+    $order->Cerrado = 1;
+    $order->finalizarPedido();
+    $order->closeConnection();
+    
+    /* 
+    // Send main to client
+    $user = new Usuarios($_SESSION["Id_Cliente"]);
+
+    $data = new Polirubro();
+    $body = $data->getBodyEmail($id_pedido, $user);
+    $data->sendMail($id_pedido, $user, $body);
+    $user->closeConnection(); 
+    */
+    die('true');
+}
+
+/**
+ * Request of Delete Order Admin
+ */
+if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'deleteOrderAdmin') {
+
+    $Id_Pedido = (isset($_POST['Id_Pedido']) ? filter_var($_POST['Id_Pedido'], FILTER_VALIDATE_INT) : null);
+    
+    try {
+        $categ = new Pedidos($Id_Pedido);
+        $categ->delete();
+        $categ->closeConnection();
+        die('true');
+    } catch (Exception $e) {
+        return $e;
+    }
+}
+
+/**
  * Request of Data Client
  */
 if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'dataClient') {
@@ -535,7 +579,6 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'dataCateg'
     die('false');
 }
 
-
 /**
  * Request of Set data Banner
  */
@@ -609,16 +652,39 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'operationC
 if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'updateCart') {
     
     $Id_Pedido = isset($_POST['Id_Pedido']) ? filter_var($_POST['Id_Pedido'], FILTER_VALIDATE_INT) : null;
-    
+    $data = "<div>No se encontró el pedido</div>";
+
     if ( $Id_Pedido ) :
         $order = new Pedidos();
         $result = $order->getPedidoAbierto($_SESSION["Id_Cliente"]);
         if ( $result['num_rows'] > 0 ) :
-            $updated = $order->ActualizarPedido($Id_Pedido);
+            $data = $order->ActualizarPedido($Id_Pedido);
         endif;
         $order->closeConnection(); 
     endif;
-    
-    echo json_encode($updated);
+    echo json_encode($data);
+    die();
+}
+
+/**
+ * Request of Admin Orders
+ */
+if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'dataOrders') {
+
+    $Id_Pedido = isset($_POST['Id_Pedido']) ? filter_var($_POST['Id_Pedido'], FILTER_VALIDATE_INT) : null;
+    $data = "<div>No se encontró el pedido</div>";
+
+    if ( $Id_Pedido ) : 
+        $pedido = new Pedidos($Id_Pedido);
+        if ( $pedido->Id_Pedido ) :
+            $result = [
+                'Id_Pedido' => $pedido->Id_Pedido,
+                'cpanel'    => true
+            ];
+            $data = require '../../inc/parts/checkout.php';
+        endif;
+        $pedido->closeConnection();
+    endif;
+    echo json_encode($data);
     die();
 }

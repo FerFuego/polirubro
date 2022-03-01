@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-9">
+    <div class="col-sm-12 col-md-6">
         <h2>Importar Productos</h2>
         <form action="/cpanel.php?opcion=importar" method="post" enctype="multipart/form-data" name="frmImportar">
             <div class="form-group">

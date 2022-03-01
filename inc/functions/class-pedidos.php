@@ -3,7 +3,7 @@
  * Pedidos class
  */
 class Pedidos {
-    
+
     public $Id_Pedido;
     public $Id_Cliente;
     public $Nombre;
@@ -21,10 +21,9 @@ class Pedidos {
     public function __construct($id=0) {
 
         if ($id != 0) {
-            
             $this->obj = new sQuery();
             $result = $this->obj->executeQuery("SELECT * FROM PEDIDOS_CABE WHERE Id_Pedido = '$id'");
-            $row = mysqli_fetch_assoc($result);
+            $row    = mysqli_fetch_assoc($result);
 
             $this->Id_Pedido = $row['Id_Pedido'];
             $this->Id_Cliente = $row['Id_Cliente'];
@@ -75,6 +74,43 @@ class Pedidos {
         return $data;
     }
 
+    public function getOrders($opcion) {
+
+        $query = "SELECT * FROM PEDIDOS_CABE ORDER BY Id_Pedido DESC";
+
+        $this->obj = new sQuery();
+        $this->obj->executeQuery($query);
+
+        $result = [
+            'total' => $this->obj->getResultados(),
+            'query' => $query,
+            'params' => 'opcion=' . $opcion
+        ];
+
+        return $result;
+    }
+
+    public function getOrdersSearch($opcion, $search) {
+
+        $where = '1=1';
+        $where .= ( $search == 'activos' ) ? ' AND Cerrado=0' : '';
+        $where .= ( $search !== 'activos' ) ? ' AND Nombre LIKE "%'.$search.'%"' : '';
+        $where .= ( $search !== 'activos' ) ? ' OR Id_Pedido LIKE "%'.$search.'%"' : '';
+
+        $query = "SELECT * FROM PEDIDOS_CABE WHERE $where ORDER BY Id_Pedido DESC";
+
+        $this->obj = new sQuery();
+        $result = $this->obj->executeQuery($query);
+
+        $result = [
+            'total' => $this->obj->getResultados(),
+            'query' => $query,
+            'params' => ($opcion ? 'opcion='. $opcion .'&' : null).'s='.$search
+        ];
+
+        return $result;
+    }
+
     public function getCountOpenPedidos(){
         $this->obj = new sQuery();
         $this->obj->executeQuery("SELECT * FROM PEDIDOS_CABE WHERE Cerrado = 0");
@@ -85,6 +121,12 @@ class Pedidos {
         $this->obj = new sQuery();
         $result = $this->obj->executeQuery("SELECT MONTH(FechaIni) mes, YEAR(FechaIni) ano, COUNT(*) total FROM PEDIDOS_CABE WHERE YEAR(FechaIni) = YEAR(CURDATE()) AND Cerrado = 1 GROUP BY MONTH(FechaIni), YEAR(FechaIni) ORDER BY YEAR(FechaIni), MONTH(FechaIni) DESC");
         return $result;
+    }
+
+    public function getPedidoTotal($Id_Pedido) {
+        $this->obj = new sQuery();
+        $result = $this->obj->executeQuery("SELECT PC.Id_Pedido, PC.Id_Cliente, PC.Nombre, PC.Localidad, PC.Mail, PC.Usuario, PC.FechaIni, PC.FechaFin, PC.Cerrado, SUM(PD.ImpTotal) as Total FROM PEDIDOS_CABE as PC, PEDIDOS_DETA AS PD WHERE (PC.Id_Pedido = '$Id_Pedido') AND (PD.Id_Pedido = '$Id_Pedido')");
+        return $result->fetch_object();
     }
 
     public function sumTotalCart($totalParcial) {
@@ -129,7 +171,6 @@ class Pedidos {
         return $data;           
     }
 
-
     public function insertPedido(Usuarios $user) {
 
         $this->obj = new sQuery();
@@ -146,6 +187,12 @@ class Pedidos {
 
         $this->obj = new sQuery();
         $result = $this->obj->executeQuery("UPDATE PEDIDOS_CABE SET FechaFin = '$this->FechaFin', Cerrado = '$this->Cerrado' WHERE (Id_Cliente = $this->Id_Cliente) AND (Id_Pedido = $this->Id_Pedido) AND (Cerrado = 0)");
+    }
+
+    public function delete () { 
+        $this->obj = new sQuery();
+        $this->obj->executeQuery("DELETE FROM PEDIDOS_CABE WHERE Id_Pedido = '$this->Id_Pedido'");
+        $this->obj->executeQuery("DELETE FROM PEDIDOS_DETA WHERE Id_Pedido = '$this->Id_Pedido'");
     }
 
     public function closeConnection(){

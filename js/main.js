@@ -548,6 +548,38 @@ $(document).ready( function () {
         });
     })
 
+    /*---------------------------
+        Finally Order Admin Btn
+    ----------------------------*/
+    $('.js-finally-order-admin').click( function (e) {
+
+        e.preventDefault();
+
+        var id_pedido = $(this).attr('data-ord');
+    
+        var formData = new FormData();
+            formData.append('action', 'finallyOrderAdmin');
+            formData.append('id_pedido', id_pedido );
+    
+        jQuery.ajax({
+            cache: false,
+            url: 'inc/functions/ajax-requests.php',
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                if (response == 'true') {
+                    $('#item_order_'+id_pedido).css('background-color','rgba(#7fad39, .5)'); // Add green background
+                    toastr.success('El Pedido finalizado!');
+                    location.reload();
+                } else {
+                    toastr.error('Ocurrio un error, por favor recarge la pagina e intente nuevamente.');
+                }
+            }
+        });
+    })
+
     /*--------------------------
         Update Configuration
     ----------------------------*/
@@ -929,6 +961,46 @@ $(document).ready( function () {
                 }
             });
         })
+
+        /*--------------------
+            Delete Order
+        ---------------------*/
+        $('.js-form-order-delete').submit( function (e) {
+
+            e.preventDefault();
+
+            if (!confirm("Seguro desea eliminar el pedido?")){
+                return false;
+            }
+            
+            var values = {};
+            
+            $.each($(this).serializeArray(), function(i, field) {
+                values[field.name] = field.value;
+            });
+
+            $('#item_order_'+values.id_item).css('background-color','rgba(255,0,0, .5)'); // Add red background tr
+        
+            var formData = new FormData();
+                formData.append('action', 'deleteOrderAdmin');
+                formData.append('Id_Pedido', values.id_item);
+        
+            jQuery.ajax({
+                cache: false,
+                url: 'inc/functions/ajax-requests.php',
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response == 'true') {
+                        location.reload();
+                    } else {
+                        toastr.error('Ocurrio un error, por favor recarge la pagina e intente nuevamente.');
+                    }
+                }
+            });
+        })
 });
 
 /*-----------------------
@@ -1183,6 +1255,35 @@ function updateCart(obj) {
                 setTimeout(function() {
                     location.reload();
                 }, 3000);
+            }
+        }
+    });
+}
+
+/*--------------------
+    GET Order Data
+--------------------*/
+function getOrderData(obj) {
+    var Id_Pedido = $(obj).attr('data-order');
+    var content = document.getElementById("contentOrderDetail");
+        content.innerHTML = '';
+
+    var formData = new FormData();
+        formData.append('action', 'dataOrders');
+        formData.append('Id_Pedido', Id_Pedido );
+    
+    jQuery.ajax({
+        cache: false,
+        url: 'inc/functions/ajax-requests.php',
+        type: 'POST',
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function (response) {
+            if (response == 'false' || response == 'undefines') {
+                toastr.error('Ocurrio un error, por favor recarge la pagina e intente nuevamente.');
+            } else {
+                content.innerHTML = response;
             }
         }
     });

@@ -1,7 +1,7 @@
 <?php require_once('inc/layout/head.php'); ?>
 
 <!-- Verify Admin -->
-<?php if ( ! Polirubro::is_Admin()) {
+<?php if ( ! Polirubro::is_Admin() ) {
     $host = $_SERVER['HTTP_HOST'];
     $page = 'index.php';
     $url = "http://$host/$page";
@@ -15,12 +15,12 @@
 <!-- Header Section End -->
 
 <!-- Cart Section Begin -->
-<section class="cpanel container mt-5 mb-5">
+<section class="cpanel container-fluid mt-5 mb-5">
     <div class="row">
 
         <?php require_once('inc/parts/cpanel/sidebar.php'); ?>
         
-        <div class="col-xs-12 col-sm-9">
+        <div class="col-xs-12 col-lg-10">
             <?php
                 switch ($opcion) {
                     case 'importar':
@@ -38,6 +38,9 @@
                     case 'categories':
                         require_once('inc/parts/cpanel/categories.php');
                         break;
+                    case 'pedidos':
+                        require_once('inc/parts/cpanel/orders.php');
+                        break;
                     default:
                         require_once('inc/parts/cpanel/default.php');
                         break;
@@ -49,10 +52,13 @@
 <!-- Cart Section End -->
 
 <!-- Modals -->
-<?php require_once('inc/parts/cpanel/modals/modal-clients.php'); ?>
-<?php require_once('inc/parts/cpanel/modals/modal-products.php'); ?>
-<?php require_once('inc/parts/cpanel/modals/modal-banners.php'); ?>
-<?php require_once('inc/parts/cpanel/modals/modal-category.php'); ?>
+<?php 
+    require_once('inc/parts/cpanel/modals/modal-clients.php');
+    require_once('inc/parts/cpanel/modals/modal-products.php');
+    require_once('inc/parts/cpanel/modals/modal-banners.php');
+    require_once('inc/parts/cpanel/modals/modal-category.php');
+    require_once('inc/parts/cpanel/modals/modal-orders.php');
+?>
 <!-- End Modals -->
 
 <!-- Footer Section Begin -->
