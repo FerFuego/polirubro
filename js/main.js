@@ -1288,3 +1288,52 @@ function getOrderData(obj) {
         }
     });
 }
+
+/*--------------------
+    Send Contact
+--------------------*/
+$('#js-contact-form').submit(sendContact);
+
+function sendContact() {
+
+    event.preventDefault();
+
+    var data = ['name','email','state','locality','address','phone','message'];
+
+    for (var i = 0; i < data.length; i++) {
+        if ($('#'+data[i]).val() == '') {
+            $('#control_'+ data[i]).html('<p class="text-danger">Completa este campo</p>');
+            toastr.error('Todos los campos son obligatorios.');
+            return false;
+        } else {
+            $('#control_'+ data[i]).html('');
+        }
+    }
+
+    var formData = new FormData();
+        formData.append('action',   'sendContact');
+        formData.append('name',     $('#name').val() );
+        formData.append('email',    $('#email').val() );
+        formData.append('state',    $('#state').val() );
+        formData.append('locality', $('#locality').val() );
+        formData.append('address',  $('#address').val() );
+        formData.append('phone',    $('#phone').val() );
+        formData.append('message',  $('#message').val() );
+    
+    jQuery.ajax({
+        cache: false,
+        url: 'inc/functions/ajax-requests.php',
+        type: 'POST',
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function (response) {
+            if (response == 'false' || response == 'undefined') {
+                toastr.error('Ocurrio un error, por favor recarge la pagina e intente nuevamente.');
+            } else {
+                toastr.success('Mensaje Enviado Correctamente.');
+                $('#js-contact-form')[0].reset();
+            }
+        }
+    });
+}

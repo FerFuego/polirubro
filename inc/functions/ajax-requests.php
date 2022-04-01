@@ -688,3 +688,38 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'dataOrders
     echo json_encode($data);
     die();
 }
+
+/**
+ * Contact Form
+ */
+if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'sendContact') {
+
+    $name    = (isset($_POST['name'])       ? filter_var($_POST['name'],    FILTER_SANITIZE_STRING) : null);
+    $email   = (isset($_POST['email'])      ? filter_var($_POST['email'],   FILTER_SANITIZE_EMAIL)  : null);
+    $message = (isset($_POST['message'])    ? filter_var($_POST['message'], FILTER_SANITIZE_STRING) : null);
+    $state   = (isset($_POST['state'])      ? filter_var($_POST['state'],   FILTER_SANITIZE_STRING) : null);      
+    $locality = (isset($_POST['locality'])  ? filter_var($_POST['locality'], FILTER_SANITIZE_STRING) : null);
+    $address = (isset($_POST['address'])    ? filter_var($_POST['address'], FILTER_SANITIZE_STRING) : null);
+    $phone   = (isset($_POST['phone'])      ? filter_var($_POST['phone'],   FILTER_SANITIZE_STRING) : null);
+
+    if ( $name && $email && $message ) {
+        $contact = new Contact();
+        $contact->nombre = $name;
+        $contact->mail = $email;
+        $contact->provincia = $state;
+        $contact->localidad = $locality;
+        $contact->direccion = $address;
+        $contact->telefono = $phone;
+        $contact->comentario = $message;
+        $contact->ip = $_SERVER['REMOTE_ADDR'];
+        $contact->fecha = date('Y-m-d');
+        $contact->hora = date('H:i:s');
+        $contact->insert();
+        $result = $contact->send();
+        $contact->closeConnection();
+
+        die($result);
+    }
+
+    die('false');
+} 
