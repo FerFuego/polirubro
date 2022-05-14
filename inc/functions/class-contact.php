@@ -55,19 +55,21 @@ class Contact {
     }
 
     public function send() {
+        
         $smtpHost = "";  // Dominio alternativo brindado en el email de alta 
         $smtpUsuario = "";  // Mi cuenta de correo
         $smtpClave = "";
-        $nombre = "Web Nuestro Polirrubros";
+        $nombre = "";
         
-        $emailDestino = "nuestropoli@gmail.com";
-        $emailDestino2 = "ferc_vcp@hotmail.com";
-
+        $emailDestino = "";
+        $emailDestino2 = "";
+        
         $mail = new PHPMailer();
         $mail->IsSMTP();
         $mail->SMTPAuth = true;
         $mail->Port = 587; 
         $mail->IsHTML(true); 
+        $mail->SMTPDebug = 2;
         $mail->CharSet = "utf-8";
         
         $mail->Host = $smtpHost; 
@@ -79,7 +81,6 @@ class Contact {
         $mail->AddAddress($emailDestino); // Copia para el vendedor.
         $mail->AddReplyTo($emailDestino2); // Copia 2 para el vendedor.
         //$mail->AddAddress($user->getMail()); // Copia para el cliente.
-        //$mail->AddReplyTo($emailDestino); // Esto es para que al recibir el correo y poner Responder, lo haga a la cuenta del vendedor.
         //$mail->AltBody = "{$mensaje} \n\n Formulario de ejemplo Web Polirrubros"; // Texto sin formato HTML
         $mail->Subject = "Nuestro Polirrubros - Contacto desde la web"; // Este es el titulo del email.
         $mail->Body = " 

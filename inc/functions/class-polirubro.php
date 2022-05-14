@@ -143,8 +143,7 @@ Class Polirubro {
     }
 
     public function sendMail($id_pedido, $user, $cuerpo) {
-        // Datos de la cuenta de correo utilizada para enviar vía SMTP
-
+        
         $smtpHost = "";  // Dominio alternativo brindado en el email de alta 
         $smtpUsuario = "";  // Mi cuenta de correo
         $smtpClave = "";
@@ -152,12 +151,13 @@ Class Polirubro {
         
         $emailDestino = "";
         $emailDestino2 = "";
-
+        
         $mail = new PHPMailer();
         $mail->IsSMTP();
         $mail->SMTPAuth = true;
         $mail->Port = 587; 
         $mail->IsHTML(true); 
+        $mail->SMTPDebug = 2;
         $mail->CharSet = "utf-8";
         
         $mail->Host = $smtpHost; 
@@ -168,7 +168,7 @@ Class Polirubro {
         $mail->FromName = $nombre;
         $mail->AddAddress($emailDestino); // Copia para el vendedor.
         $mail->AddAddress($emailDestino2); // Copia 2 para el vendedor.
-        $mail->AddAddress($user->getMail()); // Copia para el cliente.
+        if ($user->getMail()) $mail->AddAddress($user->getMail()); // Copia para el cliente.
         $mail->AddReplyTo($emailDestino); // Esto es para que al recibir el correo y poner Responder, lo haga a la cuenta del vendedor.
         $mail->Subject = "Nuestro Polirrubros - Pedido: ".$id_pedido; // Este es el titulo del email.
         $mail->Body = "{$cuerpo}"; // Texto del email en formato HTML

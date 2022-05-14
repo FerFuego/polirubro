@@ -177,7 +177,8 @@ class Productos {
     public function importProducts($sql) {
         try {
             $this->obj = new sQuery();
-            $this->obj->executeQuery("TRUNCATE TABLE productos");
+            //$this->obj->executeQuery("TRUNCATE TABLE productos");
+            $this->obj->executeQuery("DELETE FROM `productos` WHERE 1;");
             $this->obj->executeQuery($sql);
             return $this->obj->getResultados();
         } catch (Exception $e) {

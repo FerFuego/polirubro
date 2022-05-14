@@ -536,12 +536,17 @@ $(document).ready( function () {
             data: formData,
             contentType: false,
             processData: false,
+            beforeSend: function (){
+                $('#js-finally-order').html('ENVIANDO...');
+            },
             success: function (response) {
                 if (response == 'true') {
+                    $('#js-finally-order').html('PEDIDO ENVIADO');
                     //$('#js-order-message').html('<h2 class="text-success text-center">El Pedido fue enviado con exito!</h2>');
                     $("#js-dynamic-cart").load( $(location).attr("href") + ' #js-data-cart' );
                     toastr.success('El Pedido fue enviado con exito!');
                 } else {
+                    $('#js-finally-order').html('FINALIZAR PEDIDO');
                     toastr.error('Ocurrio un error, por favor recarge la pagina e intente nuevamente.');
                 }
             }
