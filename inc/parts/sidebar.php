@@ -122,7 +122,7 @@
 
             <div class="sidebar__item d-none d-sm-block">
                 <div class="latest-product__text">
-                    <h4>Ultimos Productos</h4>
+                    <h4>Últimos Productos</h4>
                     <div class="latest-product__slider owl-carousel">
                         <?php   
                             while ( $product = $results->fetch_object() ) :

@@ -59,6 +59,8 @@
                                 <!-- <span>(18 reviews)</span> -->
                             </div>
 
+                            <h4>Cod.: <?php echo $product->getCode(); ?></h4>
+
                             <?php if ( isset($_SESSION["id_user"]) ) : ?>
 
                                 <form class="js-form-cart">
