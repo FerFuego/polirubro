@@ -7,7 +7,7 @@
                 <input type="hidden" name="id_product" value="<?php echo $product->Id_Producto; ?>">
                 <input type="hidden" name="cod_product" value="<?php echo $product->CodProducto; ?>">
                 <input type="hidden" name="name_product" value="<?php echo $product->Nombre; ?>">
-                <input type="hidden" name="price_product" value="<?php echo $product->PreVtaFinal1; ?>">
+                <input type="hidden" name="price_product" value="<?php echo $product->PreVtaFinal1(); ?>">
                 <input type="hidden" name="nota" value="">
                 <input type="hidden" name="cant" value="1"> 
                 <ul class="featured__item__pic__hover">
@@ -20,9 +20,7 @@
         <div class="featured__item__text">
             <span><?php echo $product->Rubro; ?></span>
             <h6><a href="detalle.php?id=<?php echo $product->CodProducto; ?>"><?php echo $product->Nombre; ?></a></h6>
-            <?php if ( isset($_SESSION["id_user"]) ) : ?>
-                <span><?php echo 'Precio Lista: $ '. number_format($product->PreVtaFinal1, 2,',','.'); ?></span>
-            <?php endif; ?>
+            <span><?php echo 'Precio Lista: $ '. number_format($product->PreVtaFinal1(), 2,',','.'); ?></span>
         </div>
     </div>
 </div>

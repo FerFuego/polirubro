@@ -123,7 +123,7 @@ Class Polirubro {
                         <td width='10%' height='20' align='center' valign='middle'><b>".$product->Cantidad."</b></td>
                         <td width='40%' height='20' align='left' valign='middle'>".$product->Nombre."</td>
                         <td width='20%' height='20' align='left' valign='middle'>".$product->Notas."</td>
-                        <td width='10%' height='20' align='right' valign='middle'>".number_format($product->PreVtaFinal1, 2, '.', ',')."</td>
+                        <td width='10%' height='20' align='right' valign='middle'>".number_format($product->PreVtaFinal1(), 2, '.', ',')."</td>
                         <td width='10%' height='20' align='right' valign='middle'>".number_format($product->ImpTotal, 2, '.', ',')."</td>
                         </tr>";
             endwhile;
@@ -203,20 +203,28 @@ Class Polirubro {
         return $result; 
     }
 
-    public static function checkUserCapabilities() {
+    public static function checkUserCapabilities($product) {
 
-        // Usuario no logueado
-        if (!isset($_SESSION["Id_Cliente"])) {
-            return false;
+        $precio  = 0;
+        $config  = new Configuracion();
+        $aumento = $config->getAumento();
+        
+        $user = new Usuarios($_SESSION["Id_Cliente"]);
+        $tipo = $user->getTipo();
+
+        // Usuario logueado
+        if (isset($_SESSION["Id_Cliente"]) && $tipo === 1) {
+            // usuario regulares
+            $precio = $product->PreVtaFinal1();
+        } 
+        
+        // Usuario no logueado o tipo 2
+        if ($aumento) {
+            // aumento %
+            $precio = $product->PreVtaFinal1() + ($product->PreVtaFinal1() * ($aumento / 100));
         }
 
-        // Usuario solo ve precios
-        if ($_SESSION["Id_Cliente"] == 1) {
-            return false;
-        }
-
-        // Usuario permitido
-        return true;
+        return number_format($precio, 2,',','.');
     }
 }
 

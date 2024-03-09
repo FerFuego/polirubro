@@ -134,7 +134,7 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'insertProd
 
         $order = new Pedidos();
         $order->FechaIni = date("Y-m-d");
-        $order->ip = $_SERVER['REMOTE_ADDR'];
+        $order->IP = $_SERVER['REMOTE_ADDR'];
         $result = $order->insertPedido($user);
         $order->closeConnection();
         $user->closeConnection();
@@ -501,6 +501,7 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'operationC
     $instagram = (isset($_POST['instagram']) ? filter_var($_POST['instagram'], FILTER_SANITIZE_STRING) : null);
     $facebook = (isset($_POST['facebook']) ? filter_var($_POST['facebook'], FILTER_SANITIZE_STRING) : null);
     $twitter = (isset($_POST['twitter']) ? filter_var($_POST['twitter'], FILTER_SANITIZE_STRING) : null);
+    $aumento_1 = (isset($_POST['aumento_1']) ? filter_var($_POST['aumento_1'], FILTER_SANITIZE_STRING) : null);
 
     
     try {
@@ -552,6 +553,7 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'operationC
         $general->facebook = $facebook;
         $general->instagram = $instagram;
         $general->twitter = $twitter;
+        $general->aumento_1 = $aumento_1;
         $general->update();
         $general->closeConnection();
         die('true');

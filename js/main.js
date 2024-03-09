@@ -612,6 +612,7 @@ $(document).ready( function () {
             formData.append('instagram', values.instagram);
             formData.append('facebook', values.facebook);
             formData.append('twitter', values.twitter);
+            formData.append('aumento_1', values.aumento_1);
     
         jQuery.ajax({
             cache: false,
