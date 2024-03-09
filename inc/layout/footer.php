@@ -67,15 +67,15 @@
 </footer>
 
 <!-- Js Plugins -->
-<script src="js/jquery-3.3.1.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/jquery.nice-select.min.js"></script>
-<script src="js/jquery-ui.min.js"></script>
-<script src="js/jquery.slicknav.js"></script>
-<script src="js/mixitup.min.js"></script>
-<script src="js/owl.carousel.min.js"></script>
-<script src="js/toastr.min.js"></script>
-<script src="js/main.js"></script>
+<script src="dist/js/jquery-3.3.1.min.js"></script>
+<script src="dist/js/bootstrap.min.js"></script>
+<script src="dist/js/jquery.nice-select.min.js"></script>
+<script src="dist/js/jquery-ui.min.js"></script>
+<script src="dist/js/jquery.slicknav.js"></script>
+<script src="dist/js/mixitup.min.js"></script>
+<script src="dist/js/owl.carousel.min.js"></script>
+<script src="dist/js/toastr.min.js"></script>
+<script src="dist/js/main.js"></script>
 
 </body>
 

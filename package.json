@@ -1,0 +1,21 @@
+{
+  "name": "anubis",
+  "title": "Anubis",
+  "version": "1.0.0",
+  "description": "Anubis Store",
+  "author": "Colmano & Catalano",
+  "license": "GPL-2.0-or-later",
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-header": "^2.0.9",
+    "gulp-sass": "^5.1.0",
+    "gulp-sourcemaps": "^2.6.5",
+    "gulp-uglify": "^3.0.2",
+    "sass": "^1.69.4",
+    "utf-8-validate": "<=5.0.4"
+  },
+  "scripts": {
+    "start": "gulp watchAll"
+  }
+}
