@@ -11,6 +11,7 @@ class Usuarios {
     public $Usuario;
     public $Password;
     public $ListaPrecioDef;
+    public $tipo;
     public $is_Admin;
     protected $obj;
 
@@ -29,6 +30,7 @@ class Usuarios {
             $this->Usuario = $row['Usuario'];
             $this->Password = $row['Password'];
             $this->ListaPrecioDef = $row['ListaPrecioDef'];
+            $this->tipo = $row['tipo'];
             $this->is_Admin = $row['is_admin'];
         }
     }
@@ -40,6 +42,8 @@ class Usuarios {
     public function getUsuario(){ return $this->Usuario; }
     public function getPassword(){ return $this->Password; }
     public function getListaPrecioDef(){ return $this->ListaPrecioDef; }
+    public function getTipo(){ return $this->tipo; }
+
 
     public function getUsuarios(){
         $this->obj = new sQuery();
@@ -101,7 +105,7 @@ class Usuarios {
     public function update() {
 
         $this->obj = new sQuery();
-        $this->obj->executeQuery("UPDATE clientes SET Nombre = '$this->Nombre', Localidad = '$this->Localidad', Mail = '$this->Mail', Usuario = '$this->Usuario', Password = '$this->Password', ListaPrecioDef = '$this->ListaPrecioDef' WHERE (Id_Cliente = '$this->Id_Cliente')");
+        $this->obj->executeQuery("UPDATE clientes SET Nombre = '$this->Nombre', Localidad = '$this->Localidad', Mail = '$this->Mail', Usuario = '$this->Usuario', Password = '$this->Password', ListaPrecioDef = '$this->ListaPrecioDef', tipo = '$this->tipo' WHERE (Id_Cliente = '$this->Id_Cliente')");
     }
 
     public function delete() {

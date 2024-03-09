@@ -79,12 +79,12 @@
                     <label for="whatsapp">WhatsApp</label> <br>
                     <input type="text" name="whatsapp" id="whatsapp" class="form-control" value="<?php echo $general->whatsapp; ?>">
                 </div>
+            </div>
+            <div class="d-flex">
                 <div class="form-group w-100 pl-2">
                     <label for="instagram">Instagram</label> <br>
                     <input type="text" name="instagram" id="instagram" class="form-control" value="<?php echo $general->instagram; ?>">
                 </div>
-            </div>
-            <div class="d-flex">
                 <div class="form-group w-100 pl-2">
                     <label for="facebook">Facebook</label> <br>
                     <input type="text" name="facebook" id="facebook" class="form-control" value="<?php echo $general->facebook; ?>">
@@ -92,6 +92,16 @@
                 <div class="form-group w-100 pl-2">
                     <label for="twitter">Twitter</label> <br>
                     <input type="text" name="twitter" id="twitter" class="form-control" value="<?php echo $general->twitter; ?>">
+                </div>
+            </div>
+            <div class="d-flex">
+                <div class="form-group w-100 pl-2">
+                    <br>
+                    <label for="aumento_1">Aumento sobre el precio de Lista 1 para nuevos usuarios.</label> 
+                </div>
+                <div class="form-group w-100 pl-2">
+                    <label for="aumento_1">Aumento (%)</label> <br>
+                    <input type="number" name="aumento_1" id="aumento_1" class="form-control" value="<?php echo $general->aumento_1; ?>">
                 </div>
                 <div class="form-group w-100 pl-2">
                     <label for="">&nbsp;</label> <br>

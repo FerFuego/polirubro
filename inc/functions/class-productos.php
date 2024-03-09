@@ -68,7 +68,58 @@ class Productos {
     public function getSubRubroID(){ return $this->id_subrubro; }
     public function getGrupoID(){ return $this->id_grupo; }
     public function getNombre(){ return $this->nombre; }
-    public function PreVtaFinal1(){ return $this->precio_venta_final_1; }
+    
+    public static function PreVtaFinal($precio){ 
+        $config  = new Configuracion();
+        $aumento = $config->getAumento();
+        
+        
+        // Usuario logueado
+        if (isset($_SESSION["Id_Cliente"])) {
+            
+            $user = new Usuarios($_SESSION["Id_Cliente"]);
+            $tipo = $user->getTipo();
+
+            // usuario premium
+            if ($tipo == 1) {
+                return $precio;
+            }
+        } 
+        
+        // Usuario no logueado o tipo 2
+        if ($aumento) {
+            // aumento %
+            return $precio + ($precio * ($aumento / 100));
+        }
+
+        return $precio; 
+    }
+    public function PreVtaFinal1(){ 
+        $precio  = 0;
+        $config  = new Configuracion();
+        $aumento = $config->getAumento();
+        
+        
+        // Usuario logueado
+        if (isset($_SESSION["Id_Cliente"])) {
+            
+            $user = new Usuarios($_SESSION["Id_Cliente"]);
+            $tipo = $user->getTipo();
+
+            // usuario premium
+            if ($tipo == 1) {
+                return $this->precio_venta_final_1;
+            }
+        } 
+        
+        // Usuario no logueado o tipo 2
+        if ($aumento) {
+            // aumento %
+            return $this->precio_venta_final_1 + ($this->precio_venta_final_1 * ($aumento / 100));
+        }
+
+        return $precio; 
+    }
 
     public function getProducts($opcion, $id_rubro, $id_subrubro, $id_grupo, $minamount, $maxamount, $order){
 
