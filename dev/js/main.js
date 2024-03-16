@@ -522,12 +522,21 @@ $(document).ready( function () {
     $('#js-finally-order').click( function (e) {
 
         e.preventDefault();
+        let form;
+        let data = {};
+
+        if ( form = document.getElementById('js-form-user-pedido')) {
+            const inputs = form.querySelectorAll('input, select, textarea');    
+            for (let i = 0; i < inputs.length; i++) {
+                data[inputs[i].name] = inputs[i].value;
+            }
+        }
 
         var id_pedido = $(this).attr('data-id');
-    
         var formData = new FormData();
             formData.append('action', 'finallyOrder');
             formData.append('id_pedido', id_pedido );
+            formData.append('data', JSON.stringify(data) );
     
         jQuery.ajax({
             cache: false,
@@ -542,9 +551,11 @@ $(document).ready( function () {
             success: function (response) {
                 if (response == 'true') {
                     $('#js-finally-order').html('PEDIDO ENVIADO');
-                    //$('#js-order-message').html('<h2 class="text-success text-center">El Pedido fue enviado con exito!</h2>');
                     $("#js-dynamic-cart").load( $(location).attr("href") + ' #js-data-cart' );
                     toastr.success('El Pedido fue enviado con exito!');
+                    setTimeout(function() {
+                        window.location.href = 'index.php';
+                    }, 3000);
                 } else {
                     $('#js-finally-order').html('FINALIZAR PEDIDO');
                     toastr.error('Ocurrio un error, por favor recarge la pagina e intente nuevamente.');

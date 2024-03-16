@@ -21,7 +21,7 @@
 
 <!-- Cart Section Begin -->
 <section class="shoping-cart spad">
-    <?php if ( isset($_SESSION["id_user"]) ) :
+    <?php if ( isset($_SESSION["Id_Cliente"]) ) :
         $pedido = new Pedidos();
         $result = $pedido->getPedidoAbierto($_SESSION["Id_Cliente"]);
         require ( $result['num_rows'] > 0 ) ? 'inc/parts/cart.php' : 'inc/parts/cart-empty.php'; 

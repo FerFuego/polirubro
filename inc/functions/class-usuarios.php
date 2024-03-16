@@ -53,9 +53,13 @@ class Usuarios {
 
     public function is_Admin() {
         $this->obj = new sQuery();
-        $result = $this->obj->executeQuery("SELECT * FROM clientes WHERE Id_Cliente = $this->Id_Cliente AND is_admin = 1 LIMIT 1");
+        $this->obj->executeQuery("SELECT * FROM clientes WHERE Id_Cliente = $this->Id_Cliente AND is_admin = 1 LIMIT 1");
 
-        return $this->obj->getResultados();
+        if ($this->obj->getResultados() > 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public function getUsersCpanel($opcion) {

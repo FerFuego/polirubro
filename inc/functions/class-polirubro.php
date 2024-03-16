@@ -37,6 +37,10 @@ Class Polirubro {
 
         } else {
 
+            if (!isset($_SESSION["Id_Cliente"]) || $_SESSION["Id_Cliente"] == 0) {
+                $_SESSION["Id_Cliente"] = date('YmdHis');
+            }
+            
             ob_start();
             include ('inc/partials/login-form.php');
             $html = ob_get_contents();
@@ -50,7 +54,7 @@ Class Polirubro {
 
         $html = '';
 
-        if ( isset($_SESSION["id_user"]) ) :
+        if ( isset($_SESSION["Id_Cliente"]) ) :
 
             $pedido = new Pedidos();
             $result = $pedido->getPedidoAbierto($_SESSION["Id_Cliente"]);
@@ -77,11 +81,10 @@ Class Polirubro {
         return $html;
     }
 
-    public function getBodyEmail($id_pedido, $user) {
+    public function getBodyEmail($id_pedido) {
 
-        $date = date("Y-m-d");
-        $ip = $_SERVER['REMOTE_ADDR'];
         $total = 0;
+        $pedido = new Pedidos($id_pedido);
         
         // Construyo el Cuerpo del Mail.
         $body = "<h2>Pedido Web Nuestro Polirrubros</h2>
@@ -92,11 +95,11 @@ Class Polirubro {
                 </p>
                 <p align='left'>
                 <strong>Pedido</strong>: ".$id_pedido."
-                <br><strong>Cliente</strong>: ".$user->getID()." - ".$user->getNombre()."
-                <br><strong>Localidad</strong>: ".$user->getLocalidad()."
-                <br><strong>E-Mail</strong>: ".$user->getMail()."
-                <br><strong>Fecha de este registro (A&ntilde;o-Mes-D&iacute;a)</strong>: ".$date."
-                <br><strong>IP del cliente</strong>: ".$ip."
+                <br><strong>Cliente</strong>: ".$pedido->getID()." - ".$pedido->getNombre()."
+                <br><strong>Localidad</strong>: ".$pedido->getLocalidad()."
+                <br><strong>E-Mail</strong>: ".$pedido->getMail()."
+                <br><strong>Fecha de este registro (A&ntilde;o-Mes-D&iacute;a)</strong>: ".$pedido->getFechaFin()."
+                <br><strong>IP del cliente</strong>: ".$pedido->getIP()."
                 </p>
                 <p>
                 <table width='100%' border='0' cellspacing='0' cellpadding='5' align='left'>
@@ -108,8 +111,7 @@ Class Polirubro {
                 <th width='10%' height='20' align='right' valign='middle'><b>Pre. Uni.</b></th>
                 <th width='10%' height='20' align='right' valign='middle'><b>Pre. Tot.</b></th>
                 </tr>";
-  
-        $pedido = new Pedidos();
+        
         $detalle = new Detalles();
         $results = $detalle->getDetallesPedido($id_pedido);
 
@@ -137,12 +139,13 @@ Class Polirubro {
                 </tr>
                 </table></p>";
         
-        $detalle->closeConnection();     
+        $detalle->closeConnection();
+        $pedido->closeConnection();
 
         return $body;
     }
 
-    public function sendMail($id_pedido, $user, $cuerpo) {
+    public function sendMail($id_pedido, $emailCopia, $cuerpo) {
         
         $smtpHost = "";  // Dominio alternativo brindado en el email de alta 
         $smtpUsuario = "";  // Mi cuenta de correo
@@ -168,7 +171,7 @@ Class Polirubro {
         $mail->FromName = $nombre;
         $mail->AddAddress($emailDestino); // Copia para el vendedor.
         $mail->AddAddress($emailDestino2); // Copia 2 para el vendedor.
-        if ($user->getMail()) $mail->AddAddress($user->getMail()); // Copia para el cliente.
+        $mail->AddAddress($emailCopia); // Copia para el cliente.
         $mail->AddReplyTo($emailDestino); // Esto es para que al recibir el correo y poner Responder, lo haga a la cuenta del vendedor.
         $mail->Subject = "Nuestro Polirrubros - Pedido: ".$id_pedido; // Este es el titulo del email.
         $mail->Body = "{$cuerpo}"; // Texto del email en formato HTML
@@ -183,7 +186,7 @@ Class Polirubro {
         ); 
 
         if ( $mail->Send() ) {
-            $msgEnvio = "Una copia del pedido fue enviada al correo ".$user->getMail();
+            $msgEnvio = "Una copia del pedido fue enviada al correo ".$emailCopia;
         } else {
             $msgEnvio = "Ocurrió un error inesperado al enviar el correo.";
         }
@@ -193,14 +196,13 @@ Class Polirubro {
 
     public static function is_Admin() {
 
-        if (!isset($_SESSION["Id_Cliente"])) {
+        if (!isset($_SESSION["id_user"])) {
             return false;
         }
         
         // if is Admin return true 
         $user = new Usuarios($_SESSION["Id_Cliente"]);
-        $result = $user->is_Admin();
-        return $result; 
+        return $user->is_Admin();
     }
 
     public static function checkUserCapabilities($product) {
@@ -229,4 +231,3 @@ Class Polirubro {
 }
 
 new Polirubro;
-?>

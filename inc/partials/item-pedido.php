@@ -12,7 +12,7 @@
         <?php echo $product->Notas; ?>
     </td>
     <td class="shoping__cart__price">
-        $<?php echo number_format($product->PreVtaFinal1(), 2,',','.'); ?>
+        $<?php echo number_format($product->PreVtaFinal1, 2,',','.'); ?>
     </td>
     <td class="shoping__cart__price">
         <?php echo $product->Cantidad; ?>
