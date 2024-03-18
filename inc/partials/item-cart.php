@@ -12,7 +12,7 @@
             <textarea type="text" name="nota" id="nota_<?php echo $product->Auto; ?>"><?php echo $product->Notas; ?></textarea>
         </td>
         <td class="shoping__cart__price">
-            $<?php echo $product->PreVtaFinal1; ?>
+            $<?php echo number_format($product->PreVtaFinal1, 2,',','.'); ?>
         </td>
         <td class="shoping__cart__quantity">
             <div class="quantity">
@@ -22,7 +22,7 @@
             </div>
         </td>
         <td class="shoping__cart__total">
-            $<?php echo $product->ImpTotal; ?>
+            $<?php echo number_format($product->ImpTotal, 2,',','.'); ?>
         </td>
         <td class="shoping__cart__item__update">
             <form class="js-form-update">

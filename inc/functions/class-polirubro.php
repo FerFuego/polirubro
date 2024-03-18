@@ -95,7 +95,7 @@ Class Polirubro {
                 </p>
                 <p align='left'>
                 <strong>Pedido</strong>: ".$id_pedido."
-                <br><strong>Cliente</strong>: ".$pedido->getID()." - ".$pedido->getNombre()."
+                <br><strong>Cliente</strong>: ".$pedido->getIDCliente()." - ".$pedido->getNombre()."
                 <br><strong>Localidad</strong>: ".$pedido->getLocalidad()."
                 <br><strong>E-Mail</strong>: ".$pedido->getMail()."
                 <br><strong>Fecha de este registro (A&ntilde;o-Mes-D&iacute;a)</strong>: ".$pedido->getFechaFin()."
@@ -125,7 +125,7 @@ Class Polirubro {
                         <td width='10%' height='20' align='center' valign='middle'><b>".$product->Cantidad."</b></td>
                         <td width='40%' height='20' align='left' valign='middle'>".$product->Nombre."</td>
                         <td width='20%' height='20' align='left' valign='middle'>".$product->Notas."</td>
-                        <td width='10%' height='20' align='right' valign='middle'>".number_format($product->PreVtaFinal1(), 2, '.', ',')."</td>
+                        <td width='10%' height='20' align='right' valign='middle'>".number_format(Productos::PreVtaFinal($product->PreVtaFinal1), 2,',','.')."</td>
                         <td width='10%' height='20' align='right' valign='middle'>".number_format($product->ImpTotal, 2, '.', ',')."</td>
                         </tr>";
             endwhile;

@@ -165,9 +165,9 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'insertProd
     $detail->Id_Producto = $prod->getID();
     $detail->CodProducto = $cod_product;
     $detail->Nombre = $prod->getNombre();
-    $detail->PreVtaFinal1 = number_format($prod->PreVtaFinal1(), 2,',','.');
+    $detail->PreVtaFinal1 = $prod->PreVtaFinal1();
     $detail->Cantidad = $cant;
-    $detail->ImpTotal = number_format($prod->PreVtaFinal1() * $cant, 2,',','.');
+    $detail->ImpTotal = $prod->PreVtaFinal1() * $cant;
     $detail->Notas = $note;
     $detail->insertDetalle();
     $detail->closeConnection();
@@ -193,7 +193,7 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'updateProd
     $item->Auto = $id_productItem;
     $item->Cantidad = $cant;
     $item->Notas = $note;
-    $item->ImpTotal = number_format($prod->PreVtaFinal1() * $cant, 2,',','.');
+    $item->ImpTotal = $prod->PreVtaFinal1() * $cant;
     $item->updateDetalle();
     $item->closeConnection();
     $prod->closeConnection();
@@ -228,7 +228,7 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'finallyOrd
     
     $order = new Pedidos($id_pedido);
     // Guest user update data order
-    if ( isset($data->name) && $data->name != '' ) {
+    if ( isset($data->name) ) {
         $order->Nombre = $data->name;
         $order->Mail  = $data->email;
         $order->Telefono  = $data->phone;
@@ -239,6 +239,7 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'finallyOrd
         $order->Mail  = $user->getMail();
         $order->Telefono  = '';
         $order->Localidad  = $user->getLocalidad();
+        $user->closeConnection();
     }
 
     $order->Id_Cliente = $_SESSION["Id_Cliente"];
@@ -246,11 +247,10 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'finallyOrd
     $order->Cerrado = 1;
     $order->finalizarPedido();
 
-    // Send main to client
-    $data = new Polirubro();
-    $body = $data->getBodyEmail($id_pedido);
-    $data->sendMail($id_pedido, $order->Mail, $body);
-    $user->closeConnection();
+    // Send mail to client
+    $datos = new Polirubro();
+    $body = $datos->getBodyEmail($id_pedido);
+    $datos->sendMail($id_pedido, $order->Mail, $body);
     $order->closeConnection();
 
     die('true');
