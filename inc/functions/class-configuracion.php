@@ -17,6 +17,7 @@ class Configuracion {
     public $instagram;
     public $twitter;
     public $aumento_1;
+    public $minimo;
     protected $obj;
 
     
@@ -38,15 +39,21 @@ class Configuracion {
         $this->instagram = $row['instagram'];
         $this->twitter = $row['twitter'];
         $this->aumento_1 = $row['aumento_1'];
+        $this->minimo = $row['minimo'];
 	}
 
     public function update() {
         $this->obj = new sQuery();
-        $this->obj->executeQuery("UPDATE configuracion SET id = '$this->id', logo = '$this->logo', banner = '$this->banner', telefono = '$this->telefono', email = '$this->email', direccion = '$this->direccion', atencion = '$this->atencion', whatsapp = '$this->whatsapp', facebook = '$this->facebook', instagram = '$this->instagram', twitter = '$this->twitter', aumento_1 = '$this->aumento_1' WHERE (id = '1')");
+        $this->obj->executeQuery("UPDATE configuracion SET id = '$this->id', logo = '$this->logo', banner = '$this->banner', telefono = '$this->telefono', email = '$this->email', direccion = '$this->direccion', atencion = '$this->atencion', whatsapp = '$this->whatsapp', facebook = '$this->facebook', instagram = '$this->instagram', twitter = '$this->twitter', aumento_1 = '$this->aumento_1', minimo = '$this->minimo' WHERE (id = '1')");
+        $this->closeConnection();
     }
 
     public function getAumento(){
         return $this->aumento_1;
+    }
+
+    public function getMinimo(){
+        return $this->minimo;
     }
     
     public function closeConnection(){

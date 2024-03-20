@@ -250,7 +250,7 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'finallyOrd
     // Send mail to client
     $datos = new Polirubro();
     $body = $datos->getBodyEmail($id_pedido);
-    $datos->sendMail($id_pedido, $order->Mail, $body);
+    //$datos->sendMail($id_pedido, $order->Mail, $body);
     $order->closeConnection();
 
     die('true');
@@ -526,6 +526,7 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'operationC
     $facebook = (isset($_POST['facebook']) ? filter_var($_POST['facebook'], FILTER_SANITIZE_STRING) : null);
     $twitter = (isset($_POST['twitter']) ? filter_var($_POST['twitter'], FILTER_SANITIZE_STRING) : null);
     $aumento_1 = (isset($_POST['aumento_1']) ? filter_var($_POST['aumento_1'], FILTER_SANITIZE_STRING) : null);
+    $minimo = (isset($_POST['minimo']) ? filter_var($_POST['minimo'], FILTER_SANITIZE_STRING) : null);
 
     
     try {
@@ -578,6 +579,7 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'operationC
         $general->instagram = $instagram;
         $general->twitter = $twitter;
         $general->aumento_1 = $aumento_1;
+        $general->minimo = $minimo;
         $general->update();
         $general->closeConnection();
         die('true');

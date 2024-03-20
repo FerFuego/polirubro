@@ -624,6 +624,7 @@ $(document).ready( function () {
             formData.append('facebook', values.facebook);
             formData.append('twitter', values.twitter);
             formData.append('aumento_1', values.aumento_1);
+            formData.append('minimo', values.minimo);
     
         jQuery.ajax({
             cache: false,

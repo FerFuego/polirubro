@@ -48,7 +48,14 @@
                 <ul>
                     <li>Total <span>$<?php echo number_format($pedido->getTotalFinal(), 2,',','.'); ?></span></li>
                 </ul>
-                <?php if (!$result['cpanel']) : ?>
+                 <!-- Danger Bootstrap -->
+                 <?php if ($pedido->getTotalFinal() < $general->getMinimo()) : ?>
+                    <div class="alert alert-danger" role="alert">
+                        <i class="fa fa-exclamation-circle"></i> El minimo de compra para cerrar el pedido es de <strong>$<?php echo number_format($general->getMinimo(), 0,'','.'); ?></strong>
+                    </div>
+                <?php endif; ?>
+                <!-- Final Order -->
+                <?php if (!$result['cpanel'] && $pedido->getTotalFinal() >= $general->getMinimo()) : ?>
                     <a href="#" id="js-finally-order" data-id="<?php echo $result['Id_Pedido']; ?>" class="primary-btn">Finalizar Pedido</a>
                 <?php endif; ?>
             </div>
