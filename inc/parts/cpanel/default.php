@@ -56,6 +56,7 @@
                     <img src="<?php echo $general->banner; ?>" width="300px">
                 </div>
             </div>
+            <hr>
             <div class="d-flex">
                 <div class="form-group w-100 pl-2">
                     <label for="telefono">Telefono</label> <br>
@@ -95,6 +96,14 @@
                 </div>
             </div>
             <div class="d-flex">
+                <div class="form-group w-50 pl-2">
+                    <label for="">&nbsp;</label> <br>
+                    <input type="submit" class="form-control btn-success" value="Guardar">
+                </div>
+            </div>
+            <br><br>
+            <h2>Configuración</h2><hr>
+            <div class="d-flex">
                 <div class="form-group w-100 pl-2">
                     <br>
                     <label for="aumento_1">Aumento sobre el precio de Lista 1 para nuevos usuarios.</label> 
@@ -103,7 +112,19 @@
                     <label for="aumento_1">Aumento (%)</label> <br>
                     <input type="number" name="aumento_1" id="aumento_1" class="form-control" value="<?php echo $general->aumento_1; ?>">
                 </div>
+            </div>
+            <div class="d-flex">
                 <div class="form-group w-100 pl-2">
+                    <br>
+                    <label for="aumento_1">Minimo de Compra</label> 
+                </div>
+                <div class="form-group w-100 pl-2">
+                    <label for="aumento_1">Pesos ($)</label> <br>
+                    <input type="number" name="minimo" id="minimo" class="form-control" value="<?php echo $general->minimo; ?>">
+                </div>
+            </div>
+            <div class="d-flex">
+                <div class="form-group w-50 pl-2">
                     <label for="">&nbsp;</label> <br>
                     <input type="submit" class="form-control btn-success" value="Guardar">
                 </div>

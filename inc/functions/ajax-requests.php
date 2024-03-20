@@ -114,13 +114,9 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'getGrupoBy
 if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'insertProductCart') {
 
     $id_product = (isset($_POST['id_product']) ? filter_var($_POST['id_product'], FILTER_VALIDATE_INT) : null);
+    $cod_product = (isset($_POST['cod_product']) ? filter_var($_POST['cod_product'], FILTER_SANITIZE_STRING) : null);
     $note    = (isset($_POST['nota']) ? filter_var($_POST['nota'], FILTER_SANITIZE_STRING) : null);
     $cant    = (isset($_POST['cant']) ? filter_var($_POST['cant'], FILTER_VALIDATE_INT) : null);
-    $cod_product = (isset($_POST['cod_product']) ? filter_var($_POST['cod_product'], FILTER_SANITIZE_STRING) : null);
-    $name_product = (isset($_POST['name_product']) ? filter_var($_POST['name_product'], FILTER_SANITIZE_STRING) : null);
-    $price_product = (isset($_POST['price_product']) ? filter_var($_POST['price_product'], FILTER_SANITIZE_STRING) : null);
-
-    if (!isset($_SESSION["Id_Cliente"]) || $_SESSION["Id_Cliente"] == 0) die('false');
 
     $order = new Pedidos();
     $result = $order->getPedidoAbierto($_SESSION["Id_Cliente"]);
@@ -129,16 +125,26 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'insertProd
     if ( $result && $result['num_rows'] == 0 ) :
 
         $user = new Usuarios($_SESSION["Id_Cliente"]);
-
-        if ( !$user ) die('false');
-
         $order = new Pedidos();
-        $order->FechaIni = date("Y-m-d");
-        $order->IP = $_SERVER['REMOTE_ADDR'];
-        $result = $order->insertPedido($user);
+
+        if ( $user->Id_Cliente ) {
+            $order->FechaIni = date("Y-m-d");
+            $order->IP = $_SERVER['REMOTE_ADDR'];
+            $result = $order->insertPedido($user);
+        } else {
+            $order->Id_Cliente = $_SESSION["Id_Cliente"];
+            $order->Nombre = 'invitado';
+            $order->Localidad  = 'invitado';
+            $order->Mail  = 'invitado';
+            $order->Usuario = 'invitado';
+            $order->FechaIni = date("Y-m-d");
+            $order->IP = $_SERVER['REMOTE_ADDR'];
+            $result = $order->insertPedidoGuest();
+        }
+
         $order->closeConnection();
         $user->closeConnection();
-
+        
     endif;
 
     // Verificar existencia de pedido
@@ -149,15 +155,19 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'insertProd
     $verifyResult = $verify->verifyDetalle($result['Id_Pedido'], $cod_product);
     if ( $verifyResult->num_rows > 0 ) die('exist');
     $verify->closeConnection();
+
+    // Check Product
+    $prod = new Productos($cod_product);
+    if ( !$prod ) die('false');
     
     $detail = new Detalles();
     $detail->Id_Pedido = $result['Id_Pedido'];
-    $detail->Id_Producto = $id_product;
+    $detail->Id_Producto = $prod->getID();
     $detail->CodProducto = $cod_product;
-    $detail->Nombre = $name_product;
-    $detail->PreVtaFinal1 = $price_product;
+    $detail->Nombre = $prod->getNombre();
+    $detail->PreVtaFinal1 = $prod->PreVtaFinal1();
     $detail->Cantidad = $cant;
-    $detail->ImpTotal = $price_product * $cant;
+    $detail->ImpTotal = $prod->PreVtaFinal1() * $cant;
     $detail->Notas = $note;
     $detail->insertDetalle();
     $detail->closeConnection();
@@ -212,21 +222,35 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'deleteProd
 if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'finallyOrder') {
 
     $id_pedido = (isset($_POST['id_pedido']) ? filter_var($_POST['id_pedido'], FILTER_VALIDATE_INT) : null);
-    
-    if (!isset($_SESSION["Id_Cliente"]) || $_SESSION["Id_Cliente"] == 0) die('false');
+    $data      = isset($_POST['data']) ? json_decode($_POST['data']) : null;
 
+    if (!isset($_SESSION["Id_Cliente"]) || $_SESSION["Id_Cliente"] == 0) die('false');
+    
     $order = new Pedidos($id_pedido);
+    // Guest user update data order
+    if ( isset($data->name) ) {
+        $order->Nombre = $data->name;
+        $order->Mail  = $data->email;
+        $order->Telefono  = $data->phone;
+        $order->Localidad  = $data->locality;
+    } else {
+        $user = new Usuarios($_SESSION["Id_Cliente"]);
+        $order->Nombre = $user->getNombre();
+        $order->Mail  = $user->getMail();
+        $order->Telefono  = '';
+        $order->Localidad  = $user->getLocalidad();
+        $user->closeConnection();
+    }
+
+    $order->Id_Cliente = $_SESSION["Id_Cliente"];
     $order->FechaFin = date("Y-m-d");
     $order->Cerrado = 1;
     $order->finalizarPedido();
-    
-    $user = new Usuarios($_SESSION["Id_Cliente"]);
 
-    $data = new Polirubro();
-    $body = $data->getBodyEmail($id_pedido, $user);
-    $data->sendMail($id_pedido, $user, $body);
-
-    $user->closeConnection();
+    // Send mail to client
+    $datos = new Polirubro();
+    $body = $datos->getBodyEmail($id_pedido);
+    //$datos->sendMail($id_pedido, $order->Mail, $body);
     $order->closeConnection();
 
     die('true');
@@ -502,6 +526,7 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'operationC
     $facebook = (isset($_POST['facebook']) ? filter_var($_POST['facebook'], FILTER_SANITIZE_STRING) : null);
     $twitter = (isset($_POST['twitter']) ? filter_var($_POST['twitter'], FILTER_SANITIZE_STRING) : null);
     $aumento_1 = (isset($_POST['aumento_1']) ? filter_var($_POST['aumento_1'], FILTER_SANITIZE_STRING) : null);
+    $minimo = (isset($_POST['minimo']) ? filter_var($_POST['minimo'], FILTER_SANITIZE_STRING) : null);
 
     
     try {
@@ -554,6 +579,7 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'operationC
         $general->instagram = $instagram;
         $general->twitter = $twitter;
         $general->aumento_1 = $aumento_1;
+        $general->minimo = $minimo;
         $general->update();
         $general->closeConnection();
         die('true');

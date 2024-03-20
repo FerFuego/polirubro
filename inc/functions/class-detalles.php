@@ -21,7 +21,7 @@ class Detalles {
         if ($id != 0) {
             
             $this->obj = new sQuery();
-            $result = $this->obj->executeQuery("SELECT * FROM PEDIDOS_DETA WHERE 'Auto' = '$id'");
+            $result = $this->obj->executeQuery("SELECT * FROM pedidos_deta WHERE 'Auto' = '$id'");
             $row = mysqli_fetch_assoc($result);
     
             $this->Auto = $row['Auto'];
@@ -50,14 +50,14 @@ class Detalles {
 
     public function getDetallesPedido($Id_Pedido) {
         $this->obj = new sQuery();
-        $result = $this->obj->executeQuery("SELECT * FROM PEDIDOS_DETA WHERE (Id_Pedido = $Id_Pedido)");
+        $result = $this->obj->executeQuery("SELECT * FROM pedidos_deta WHERE (Id_Pedido = $Id_Pedido)");
 
         return $result;
     }
 
     public function getPedidoResumen($Id_Pedido) {
         $this->obj = new sQuery();
-        $result = $this->obj->executeQuery("SELECT * FROM PEDIDOS_DETA WHERE (Id_Pedido = $Id_Pedido)");
+        $result = $this->obj->executeQuery("SELECT * FROM pedidos_deta WHERE (Id_Pedido = $Id_Pedido)");
 
         if ( $result->num_rows > 0 ) :
             $pedido = new Pedidos();
@@ -71,28 +71,28 @@ class Detalles {
 
     public function verifyDetalle($Id_Pedido, $CodProducto) {
         $this->obj = new sQuery();
-        $result = $this->obj->executeQuery("SELECT * FROM PEDIDOS_DETA WHERE (Id_Pedido='$Id_Pedido') AND (CodProducto='$CodProducto')");
+        $result = $this->obj->executeQuery("SELECT * FROM pedidos_deta WHERE (Id_Pedido='$Id_Pedido') AND (CodProducto='$CodProducto')");
         return $result;
     }
 
     public function ActualizarPrecio($Id_Pedido, $CodProducto, $PreVtaFinal1) {
         $this->obj = new sQuery();
-        $this->obj->executeQuery("UPDATE PEDIDOS_DETA SET PreVtaFinal1 = $PreVtaFinal1, ImpTotal = (Cantidad * $PreVtaFinal1)  WHERE (Id_Pedido='$Id_Pedido') AND (CodProducto='$CodProducto')");
+        $this->obj->executeQuery("UPDATE pedidos_deta SET PreVtaFinal1 = $PreVtaFinal1, ImpTotal = (Cantidad * $PreVtaFinal1)  WHERE (Id_Pedido='$Id_Pedido') AND (CodProducto='$CodProducto')");
     }
 
     public function insertDetalle() {
         $this->obj = new sQuery();
-        $this->obj->executeQuery("INSERT INTO PEDIDOS_DETA ( Id_Pedido, Id_Producto, CodProducto, Nombre, PreVtaFinal1, Cantidad, ImpTotal, Notas) VALUES ('$this->Id_Pedido','$this->Id_Producto','$this->CodProducto','$this->Nombre','$this->PreVtaFinal1','$this->Cantidad','$this->ImpTotal','$this->Notas')");
+        $this->obj->executeQuery("INSERT INTO pedidos_deta ( Id_Pedido, Id_Producto, CodProducto, Nombre, PreVtaFinal1, Cantidad, ImpTotal, Notas) VALUES ('$this->Id_Pedido','$this->Id_Producto','$this->CodProducto','$this->Nombre','$this->PreVtaFinal1','$this->Cantidad','$this->ImpTotal','$this->Notas')");
     }
 
     public function updateDetalle() {
         $this->obj = new sQuery();
-        $this->obj->executeQuery("UPDATE PEDIDOS_DETA SET Cantidad='$this->Cantidad', ImpTotal='$this->ImpTotal', Notas='$this->Notas' WHERE Auto='$this->Auto'");
+        $this->obj->executeQuery("UPDATE pedidos_deta SET Cantidad='$this->Cantidad', ImpTotal='$this->ImpTotal', Notas='$this->Notas' WHERE Auto='$this->Auto'");
     }
 
     public function deleteDetalle() {
         $this->obj = new sQuery();
-        $this->obj->executeQuery("DELETE FROM PEDIDOS_DETA WHERE Auto = '$this->Auto'");
+        $this->obj->executeQuery("DELETE FROM pedidos_deta WHERE Auto = '$this->Auto'");
     }
 
     public function closeConnection(){
