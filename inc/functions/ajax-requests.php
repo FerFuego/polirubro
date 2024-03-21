@@ -242,6 +242,9 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'finallyOrd
         $user->closeConnection();
     }
 
+    $order->SubTotal = $data->subtotal;
+    $order->Descuento = $data->descuento;
+    $order->ImpTotal = $data->total;
     $order->Id_Cliente = $_SESSION["Id_Cliente"];
     $order->FechaFin = date("Y-m-d");
     $order->Cerrado = 1;

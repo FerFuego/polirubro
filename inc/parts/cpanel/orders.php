@@ -14,10 +14,11 @@
                 <th class="text-left">Pedido</th>
                 <th class="text-left">Nombre</th>
                 <th class="text-left">Localidad</th>
+                <th class="text-left">Subtotal</th>
+                <th class="text-left">Descuento</th>
                 <th class="text-left">Importe</th>
                 <th class="text-left">Estado</th>
-                <th class="text-left" style="min-width: 120px;">Inicio</th>
-                <th class="text-left" style="min-width: 120px;">Fin</th>
+                <th class="text-left" style="min-width: 120px;">Fechas</th>
                 <th class="text-left">Ver</th>
                 <th class="text-left">Finalizar</th>
                 <th class="text-left">Eliminar</th>

@@ -45,6 +45,7 @@
         <div class="col-lg-6">
             <div class="shoping__checkout mt-0">
                 <h5>Total Pedido</h5>
+                <!-- Resume -->
                 <ul>
                     <li>Subtotal <span>$<?php echo number_format($pedido->getTotalFinal(), 2,',','.'); ?></span></li>
                     <!-- Descuentos -->
@@ -65,12 +66,19 @@
                 
                     <li>Total <span>$<?php echo number_format($pedido->getTotalFinal() - $descuento, 2,',','.'); ?></span></li>
                 </ul>
-                 <!-- Danger Bootstrap -->
+                
+                <!-- Hidden Inputs -->
+                <input type="hidden" name="subtotal" id="js-subtotal-pedido" value="<?php echo $pedido->getTotalFinal(); ?>">
+                <input type="hidden" name="descuento" id="js-descuento-pedido" value="<?php echo $descuento; ?>">
+                <input type="hidden" name="total" id="js-total-pedido" value="<?php echo $pedido->getTotalFinal() - $descuento; ?>">
+                 
+                <!-- Danger Bootstrap -->
                  <?php if ($pedido->getTotalFinal() < $general->getMinimo()) : ?>
                     <div class="alert alert-danger" role="alert">
                         <i class="fa fa-exclamation-circle"></i> El minimo de compra para cerrar el pedido es de <strong>$<?php echo number_format($general->getMinimo(), 0,'','.'); ?></strong>
                     </div>
                 <?php endif; ?>
+                
                 <!-- Final Order -->
                 <?php if (!$result['cpanel'] && $pedido->getTotalFinal() >= $general->getMinimo()) : ?>
                     <a href="#" id="js-finally-order" data-id="<?php echo $result['Id_Pedido']; ?>" class="primary-btn">Finalizar Pedido</a>

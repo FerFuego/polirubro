@@ -525,6 +525,12 @@ $(document).ready( function () {
         let form;
         let data = {};
 
+        const prices = document.querySelector('.shoping__checkout');
+        const inputs = prices.querySelectorAll('input[type="hidden"]');    
+        for (let i = 0; i < inputs.length; i++) {
+            data[inputs[i].name] = inputs[i].value;
+        }
+
         if ( form = document.getElementById('js-form-user-pedido')) {
             const inputs = form.querySelectorAll('input, select, textarea');    
             for (let i = 0; i < inputs.length; i++) {
