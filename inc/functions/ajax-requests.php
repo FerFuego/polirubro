@@ -527,6 +527,7 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'operationC
     $twitter = (isset($_POST['twitter']) ? filter_var($_POST['twitter'], FILTER_SANITIZE_STRING) : null);
     $aumento_1 = (isset($_POST['aumento_1']) ? filter_var($_POST['aumento_1'], FILTER_SANITIZE_STRING) : null);
     $minimo = (isset($_POST['minimo']) ? filter_var($_POST['minimo'], FILTER_SANITIZE_STRING) : null);
+    $descuentos = (isset($_POST['descuentos']) ? $_POST['descuentos'] : null);
 
     
     try {
@@ -580,6 +581,7 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'operationC
         $general->twitter = $twitter;
         $general->aumento_1 = $aumento_1;
         $general->minimo = $minimo;
+        $general->descuentos = $descuentos;
         $general->update();
         $general->closeConnection();
         die('true');

@@ -610,7 +610,21 @@ $(document).ready( function () {
         $.each($(this).serializeArray(), function(i, field) {
             values[field.name] = field.value;
         });
-    
+        
+        const obj = [{}];
+        let input = document.getElementsByName('precio[]');
+        let input2 = document.getElementsByName('descuento[]');
+ 
+        for (let i = 0; i < input.length; i++) {
+            let a = input[i];
+            let b = input2[i];
+            if (a.value == '' || b.value == '') continue;
+            obj[i] = {
+                'precio': a.value,
+                'descuento': b.value
+            };
+        }
+
         var formData = new FormData();
             formData.append('action', 'operationConfiguration');
             formData.append('logo', logo[0]);
@@ -625,6 +639,9 @@ $(document).ready( function () {
             formData.append('twitter', values.twitter);
             formData.append('aumento_1', values.aumento_1);
             formData.append('minimo', values.minimo);
+            formData.append('descuentos', JSON.stringify(obj));
+
+            console.log(JSON.stringify(obj))
     
         jQuery.ajax({
             cache: false,
@@ -1354,4 +1371,29 @@ function sendContact() {
             }
         }
     });
+}
+
+/*-----------------
+    Add Rows Table
+------------------*/
+(function ($) {
+    const table = document.getElementById('js-table-descuentos');
+    const add = document.getElementById('js-add-row');
+
+    if (table && add) {
+        add.addEventListener('click', () => {
+            const row = table.querySelector('tbody').insertRow();
+            const cell = row.insertCell();
+            const cell2 = row.insertCell();
+            const cell3 = row.insertCell();
+            cell.innerHTML = '<input type="number" name="precio[]" class="form-control">';
+            cell2.innerHTML = '<input type="number" name="descuento[]" class="form-control">';
+            cell3.innerHTML = '<button type="button" class="btn btn-danger" onclick="deleteRow(this)">Eliminar</button>';
+        });
+    }
+
+})(jQuery);
+function deleteRow (obj) {
+    const row = obj.parentNode.parentNode;
+    row.parentNode.removeChild(row);
 }

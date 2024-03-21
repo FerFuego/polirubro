@@ -46,7 +46,24 @@
             <div class="shoping__checkout mt-0">
                 <h5>Total Pedido</h5>
                 <ul>
-                    <li>Total <span>$<?php echo number_format($pedido->getTotalFinal(), 2,',','.'); ?></span></li>
+                    <li>Subtotal <span>$<?php echo number_format($pedido->getTotalFinal(), 2,',','.'); ?></span></li>
+                    <!-- Descuentos -->
+                    <?php
+                        $data = json_decode($general->getDescuentos(), true);
+                        $data = array_reverse($data);
+                        $descuento = 0;
+                        if (!empty($data)) :
+                            foreach ($data as $key => $value) { 
+                                if ($pedido->getTotalFinal() >  $value['precio']) :
+                                    $descuento = $pedido->getTotalFinal() * $value['descuento'] / 100; ?>
+                                    <li>Descuento <?= $value['descuento']."%"; ?> <span>- $<?php echo  number_format($descuento, 2,',','.'); ?></span></li>
+                                <?php break;
+                                endif;
+                            }
+                        endif; 
+                    ?>
+                
+                    <li>Total <span>$<?php echo number_format($pedido->getTotalFinal() - $descuento, 2,',','.'); ?></span></li>
                 </ul>
                  <!-- Danger Bootstrap -->
                  <?php if ($pedido->getTotalFinal() < $general->getMinimo()) : ?>
