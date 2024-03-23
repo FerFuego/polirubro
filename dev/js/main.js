@@ -576,12 +576,19 @@ $(document).ready( function () {
     $('.js-finally-order-admin').click( function (e) {
 
         e.preventDefault();
-
+        let data = {};
         var id_pedido = $(this).attr('data-ord');
+
+        const prices = document.querySelector('.shoping__checkout');
+        const inputs = prices.querySelectorAll('input[type="hidden"]');    
+        for (let i = 0; i < inputs.length; i++) {
+            data[inputs[i].name] = inputs[i].value;
+        }
     
         var formData = new FormData();
             formData.append('action', 'finallyOrderAdmin');
             formData.append('id_pedido', id_pedido );
+            formData.append('data', JSON.stringify(data) );
     
         jQuery.ajax({
             cache: false,

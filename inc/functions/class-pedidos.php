@@ -183,7 +183,7 @@ class Pedidos {
     public function insertPedido(Usuarios $user) {
 
         $this->obj = new sQuery();
-        $this->obj->executeQuery("INSERT INTO pedidos_cabe (Id_Cliente, Nombre, Localidad, Mail, Telefono, Usuario, FechaIni, FechaFin, SubTotal, Descuento, ImpTotal, Cerrado, IP) VALUES ('$user->Id_Cliente','$user->Nombre','$user->Localidad','$user->Mail','$this->Telefono','$user->Usuario','$this->FechaIni',0,0,0,0,0,'$this->IP')");
+        $this->obj->executeQuery("INSERT INTO pedidos_cabe (Id_Cliente, Nombre, Localidad, Mail, Telefono, Usuario, FechaIni, FechaFin, SubTotal, Descuento, ImpTotal, Cerrado, IP) VALUES ('$user->Id_Cliente','$user->Nombre','$user->Localidad','$user->Mail','$this->Telefono','$user->Usuario','$this->FechaIni',null,0,0,0,0,'$this->IP')");
 
         $data = [
             'Id_Pedido' => $this->obj->getIDAffect(),
@@ -195,7 +195,7 @@ class Pedidos {
     public function insertPedidoGuest() {
 
         $this->obj = new sQuery();
-        $this->obj->executeQuery("INSERT INTO pedidos_cabe (Id_Cliente, Nombre, Localidad, Mail, Telefono, Usuario, FechaIni, FechaFin, SubTotal, Descuento, ImpTotal, Cerrado, IP) VALUES ('$this->Id_Cliente','$this->Nombre','$this->Localidad','$this->Mail','$this->Telefono','$this->Usuario','$this->FechaIni',0,0,0,0,0,'$this->IP')");
+        $this->obj->executeQuery("INSERT INTO pedidos_cabe (Id_Cliente, Nombre, Localidad, Mail, Telefono, Usuario, FechaIni, FechaFin, SubTotal, Descuento, ImpTotal, Cerrado, IP) VALUES ('$this->Id_Cliente','$this->Nombre','$this->Localidad','$this->Mail','$this->Telefono','$this->Usuario','$this->FechaIni',null,0,0,0,0,'$this->IP')");
 
         $data = [
             'Id_Pedido' => $this->obj->getIDAffect(),

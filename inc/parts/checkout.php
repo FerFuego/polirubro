@@ -50,6 +50,7 @@
                     <li>Subtotal <span>$<?php echo number_format($pedido->getTotalFinal(), 2,',','.'); ?></span></li>
                     <!-- Descuentos -->
                     <?php
+                        $general = new Configuracion();
                         $data = json_decode($general->getDescuentos(), true);
                         $data = array_reverse($data);
                         $descuento = 0;
@@ -68,9 +69,9 @@
                 </ul>
                 
                 <!-- Hidden Inputs -->
-                <input type="hidden" name="subtotal" id="js-subtotal-pedido" value="<?php echo $pedido->getTotalFinal(); ?>">
-                <input type="hidden" name="descuento" id="js-descuento-pedido" value="<?php echo $descuento; ?>">
-                <input type="hidden" name="total" id="js-total-pedido" value="<?php echo $pedido->getTotalFinal() - $descuento; ?>">
+                <input type="hidden" name="subtotal" value="<?php echo $pedido->getTotalFinal(); ?>">
+                <input type="hidden" name="descuento" value="<?php echo $descuento; ?>">
+                <input type="hidden" name="total" value="<?php echo $pedido->getTotalFinal() - $descuento; ?>">
                  
                 <!-- Danger Bootstrap -->
                  <?php if ($pedido->getTotalFinal() < $general->getMinimo()) : ?>

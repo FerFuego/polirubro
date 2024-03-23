@@ -120,7 +120,7 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'insertProd
 
     $order = new Pedidos();
     $result = $order->getPedidoAbierto($_SESSION["Id_Cliente"]);
-    $order->closeConnection(); 
+    $order->closeConnection();
 
     if ( $result && $result['num_rows'] == 0 ) :
 
@@ -265,10 +265,14 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'finallyOrd
 if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'finallyOrderAdmin') {
 
     $id_pedido = (isset($_POST['id_pedido']) ? filter_var($_POST['id_pedido'], FILTER_VALIDATE_INT) : null);
+    $data      = isset($_POST['data']) ? json_decode($_POST['data']) : null;
     
     if (!isset($_SESSION["Id_Cliente"]) || $_SESSION["Id_Cliente"] == 0) die('false');
 
     $order = new Pedidos($id_pedido);
+    $order->SubTotal = $data->subtotal;
+    $order->Descuento = $data->descuento;
+    $order->ImpTotal = $data->total;
     $order->FechaFin = date("Y-m-d");
     $order->Cerrado = 1;
     $order->finalizarPedido();
@@ -276,12 +280,10 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'finallyOrd
     
     /* 
     // Send main to client
-    $user = new Usuarios($_SESSION["Id_Cliente"]);
-
-    $data = new Polirubro();
-    $body = $data->getBodyEmail($id_pedido, $user);
-    $data->sendMail($id_pedido, $user, $body);
-    $user->closeConnection(); 
+    $datos = new Polirubro();
+    $body = $datos->getBodyEmail($id_pedido);
+    $datos->sendMail($id_pedido, $order->Mail, $body);
+    $order->closeConnection();
     */
     die('true');
 }
