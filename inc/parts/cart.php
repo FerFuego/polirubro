@@ -52,7 +52,7 @@
             <div class="shoping__continue">
                 <div class="shoping__discount shoping__checkout">
                     <h5>Tabla de Descuentos</h5>
-                    <table>
+                    <table class="table table-bordered">
                         <thead>
                             <th>Descuento</th>
                             <th>&nbsp;&nbsp;Compras</th>
