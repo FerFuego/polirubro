@@ -49,15 +49,33 @@
         </div>
         <div class="col-lg-6">
             <div class="js-cart-message"></div>
-            <!-- <div class="shoping__continue">
-                <div class="shoping__discount">
-                    <h5>Discount Codes</h5>
-                    <form action="#">
+            <div class="shoping__continue">
+                <div class="shoping__discount shoping__checkout">
+                    <h5>Tabla de Descuentos</h5>
+                    <table>
+                        <thead>
+                            <th>Descuento</th>
+                            <th>&nbsp;&nbsp;Compras</th>
+                        </thead>
+                        <?php
+                            $general = new Configuracion();
+                            $data = json_decode($general->getDescuentos(), true);
+                            if (!empty($data)) :
+                                foreach ($data as $key => $value) { ?>
+                                    <tr>
+                                        <td><?= $value['descuento'] . "%"; ?></td>
+                                        <td>> $<?php echo  number_format($value['precio'], 2,',','.'); ?></td>
+                                    </tr>
+                                <?php }
+                            endif; 
+                        ?>
+                    </table>
+                    <!-- <form action="#">
                         <input type="text" placeholder="Enter your coupon code">
                         <button type="submit" class="site-btn">APPLY COUPON</button>
-                    </form>
+                    </form> -->
                 </div>
-            </div> -->
+            </div>
         </div>
         <div class="col-lg-6">
             <div class="shoping__checkout">

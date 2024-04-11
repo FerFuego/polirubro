@@ -41,7 +41,31 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-6"></div>
+        <div class="col-lg-6">
+            <div class="shoping__continue">
+                <div class="shoping__discount shoping__checkout mt-0">
+                    <h5>Tabla de Descuentos</h5>
+                    <table>
+                        <thead>
+                            <th>Descuento</th>
+                            <th>&nbsp;&nbsp;Compras</th>
+                        </thead>
+                        <?php
+                            $general = new Configuracion();
+                            $data = json_decode($general->getDescuentos(), true);
+                            if (!empty($data)) :
+                                foreach ($data as $key => $value) { ?>
+                                    <tr>
+                                        <td><?= $value['descuento'] . "%"; ?></td>
+                                        <td>> $<?php echo  number_format($value['precio'], 2,',','.'); ?></td>
+                                    </tr>
+                                <?php }
+                            endif; 
+                        ?>
+                    </table>
+                </div>
+            </div>
+        </div>
         <div class="col-lg-6">
             <div class="shoping__checkout mt-0">
                 <h5>Total Pedido</h5>
