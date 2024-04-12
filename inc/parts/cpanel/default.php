@@ -124,6 +124,50 @@
                 </div>
             </div>
             <div class="d-flex">
+                <div class="form-group w-100 pl-2 mt-4">
+                    <table id="js-table-descuentos">
+                        <thead>
+                            <tr>
+                                <td colspan="3">
+                                    <h4>Tabla de descuentos</h4>
+                                </td>
+                            </tr>
+                            <th>
+                                <tr>
+                                    <td>Precio ($)</td>
+                                    <td>Descuento (%)</td>
+                                </tr>   
+                            </th>
+                        </thead>
+                        <tbody>
+                            <?php 
+                            $data = json_decode($general->descuentos, true);
+                            if (!empty($data)) :
+                                foreach ($data as $key => $value) { ?>
+                                    <tr>
+                                        <td><input type="number" name="precio[]" class="form-control" value="<?php echo $value['precio']; ?>"></td>
+                                        <td><input type="number" name="descuento[]" class="form-control" value="<?php echo $value['descuento']; ?>"></td>
+                                        <td><button type="button" class="btn btn-danger" onclick="deleteRow(this)">Eliminar</button></td>
+                                    </tr>
+                                <?php } ?>
+                            <?php else: ?>
+                                <tr>
+                                    <td><input type="number" name="precio[]" class="form-control" value=""></td>
+                                    <td><input type="number" name="descuento[]" class="form-control" value=""></td>
+                                    <td></td>
+
+                                </tr>
+                            <?php endif; ?>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td><button type="button" class="btn btn-success mt-2" id="js-add-row">Agregar Fila +</button></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+            <div class="d-flex">
                 <div class="form-group w-50 pl-2">
                     <label for="">&nbsp;</label> <br>
                     <input type="submit" class="form-control btn-success" value="Guardar">

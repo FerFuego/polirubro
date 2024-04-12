@@ -41,19 +41,69 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-6"></div>
+        <div class="col-lg-6">
+            <div class="shoping__continue">
+                <div class="shoping__discount shoping__checkout mt-0">
+                    <h5>Tabla de Descuentos</h5>
+                    <table class="table table-bordered">
+                        <thead>
+                            <th>Descuento</th>
+                            <th>&nbsp;&nbsp;Compras</th>
+                        </thead>
+                        <?php
+                            $general = new Configuracion();
+                            $data = json_decode($general->getDescuentos(), true);
+                            if (!empty($data)) :
+                                foreach ($data as $key => $value) { ?>
+                                    <tr>
+                                        <td><?= $value['descuento'] . "%"; ?></td>
+                                        <td>> $<?php echo  number_format($value['precio'], 2,',','.'); ?></td>
+                                    </tr>
+                                <?php }
+                            endif; 
+                        ?>
+                    </table>
+                </div>
+            </div>
+        </div>
         <div class="col-lg-6">
             <div class="shoping__checkout mt-0">
                 <h5>Total Pedido</h5>
+                <!-- Resume -->
                 <ul>
-                    <li>Total <span>$<?php echo number_format($pedido->getTotalFinal(), 2,',','.'); ?></span></li>
+                    <li>Subtotal <span>$<?php echo number_format($pedido->getTotalFinal(), 2,',','.'); ?></span></li>
+                    <!-- Descuentos -->
+                    <?php
+                        $general = new Configuracion();
+                        $data = json_decode($general->getDescuentos(), true);
+                        $data = array_reverse($data);
+                        $descuento = 0;
+                        if (!empty($data)) :
+                            foreach ($data as $key => $value) { 
+                                if ($pedido->getTotalFinal() >  $value['precio']) :
+                                    $descuento = $pedido->getTotalFinal() * $value['descuento'] / 100; ?>
+                                    <li>Descuento <?= $value['descuento']."%"; ?> <span>- $<?php echo  number_format($descuento, 2,',','.'); ?></span></li>
+                                <?php break;
+                                endif;
+                            }
+                        endif; 
+                    ?>
+                
+                    <li>Total <span>$<?php echo number_format($pedido->getTotalFinal() - $descuento, 2,',','.'); ?></span></li>
                 </ul>
-                 <!-- Danger Bootstrap -->
+                
+                <!-- Hidden Inputs -->
+                <input type="hidden" name="subtotal" value="<?php echo $pedido->getTotalFinal(); ?>">
+                <input type="hidden" name="descuento" value="<?php echo $descuento; ?>">
+                <input type="hidden" name="total" value="<?php echo $pedido->getTotalFinal() - $descuento; ?>">
+                 
+                <!-- Danger Bootstrap -->
                  <?php if ($pedido->getTotalFinal() < $general->getMinimo()) : ?>
                     <div class="alert alert-danger" role="alert">
                         <i class="fa fa-exclamation-circle"></i> El minimo de compra para cerrar el pedido es de <strong>$<?php echo number_format($general->getMinimo(), 0,'','.'); ?></strong>
                     </div>
                 <?php endif; ?>
+                
                 <!-- Final Order -->
                 <?php if (!$result['cpanel'] && $pedido->getTotalFinal() >= $general->getMinimo()) : ?>
                     <a href="#" id="js-finally-order" data-id="<?php echo $result['Id_Pedido']; ?>" class="primary-btn">Finalizar Pedido</a>

@@ -14,6 +14,7 @@ class Contact {
     public $comentario;
     public $fecha;
     public $hora;
+    public $obj;
     public $ip;
 
     public function __construct($id=0) {

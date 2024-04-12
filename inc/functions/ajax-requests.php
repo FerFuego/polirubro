@@ -120,7 +120,7 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'insertProd
 
     $order = new Pedidos();
     $result = $order->getPedidoAbierto($_SESSION["Id_Cliente"]);
-    $order->closeConnection(); 
+    $order->closeConnection();
 
     if ( $result && $result['num_rows'] == 0 ) :
 
@@ -242,6 +242,9 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'finallyOrd
         $user->closeConnection();
     }
 
+    $order->SubTotal = $data->subtotal;
+    $order->Descuento = $data->descuento;
+    $order->ImpTotal = $data->total;
     $order->Id_Cliente = $_SESSION["Id_Cliente"];
     $order->FechaFin = date("Y-m-d");
     $order->Cerrado = 1;
@@ -262,10 +265,14 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'finallyOrd
 if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'finallyOrderAdmin') {
 
     $id_pedido = (isset($_POST['id_pedido']) ? filter_var($_POST['id_pedido'], FILTER_VALIDATE_INT) : null);
+    $data      = isset($_POST['data']) ? json_decode($_POST['data']) : null;
     
     if (!isset($_SESSION["Id_Cliente"]) || $_SESSION["Id_Cliente"] == 0) die('false');
 
     $order = new Pedidos($id_pedido);
+    $order->SubTotal = $data->subtotal;
+    $order->Descuento = $data->descuento;
+    $order->ImpTotal = $data->total;
     $order->FechaFin = date("Y-m-d");
     $order->Cerrado = 1;
     $order->finalizarPedido();
@@ -273,12 +280,10 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'finallyOrd
     
     /* 
     // Send main to client
-    $user = new Usuarios($_SESSION["Id_Cliente"]);
-
-    $data = new Polirubro();
-    $body = $data->getBodyEmail($id_pedido, $user);
-    $data->sendMail($id_pedido, $user, $body);
-    $user->closeConnection(); 
+    $datos = new Polirubro();
+    $body = $datos->getBodyEmail($id_pedido);
+    $datos->sendMail($id_pedido, $order->Mail, $body);
+    $order->closeConnection();
     */
     die('true');
 }
@@ -527,6 +532,7 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'operationC
     $twitter = (isset($_POST['twitter']) ? filter_var($_POST['twitter'], FILTER_SANITIZE_STRING) : null);
     $aumento_1 = (isset($_POST['aumento_1']) ? filter_var($_POST['aumento_1'], FILTER_SANITIZE_STRING) : null);
     $minimo = (isset($_POST['minimo']) ? filter_var($_POST['minimo'], FILTER_SANITIZE_STRING) : null);
+    $descuentos = (isset($_POST['descuentos']) ? $_POST['descuentos'] : null);
 
     
     try {
@@ -580,6 +586,7 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'operationC
         $general->twitter = $twitter;
         $general->aumento_1 = $aumento_1;
         $general->minimo = $minimo;
+        $general->descuentos = $descuentos;
         $general->update();
         $general->closeConnection();
         die('true');

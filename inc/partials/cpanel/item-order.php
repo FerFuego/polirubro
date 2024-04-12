@@ -9,10 +9,16 @@
         <?php echo $order->Localidad; ?>
     </td>
     <td class="text-left">
+        <?php echo $order->SubTotal ? '$' . number_format($order->SubTotal, 2,',','.') : 0; ?>
+    </td>
+    <td class="text-left">
+        <?php echo $order->Descuento ? '$' . number_format($order->Descuento, 2,',','.') : 0; ?>
+    </td>
+    <td class="text-left">
         <?php 
             $o = new Pedidos(); 
             $ord = $o->getPedidoTotal($order->Id_Pedido);
-            echo '$' . number_format($ord->Total, 2,',','.'); 
+            echo $order->ImpTotal > 0 ? '$' . number_format($order->ImpTotal, 2,',','.') : '$' . number_format($ord->Total, 2,',','.'); 
             $o->closeConnection();
         ?>
     </td>
@@ -20,10 +26,8 @@
         <?php echo ($order->Cerrado == 1) ? "Cerrado" : "Abierto"; ?>
     </td>
     <td class="text-left">
-        <?php echo $order->FechaIni; ?>
-    </td>
-    <td class="text-left">
-        <?php echo $order->FechaFin; ?>
+        <?php echo 'Inicio: ' . date("d-m-Y", strtotime($order->FechaIni)); ?>
+        <?php echo '<br> Fin: ' . date("d-m-Y", strtotime($order->FechaFin)); ?>
     </td>
     <td class="shoping__cart__item__update text-center">
         <span onclick="getOrderData(this);" data-order="<?php echo $order->Id_Pedido; ?>" data-toggle="modal" data-target="#orderModal" class="icon_zoom-in_alt" title="Editar"></span>
