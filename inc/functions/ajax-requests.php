@@ -143,7 +143,6 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'insertProd
         }
 
         $order->closeConnection();
-        $user->closeConnection();
         
     endif;
 
@@ -170,7 +169,6 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'insertProd
     $detail->ImpTotal = $prod->PreVtaFinal1() * $cant;
     $detail->Notas = $note;
     $detail->insertDetalle();
-    $detail->closeConnection();
 
     die('true');
 }
