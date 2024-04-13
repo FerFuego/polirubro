@@ -141,8 +141,6 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'insertProd
             $order->IP = $_SERVER['REMOTE_ADDR'];
             $result = $order->insertPedidoGuest();
         }
-
-        $order->closeConnection();
         
     endif;
 
@@ -193,8 +191,6 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'updateProd
     $item->Notas = $note;
     $item->ImpTotal = $prod->PreVtaFinal1() * $cant;
     $item->updateDetalle();
-    $item->closeConnection();
-    $prod->closeConnection();
 
     die('true');
 }
