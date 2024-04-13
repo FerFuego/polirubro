@@ -75,7 +75,7 @@ class Productos {
         
         
         // Usuario logueado
-        if (isset($_SESSION["Id_Cliente"])) {
+        if (isset($_SESSION["user"])) {
             
             $user = new Usuarios($_SESSION["Id_Cliente"]);
             $tipo = $user->getTipo();
@@ -101,7 +101,7 @@ class Productos {
         
         
         // Usuario logueado
-        if (isset($_SESSION["Id_Cliente"])) {
+        if (isset($_SESSION["user"])) {
             
             $user = new Usuarios($_SESSION["Id_Cliente"]);
             $tipo = $user->getTipo();

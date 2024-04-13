@@ -23,15 +23,19 @@ class Usuarios {
             $result = $this->obj->executeQuery("SELECT * FROM clientes WHERE Id_Cliente = '$id'");
             $row = mysqli_fetch_assoc($result);
 
-            $this->Id_Cliente = $row['Id_Cliente'];
-            $this->Nombre = $row['Nombre'];
-            $this->Localidad = $row['Localidad'];
-            $this->Mail = $row['Mail'];
-            $this->Usuario = $row['Usuario'];
-            $this->Password = $row['Password'];
-            $this->ListaPrecioDef = $row['ListaPrecioDef'];
-            $this->tipo = $row['tipo'];
-            $this->is_Admin = $row['is_admin'];
+            if (array_keys($row, 'Id_Cliente') !== false) {
+                $this->Id_Cliente = $row['Id_Cliente'];
+                $this->Nombre = $row['Nombre'];
+                $this->Localidad = $row['Localidad'];
+                $this->Mail = $row['Mail'];
+                $this->Usuario = $row['Usuario'];
+                $this->Password = $row['Password'];
+                $this->ListaPrecioDef = $row['ListaPrecioDef'];
+                $this->tipo = $row['tipo'];
+                $this->is_Admin = $row['is_admin'];
+            } else {
+                return false;
+            }
         }
     }
 
