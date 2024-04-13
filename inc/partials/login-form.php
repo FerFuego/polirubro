@@ -12,7 +12,7 @@
         </div>
 
         <div class="form-group">
-            <div class="g-recaptcha" data-sitekey="<?php echo Polirubro::SITE_KEY; ?>"></div>
+            <div class="g-recaptcha" data-sitekey="<?php echo Polirubro::get_site_key(); ?>"></div>
         </div>
 
         <div class="form-group">
