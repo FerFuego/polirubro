@@ -147,6 +147,12 @@ ol {
   color: #fff;
 }
 
+.text-white {
+  color: #fff !important;
+}
+.text-black {
+  color: #252525 !important;
+}
 /* buttons */
 .primary-btn {
   display: inline-block;
@@ -249,8 +255,4 @@ ol {
     border: 4px solid #f44336;
     border-left-color: transparent;
   }
-}
-
-.text-white {
-  color: #FFF !important;
 }

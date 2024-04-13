@@ -7,11 +7,11 @@
         <a href="/"><img src="img/logo.jpg" alt=""></a>
     </div>
 
-    <div class="humberger__menu__cart">
-        <a href="./carrito.php"><i class="fa fa-shopping-bag"></i> Carrito</a>
-    </div>
-
-    <div class="humberger__menu__widget">
+    
+    <div class="humberger__menu__widget d-flex justify-content-between">
+        <div class="humberger__menu__cart mb-0">
+            <a href="./carrito.php" class="text-black"><i class="fa fa-shopping-bag"></i> Carrito</a>
+        </div>
        <?php echo Polirubro::getItemsSession(); ?>
     </div>
 
