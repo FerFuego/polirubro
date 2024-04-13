@@ -17,8 +17,6 @@ class Pedidos {
     public $Descuento;
     public $ImpTotal;
     public $Cerrado;
-    public $Importado;
-	public $Id_Presu;
     public $IP;
     public $totalFinal = 0;
     protected $obj;
@@ -43,8 +41,6 @@ class Pedidos {
             $this->Descuento = $row['Descuento'];
             $this->ImpTotal = $row['ImpTotal'];
             $this->Cerrado = $row['Cerrado'];
-            $this->Importado = $row['Importado'];
-            $this->Id_Presu = $row['Id_Presu'];
             $this->IP = $row['IP'];
         }
     }
@@ -62,8 +58,6 @@ class Pedidos {
     public function getDescuento(){ return $this->Descuento; }
     public function getImpTotal(){ return $this->ImpTotal; }
     public function getCerrado(){ return $this->Cerrado; }
-    public function getImportado(){ return $this->Importado; }
-    public function getIdPresu(){ return $this->Id_Presu; }
     public function getIP(){ return $this->IP; }
     public function getTotalFinal(){ return $this->totalFinal; }
 
@@ -185,7 +179,7 @@ class Pedidos {
     public function insertPedido(Usuarios $user) {
 
         $this->obj = new sQuery();
-        $this->obj->executeQuery("INSERT INTO PEDIDOS_CABE (Id_Cliente, Nombre, Localidad, Mail, Telefono, Usuario, FechaIni, FechaFin, SubTotal, Descuento, ImpTotal, Cerrado, Importado, Id_Presu ,IP) VALUES ('$user->Id_Cliente','$user->Nombre','$user->Localidad','$user->Mail','$this->Telefono','$user->Usuario','$this->FechaIni',null,0,0,0,0,0,0'$this->IP')");
+        $this->obj->executeQuery("INSERT INTO PEDIDOS_CABE (Id_Cliente, Nombre, Localidad, Mail, Telefono, Usuario, FechaIni, FechaFin, SubTotal, Descuento, ImpTotal, Cerrado, IP) VALUES ('$user->Id_Cliente','$user->Nombre','$user->Localidad','$user->Mail','$this->Telefono','$user->Usuario','$this->FechaIni',null,0,0,0,0,'$this->IP')");
 
         $data = [
             'Id_Pedido' => $this->obj->getIDAffect(),
@@ -197,7 +191,7 @@ class Pedidos {
     public function insertPedidoGuest() {
 
         $this->obj = new sQuery();
-        $this->obj->executeQuery("INSERT INTO PEDIDOS_CABE (Id_Cliente, Nombre, Localidad, Mail, Telefono, Usuario, FechaIni, FechaFin, SubTotal, Descuento, ImpTotal, Cerrado, Importado, Id_Presu, IP) VALUES ('$this->Id_Cliente','$this->Nombre','$this->Localidad','$this->Mail','$this->Telefono','$this->Usuario','$this->FechaIni',null,0,0,0,0,0,0'$this->IP')");
+        $this->obj->executeQuery("INSERT INTO PEDIDOS_CABE (Id_Cliente, Nombre, Localidad, Mail, Telefono, Usuario, FechaIni, FechaFin, SubTotal, Descuento, ImpTotal, Cerrado, IP) VALUES ('$this->Id_Cliente','$this->Nombre','$this->Localidad','$this->Mail','$this->Telefono','$this->Usuario','$this->FechaIni',null,0,0,0,0,'$this->IP')");
 
         $data = [
             'Id_Pedido' => $this->obj->getIDAffect(),
