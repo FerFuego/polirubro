@@ -55,10 +55,10 @@
             <div class="col-lg-12">
                 <div class="footer__copyright">
                     <div class="footer__copyright__text">
-                        </div>
                         <div class="footer__copyright__payment">
-                        <p>Copyright &copy;<script>document.write(new Date().getFullYear());</script> Todos los derechos reservados | Desarrollo Web: <a href="https://lucianocolmano.com.ar/" target="_blank">Colmano & Catalano</a></p>
-                        <!-- <img src="img/payment-item.png" alt=""> -->
+                            <p>Copyright &copy;<script>document.write(new Date().getFullYear());</script> Todos los derechos reservados | Desarrollo Web: <a href="https://lucianocolmano.com.ar/" class="text-white" target="_blank">Colmano & Catalano</a></p>
+                            <!-- <img src="img/payment-item.png" alt=""> -->
+                        </div>
                     </div>
                 </div>
             </div>
