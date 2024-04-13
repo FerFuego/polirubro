@@ -21,6 +21,10 @@
 endif; ?>
 <!-- Slider End -->
 
+<!-- Banner Shopping Begin -->
+<?php require_once('inc/parts/banner-shopping.php'); ?>
+<!-- Banner End -->
+
 <!-- Banner Begin -->
 <?php require_once('inc/parts/banner-section.php'); ?>
 <!-- Banner End -->
