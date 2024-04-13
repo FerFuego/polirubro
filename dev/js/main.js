@@ -533,6 +533,10 @@ $(document).ready( function () {
         if ( form = document.getElementById('js-form-user-pedido')) {
             const inputs = form.querySelectorAll('input, select, textarea');    
             for (let i = 0; i < inputs.length; i++) {
+                if (inputs[i].value == '') {
+                    toastr.error('Por favor complete todos los campos');
+                    return;
+                }
                 data[inputs[i].name] = inputs[i].value;
             }
         }
