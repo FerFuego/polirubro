@@ -49,7 +49,6 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'actionLogi
         if ( $result['num_rows'] > 0 ) :
             $updated = $order->ActualizarPedido($result['Id_Pedido']);
         endif;
-        $order->closeConnection(); 
     endif;
 
     $data = [
@@ -120,7 +119,6 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'insertProd
 
     $order = new Pedidos();
     $result = $order->getPedidoAbierto($_SESSION["Id_Cliente"]);
-    $order->closeConnection();
 
     if ( $result && $result['num_rows'] == 0 ) :
 
@@ -151,7 +149,6 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'insertProd
     $verify = new Detalles();
     $verifyResult = $verify->verifyDetalle($result['Id_Pedido'], $cod_product);
     if ( $verifyResult->num_rows > 0 ) die('exist');
-    $verify->closeConnection();
 
     // Check Product
     $prod = new Productos($cod_product);
@@ -205,7 +202,6 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'deleteProd
     $item = new Detalles();
     $item->Auto = $id_productItem;
     $item->deleteDetalle();
-    $item->closeConnection();
 
     die('true');
 }
@@ -233,7 +229,6 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'finallyOrd
         $order->Mail  = $user->getMail();
         $order->Telefono  = '';
         $order->Localidad  = $user->getLocalidad();
-        $user->closeConnection();
     }
 
     $order->SubTotal = $data->subtotal;
@@ -248,7 +243,6 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'finallyOrd
     $datos = new Polirubro();
     $body = $datos->getBodyEmail($id_pedido);
     //$datos->sendMail($id_pedido, $order->Mail, $body);
-    $order->closeConnection();
 
     die('true');
 }
@@ -270,14 +264,12 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'finallyOrd
     $order->FechaFin = date("Y-m-d");
     $order->Cerrado = 1;
     $order->finalizarPedido();
-    $order->closeConnection();
     
     /* 
     // Send main to client
     $datos = new Polirubro();
     $body = $datos->getBodyEmail($id_pedido);
     $datos->sendMail($id_pedido, $order->Mail, $body);
-    $order->closeConnection();
     */
     die('true');
 }
@@ -292,7 +284,6 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'deleteOrde
     try {
         $categ = new Pedidos($Id_Pedido);
         $categ->delete();
-        $categ->closeConnection();
         die('true');
     } catch (Exception $e) {
         return $e;
@@ -308,8 +299,6 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'dataClient
     
     if ( $id_client ) {
         $user = new Usuarios($id_client);
-        $user->closeConnection();
-
         echo json_encode($user); 
         die();
     }
@@ -341,7 +330,6 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'operationC
         $user->Password = $password;
         $user->ListaPrecioDef = $price;
         $user->insert();
-        $user->closeConnection();
         die('true');
     }
 
@@ -355,7 +343,6 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'operationC
         $user->Password = $password;
         $user->ListaPrecioDef = $price;
         $user->update();
-        $user->closeConnection();
         die('true');
     }
 
@@ -363,7 +350,6 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'operationC
         $user = new Usuarios();
         $user->Id_Cliente = $id;
         $user->delete();
-        $user->closeConnection();
         die('true');
     }
 
@@ -379,8 +365,6 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'dataProduc
     
     if ( $cod_product ) {
         $prod = new Productos($cod_product);
-        $prod->closeConnection();
-
         echo json_encode($prod); 
         die();
     }
@@ -407,14 +391,12 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'operationP
         if ($offer) $prod->oferta = $offer;
         $prod->observaciones = $observation;
         $prod->update();
-        $prod->closeConnection();
         die('true');
     }
 
     if ( $type == 'delete' ) {
         $prod = new Productos($cod_prod);
         $prod->delete();
-        $prod->closeConnection();
         die('true');
     }
 
@@ -430,8 +412,6 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'dataBanner
     
     if ( $id_banner ) {
         $bann = new Banners($id_banner);
-        $bann->closeConnection();
-
         echo json_encode($bann); 
         die();
     }
@@ -479,7 +459,6 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'operationB
         $banner->link = $link;
         $banner->small = $small;
         $banner->insert();
-        $banner->closeConnection();
         die('true');
     }
 
@@ -494,14 +473,12 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'operationB
         $banner->link = $link;
         $banner->small = $small;
         $banner->update();
-        $banner->closeConnection();
         die('true');
     }
 
     if ( $type == 'delete' ) {
         $banner = new Banners($id_banner);
         $banner->delete();
-        $banner->closeConnection();
         die('true');
     }
 
@@ -582,7 +559,6 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'operationC
         $general->minimo = $minimo;
         $general->descuentos = $descuentos;
         $general->update();
-        $general->closeConnection();
         die('true');
 
     } catch (Exception $e) {
@@ -599,8 +575,6 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'dataCateg'
     
     if ( $id_categ ) {
         $categ = new Categorias($id_categ);
-        $categ->closeConnection();
-
         echo json_encode($categ); 
         die();
     }
@@ -647,7 +621,6 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'operationC
         $categ->icon = $response;
         $categ->link = $link;
         $categ->insert();
-        $categ->closeConnection();
         die('true');
     }
 
@@ -661,14 +634,12 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'operationC
         $categ->color = NULL;
         $categ->link = $link;
         $categ->update();
-        $categ->closeConnection();
         die('true');
     }
 
     if ( $type == 'delete' ) {
         $categ = new Categorias($id_categ);
         $categ->delete();
-        $categ->closeConnection();
         die('true');
     }
 
@@ -689,7 +660,6 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'updateCart
         if ( $result['num_rows'] > 0 ) :
             $data = $order->ActualizarPedido($Id_Pedido);
         endif;
-        $order->closeConnection(); 
     endif;
     echo json_encode($data);
     die();
@@ -712,7 +682,6 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'dataOrders
             ];
             $data = require '../../inc/parts/checkout.php';
         endif;
-        $pedido->closeConnection();
     endif;
     echo json_encode($data);
     die();
@@ -745,7 +714,6 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'sendContac
         $contact->hora = date('H:i:s');
         $contact->insert();
         $result = $contact->send();
-        $contact->closeConnection();
 
         die($result);
     }

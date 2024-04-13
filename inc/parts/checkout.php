@@ -31,10 +31,7 @@
                                 <tr>
                                     <td colspan="5"><h3>No existen productos en el carrito</h3></td>
                                 </tr>
-                            <?php endif;
-
-                            $detalle->closeConnection(); 
-                        ?>
+                            <?php endif; ?>
                     </tbody>
                 </table>
             </div>

@@ -26,11 +26,9 @@
                 if ( $search != '') {
                     $productos = new Productos();
                     $result    = $productos->getProductSearch($opcion, $search);
-                    $productos->closeConnection();
                 } else {
                     $productos = new Productos();
                     $result    = $productos->getProducts($opcion, $id_rubro, $id_subrubro, $id_grupo, $minamount, $maxamount, $order);
-                    $productos->closeConnection();
                 }
 
                 $paginator = new Paginator( $result['query'], $result['total'] );
@@ -44,10 +42,7 @@
                     <tr>
                         <td colspan="6"><h3>No existen productos</h3></td>
                     </tr>
-                <?php endif;
-
-                $paginator->closeConnection();
-            ?>
+                <?php endif; ?>
         </tbody>
     </table>
     <?php echo $paginator->createLinks( $links, $result['params'], 'product__pagination' ); ?>

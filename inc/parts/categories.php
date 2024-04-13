@@ -17,8 +17,7 @@
                         </a>
                         <div class="sublist"></div>
                     </li>
-            <?php endwhile; 
-                $rubros->closeConnection(); ?>
+            <?php endwhile; ?>
         </ul>
     </div>
 </div>

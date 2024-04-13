@@ -11,8 +11,7 @@
                             require 'inc/partials/category-card.php'; 
                         endwhile;
                     endif;
-
-                    $categs->closeConnection(); ?>
+                ?>
             </div>
         </div>
     </div>

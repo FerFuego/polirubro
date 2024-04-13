@@ -34,8 +34,6 @@
                     $result = $orders->getOrders($opcion);
                 }
 
-                $orders->closeConnection();
-
                 $paginator = new Paginator( $result['query'], $result['total'] );
                 $results   = $paginator->getData( $limit, $page );
 
@@ -47,10 +45,7 @@
                     <tr>
                         <td colspan="9"><h3>No existen pedidos</h3></td>
                     </tr>
-                <?php endif;
-
-                $paginator->closeConnection();
-            ?>
+                <?php endif; ?>
         </tbody>
     </table>
     <?php echo $paginator->createLinks( $links, $result['params'], 'product__pagination' ); ?>

@@ -163,14 +163,10 @@ class Pedidos {
                     $d = new Detalles();
                     $d->Auto = $detalle->Auto;
                     $d->deleteDetalle();
-                    $d->closeConnection();
                     $deleted++;
                 }
-                $producto->closeConnection();
             endwhile;
         endif;
-        
-        $items->closeConnection(); 
 
         $data = [
             'deleted' => $deleted,

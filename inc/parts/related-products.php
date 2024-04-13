@@ -15,8 +15,7 @@
                 while ( $product = $results->fetch_object() ) :
                     require 'inc/partials/product-card.php';
                 endwhile; 
-
-                $related->closeConnection(); ?>
+            ?>
         </div>
     </div>
 </section>

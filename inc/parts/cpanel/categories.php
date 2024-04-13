@@ -27,10 +27,7 @@
                     <tr>
                         <td colspan="6"><h3>No existen categorias</h3></td>
                     </tr>
-                <?php endif;
-                
-                $categories->closeConnection();
-            ?>
+                <?php endif; ?>
         </tbody>
     </table>
 </div>

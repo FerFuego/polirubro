@@ -19,7 +19,6 @@
             $o = new Pedidos(); 
             $ord = $o->getPedidoTotal($order->Id_Pedido);
             echo $order->ImpTotal > 0 ? '$' . number_format($order->ImpTotal, 2,',','.') : '$' . number_format($ord->Total, 2,',','.'); 
-            $o->closeConnection();
         ?>
     </td>
     <td class="text-left">

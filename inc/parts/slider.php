@@ -23,8 +23,7 @@
                             </div>
                         </div>
                         
-                <?php endwhile; 
-                    $banners->closeConnection(); ?>
+                <?php endwhile; ?>
             </div>
         </div>
     </div>

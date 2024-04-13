@@ -28,10 +28,7 @@
                     <tr>
                         <td colspan="6"><h3>No existen banners</h3></td>
                     </tr>
-                <?php endif;
-                
-                $banners->closeConnection();
-            ?>
+                <?php endif; ?>
         </tbody>
     </table>
 </div>

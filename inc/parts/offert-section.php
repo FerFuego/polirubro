@@ -14,8 +14,6 @@
                         while ( $product = $results->fetch_object() ) :
                             require 'inc/partials/product.php';
                         endwhile;
-
-                        $offert->closeConnection();
                     ?>
                 </div>
             </div>

@@ -59,11 +59,9 @@
                     if ( $search != '') {
                         $productos = new Productos();
                         $result    = $productos->getProductSearch(null, $search);
-                        $productos->closeConnection();
                     } else {
                         $productos = new Productos();
                         $result    = $productos->getProducts(null, $id_rubro, $id_subrubro, $id_grupo, $minamount, $maxamount, $order);
-                        $productos->closeConnection();
                     }
 
                     $paginator = new Paginator( $result['query'], $result['total'] );
@@ -114,8 +112,6 @@
                 <?php else : ?>
                     <h4>No se encontraron productos en esta categoria</h4>
                 <?php endif; ?>
-
-                <?php $paginator->closeConnection(); ?>
 
                 <!-- Offer Section Begin -->
                 <?php require_once('inc/parts/offert-section.php'); ?>

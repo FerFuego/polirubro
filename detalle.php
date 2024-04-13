@@ -178,9 +178,7 @@
             <h2>Producto no encontrado</h2>
         </section>
 
-    <?php endif; 
-    
-    $product->closeConnection(); ?>
+    <?php endif; ?>
 
 <?php else : ?>
 

@@ -33,7 +33,6 @@
         // form checkout
         require ( $result['num_rows'] > 0 ) ? 'inc/parts/checkout.php' : 'inc/parts/cart-empty.php';
 
-        $pedido->closeConnection();
     endif; ?>
 </section>
 <!-- Cart Section End -->

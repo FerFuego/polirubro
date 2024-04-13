@@ -43,8 +43,7 @@
                         </a>
                         <div class="sublist"></div>
                     </li>
-            <?php endwhile; 
-                $rubros->closeConnection(); ?>
+            <?php endwhile; ?>
         </ul>
     </div>
     <!-- <div class="sidebar__item sidebar__item__color--option">
@@ -128,8 +127,6 @@
                             while ( $product = $results->fetch_object() ) :
                                 require 'inc/partials/sidebar-card.php';
                             endwhile;
-
-                            $news->closeConnection();
                         ?>
                     </div>
                 </div>

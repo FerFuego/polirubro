@@ -72,13 +72,8 @@ Class Polirubro {
                         <li><a href="./carrito.php" title="Ver Carrito"><b>Pedido</b> <i class="fa fa-shopping-bag"></i> <span>' .$resumen.'</span></a></li>
                     </ul>
                 </div>';
-
-                $detalle->closeConnection();
-
             endif;
 
-            $pedido->closeConnection();
-            
         endif;
 
         return $html;
@@ -141,9 +136,6 @@ Class Polirubro {
                 </td>
                 </tr>
                 </table></p>";
-        
-        $detalle->closeConnection();
-        $pedido->closeConnection();
 
         return $body;
     }

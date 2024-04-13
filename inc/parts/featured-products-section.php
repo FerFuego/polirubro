@@ -19,7 +19,6 @@
                         require 'inc/partials/product-card.php';
                     endwhile;
                 ?>
-                <?php $products->closeConnection(); ?>
             </div>
         </div>
 

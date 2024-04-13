@@ -42,13 +42,11 @@ class Configuracion {
         $this->aumento_1 = $row['aumento_1'];
         $this->minimo = $row['minimo'];
         $this->descuentos = $row['descuentos'];
-        $this->closeConnection();
 	}
 
     public function update() {
         $this->obj = new sQuery();
         $this->obj->executeQuery("UPDATE configuracion SET id = '$this->id', logo = '$this->logo', banner = '$this->banner', telefono = '$this->telefono', email = '$this->email', direccion = '$this->direccion', atencion = '$this->atencion', whatsapp = '$this->whatsapp', facebook = '$this->facebook', instagram = '$this->instagram', twitter = '$this->twitter', aumento_1 = '$this->aumento_1', minimo = '$this->minimo', descuentos = '$this->descuentos' WHERE (id = '1')");
-        $this->closeConnection();
     }
 
     public function getAumento(){
