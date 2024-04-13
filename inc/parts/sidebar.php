@@ -29,7 +29,7 @@
         </div>
     </div>
     <div class="sidebar__item d-none d-sm-block">
-        <h4>Categorias</h4>
+        <h4>Categorías</h4>
         <ul>
             <?php 
                 $rubros = new Rubros();
