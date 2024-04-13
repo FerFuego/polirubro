@@ -141,14 +141,14 @@ Class Polirubro {
     }
 
     public function sendMail($id_pedido, $emailCopia, $cuerpo) {
+
+        $smtpHost = str_replace('"', '', getenv('SMTP_HOST')); // Dominio alternativo brindado en el email de alta 
+        $smtpUsuario = str_replace('"', '', getenv('SMTP_USURIO')); // Mi cuenta de correo
+        $smtpClave = str_replace('"', '', getenv('SMTP_KEY'));
+        $nombre =  str_replace('"', '', getenv('SMTP_FROM'));
         
-        $smtpHost = "";  // Dominio alternativo brindado en el email de alta 
-        $smtpUsuario = "";  // Mi cuenta de correo
-        $smtpClave = "";
-        $nombre = "Web Nuestro Polirrubros";
-        
-        $emailDestino = "";
-        $emailDestino2 = "";
+        $emailDestino = str_replace('"', '', getenv('SMTP_EMAIL_DESTINO'));
+        $emailDestino2 = str_replace('"', '', getenv('SMTP_EMAIL_DESTINO_2'));
         
         $mail = new PHPMailer();
         $mail->IsSMTP();
