@@ -60,6 +60,9 @@
                             endif; 
                         ?>
                     </table>
+                    <div class="alert alert-danger mb-0" role="alert">
+                        <i class="fa fa-exclamation-circle"></i> Si ya sos cliente, ingresa con tu usuario y accede a nuestros descuentos por compra mayorista.
+                    </div>
                 </div>
             </div>
         </div>
