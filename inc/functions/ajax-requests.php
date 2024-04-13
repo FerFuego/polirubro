@@ -127,7 +127,7 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'insertProd
         $user = new Usuarios($_SESSION["Id_Cliente"]);
         $order = new Pedidos();
 
-        if ( $user->Id_Cliente ) {
+        if ( $user ) {
             $order->FechaIni = date("Y-m-d");
             $order->IP = $_SERVER['REMOTE_ADDR'];
             $result = $order->insertPedido($user);

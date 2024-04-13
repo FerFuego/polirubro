@@ -23,7 +23,7 @@ class Usuarios {
             $result = $this->obj->executeQuery("SELECT * FROM clientes WHERE Id_Cliente = '$id'");
             $row = mysqli_fetch_assoc($result);
 
-            if (array_keys($row, 'Id_Cliente') !== false) {
+            if (array_key_exists('Id_Cliente', $row) !== false) {
                 $this->Id_Cliente = $row['Id_Cliente'];
                 $this->Nombre = $row['Nombre'];
                 $this->Localidad = $row['Localidad'];
