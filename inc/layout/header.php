@@ -8,7 +8,7 @@
     </div>
 
     <div class="humberger__menu__cart">
-        <a href="./carrito.php">Carrito <i class="fa fa-shopping-bag"></i></a>
+        <a href="./carrito.php"><i class="fa fa-shopping-bag"></i> Carrito</a>
     </div>
 
     <div class="humberger__menu__widget">
