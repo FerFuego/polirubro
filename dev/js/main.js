@@ -554,17 +554,17 @@ $(document).ready( function () {
                 $('#js-finally-order').html('ENVIANDO...');
             },
             success: function (response) {
-                if (response == 'true') {
-                    $('#js-finally-order').html('PEDIDO ENVIADO');
-                    $("#js-dynamic-cart").load( $(location).attr("href") + ' #js-data-cart' );
-                    toastr.success('El Pedido fue enviado con exito!');
-                    setTimeout(function() {
-                        window.location.href = 'index.php';
-                    }, 3000);
-                } else {
-                    $('#js-finally-order').html('FINALIZAR PEDIDO');
-                    toastr.error('Ocurrio un error, por favor recarge la pagina e intente nuevamente.');
-                }
+                //if (response == 'true') {
+                $('#js-finally-order').html('PEDIDO ENVIADO');
+                $("#js-dynamic-cart").load( $(location).attr("href") + ' #js-data-cart' );
+                toastr.success('El Pedido fue enviado con exito!');
+                setTimeout(function() {
+                    window.location.href = 'index.php';
+                }, 3000);
+                // } else {
+                //     $('#js-finally-order').html('FINALIZAR PEDIDO');
+                //     toastr.error('Ocurrio un error, por favor recarge la pagina e intente nuevamente.');
+                // }
             }
         });
     })
