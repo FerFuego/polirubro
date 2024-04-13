@@ -1413,3 +1413,28 @@ function deleteRow (obj) {
     const row = obj.parentNode.parentNode;
     row.parentNode.removeChild(row);
 }
+
+/*-----------------
+    Validate Email
+------------------*/
+(function($) {
+    const validateEmail = (email) => {
+        return email.match(
+            /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        );
+    };
+
+    const validate = () => {
+        const $emailControl = $('#email');
+        const email = $('#email').val();
+    
+        if(validateEmail(email)){
+            $emailControl.css('border-color', 'green');
+        } else{
+            $emailControl.css('border-color', 'red');
+        }
+        return false;
+    }
+
+    $('#email').on('input', validate);
+})(jQuery);
