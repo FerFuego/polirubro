@@ -323,6 +323,30 @@ function formToggle() {
 }
 
 $(document).ready( function () {
+    
+    /*-----------------
+        Validate Email
+    ------------------*/
+    const validateEmail = (email) => {
+        return email.match(
+            /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        );
+    };
+
+    const validate = () => {
+        const $emailControl = $('#email');
+        const email = $('#email').val();
+
+        if(validateEmail(email)){
+            $emailControl.css('border-color', 'green');
+        } else{
+            $emailControl.css('border-color', 'red');
+        }
+        return false;
+    }
+
+    $('#email').on('input', validate);
+
     /*--------------------
         Login Request
     ---------------------*/
@@ -527,16 +551,26 @@ $(document).ready( function () {
 
         const inputs = document.querySelectorAll('input[type="hidden"]');    
         for (let i = 0; i < inputs.length; i++) {
+            // Set Data
             data[inputs[i].name] = inputs[i].value;
         }
 
         if ( form = document.getElementById('js-form-user-pedido')) {
             const inputs = form.querySelectorAll('input, select, textarea');    
             for (let i = 0; i < inputs.length; i++) {
+                // Validate Required
                 if (inputs[i].value == '') {
                     toastr.error('Por favor complete todos los campos');
                     return;
                 }
+                // Validate Email
+                if (inputs[i].name == 'email') {
+                    if (!validateEmail(inputs[i].value)) {
+                        toastr.error('Por favor ingrese un email valido');
+                        return;
+                    }
+                }
+                // Set Data
                 data[inputs[i].name] = inputs[i].value;
             }
         }
@@ -1409,32 +1443,8 @@ function sendContact() {
     }
 
 })(jQuery);
+
 function deleteRow (obj) {
     const row = obj.parentNode.parentNode;
     row.parentNode.removeChild(row);
 }
-
-/*-----------------
-    Validate Email
-------------------*/
-(function($) {
-    const validateEmail = (email) => {
-        return email.match(
-            /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-        );
-    };
-
-    const validate = () => {
-        const $emailControl = $('#email');
-        const email = $('#email').val();
-    
-        if(validateEmail(email)){
-            $emailControl.css('border-color', 'green');
-        } else{
-            $emailControl.css('border-color', 'red');
-        }
-        return false;
-    }
-
-    $('#email').on('input', validate);
-})(jQuery);
