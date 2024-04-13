@@ -525,8 +525,7 @@ $(document).ready( function () {
         let form;
         let data = {};
 
-        const prices = document.querySelector('.shoping__checkout');
-        const inputs = prices.querySelectorAll('input[type="hidden"]');    
+        const inputs = document.querySelectorAll('input[type="hidden"]');    
         for (let i = 0; i < inputs.length; i++) {
             data[inputs[i].name] = inputs[i].value;
         }
