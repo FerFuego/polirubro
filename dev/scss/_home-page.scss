@@ -268,6 +268,14 @@
         display: block;
         margin-bottom: 4px;
     }
+
+    textarea {
+        display: flex;
+        flex: auto;
+        border: 1px solid #dee2e6;
+        margin: 10px;
+        width: 100%;
+    }
 }
 /*---------------------
         Banner

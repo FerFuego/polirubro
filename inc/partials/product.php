@@ -26,11 +26,11 @@
                 <input type="hidden" name="cod_product" value="<?php echo $product->CodProducto; ?>">
                 <input type="hidden" name="name_product" value="<?php echo $product->Nombre; ?>">
                 <input type="hidden" name="price_product" value="<?php echo number_format(Productos::PreVtaFinal($product->PreVtaFinal1), 2,',','.'); ?>">
-                <div>
+                <div class="d-flex">
                     <textarea type="text" name="nota" class="product__details__note" placeholder="Agregar Nota"></textarea>
                 </div>
 
-                <div class="product__details__quantity">
+                <div class="product__details__quantity mb-2">
                     <div class="quantity">
                         <div class="pro-qty">
                             <input type="number" name="cant" min="1" max="99999" value="1"> 
@@ -38,7 +38,7 @@
                     </div>
                 </div>
 
-                <input type="submit" class="primary-btn mb-2" value="AGREGAR AL CARRITO">
+                <input type="submit" class="primary-btn add-to-cart mb-2" value="+ CARRITO">
             </form>
         </div>
     </div>

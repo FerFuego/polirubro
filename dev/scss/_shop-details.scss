@@ -54,11 +54,48 @@
         margin-bottom: 15px;
     }
 
+    // inside details page
     .product__details__note {
-        border: 1px solid #dee2e6;
-        height: 100px;
-        width: 375px;
-        margin-bottom: 10px;
+        border: 1px solid #dee2e6 !important;
+        height: 100px !important;
+        margin: 0 0 10px !important;
+        display: flex;
+        flex: auto;
+        width: 374px;
+    }
+
+    .product__details__quantity {
+        display: inline-block;
+        margin-right: 6px;
+        width: 140px;
+    }
+
+    .pro-qty {
+        width: 140px;
+        height: 50px;
+        display: inline-block;
+        position: relative;
+        text-align: center;
+        background: $background;
+        margin-bottom: 5px;
+
+        input {
+            height: 100%;
+            font-size: 16px;
+            color: $para-color;
+            width: 50px;
+            border: none;
+            background: $background;
+            text-align: center;
+        }
+
+        .qtybtn {
+            width: 35px;
+            font-size: 16px;
+            color: $para-color;
+            cursor: pointer;
+            display: inline-block;
+        }
     }
 
     p {
@@ -121,38 +158,55 @@
     }
 }
 
+// shop page card
+.product__details__note {
+    border: 1px solid #dee2e6 !important;
+    height: 60px;
+    display: flex;
+    margin: 10px;
+    flex: auto;
+    width: 100%;
+}
+
 .product__details__quantity {
     display: inline-block;
     margin-right: 6px;
+    width: 100px;
 }
 
 .pro-qty {
-    width: 140px;
-    height: 50px;
+    width: 100px;
+    height: 41px;
     display: inline-block;
     position: relative;
     text-align: center;
     background: $background;
-    margin-bottom: 5px;
+    margin-bottom: 0;
 
     input {
         height: 100%;
-        width: 100%;
         font-size: 16px;
         color: $para-color;
-        width: 50px;
+        width: 40px;
         border: none;
         background: $background;
         text-align: center;
     }
 
     .qtybtn {
-        width: 35px;
+        width: 25px;
         font-size: 16px;
         color: $para-color;
         cursor: pointer;
         display: inline-block;
     }
+}
+
+.add-to-cart {
+    padding-left: 0;
+    padding-right: 0;
+    text-align: center;
+    width: 50%;
 }
 
 .product__details__tab {
