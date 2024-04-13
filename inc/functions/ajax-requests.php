@@ -242,7 +242,7 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'finallyOrd
     // Send mail to client
     $datos = new Polirubro();
     $body = $datos->getBodyEmail($id_pedido);
-    //$datos->sendMail($id_pedido, $order->Mail, $body);
+    $datos->sendMail($id_pedido, $order->Mail, $body);
 
     die('true');
 }
