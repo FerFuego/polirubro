@@ -23,6 +23,8 @@ Thumbs.db
 
 # Folders
 /js
+js/
 /fotos
+fotos/
 ./inc/functions/class-connection.php
 inc/functions/class-connection.php
