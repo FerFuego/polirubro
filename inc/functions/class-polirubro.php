@@ -186,7 +186,7 @@ Class Polirubro {
             $msgEnvio = "Ocurrió un error inesperado al enviar el correo.";
         }
 
-        return $msgEnvio;
+        //return $msgEnvio; // crash response json
     }
 
     public static function is_Admin() {
