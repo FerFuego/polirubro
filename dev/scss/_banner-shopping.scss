@@ -1,0 +1,23 @@
+.banner-shopping {
+    background-color: #F3F6FA;
+    padding: 40px 0 20px;
+    margin: 0 0 60px;
+
+    &__item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    i {
+        color: $primary-color;
+    }
+
+    &__title {
+        margin: 15px 0 5px;
+    }
+
+    &__text {
+       text-align: center;
+    }
+}
