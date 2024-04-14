@@ -232,6 +232,7 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'finallyOrd
     }
 
     $order->SubTotal = $data->subtotal;
+    $order->PctDescuento = $data->PctDescuento;
     $order->Descuento = $data->descuento;
     $order->ImpTotal = $data->total;
     $order->Id_Cliente = $_SESSION["Id_Cliente"];

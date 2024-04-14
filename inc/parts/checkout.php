@@ -78,10 +78,12 @@
                         $data = json_decode($general->getDescuentos(), true);
                         $data = array_reverse($data);
                         $descuento = 0;
+                        $PctDescuento = 0;
                         if (!empty($data)) :
                             foreach ($data as $key => $value) { 
                                 if ($pedido->getTotalFinal() >  $value['precio']) :
-                                    $descuento = $pedido->getTotalFinal() * $value['descuento'] / 100; ?>
+                                    $descuento = $pedido->getTotalFinal() * $value['descuento'] / 100;
+                                    $PctDescuento = $value['descuento']; ?>
                                     <li>Descuento <?= $value['descuento']."%"; ?> <span>- $<?php echo  number_format($descuento, 2,',','.'); ?></span></li>
                                 <?php break;
                                 endif;
@@ -94,6 +96,7 @@
                 
                 <!-- Hidden Inputs -->
                 <input type="hidden" name="subtotal" value="<?php echo $pedido->getTotalFinal(); ?>">
+                <input type="hidden" name="PctDescuento" value="<?php echo $PctDescuento; ?>">
                 <input type="hidden" name="descuento" value="<?php echo $descuento; ?>">
                 <input type="hidden" name="total" value="<?php echo $pedido->getTotalFinal() - $descuento; ?>">
                  
