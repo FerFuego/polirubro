@@ -4,7 +4,7 @@
             <div class="banner-shopping__item col-lg-3 col-md-6 col-xs-12">
                 <i class="fa fa-shopping-cart fa-4x"></i>
                 <h4 class="banner-shopping__title">REALIZÁ TU PEDIDO</h4>
-                <p class="banner-shopping__text">El monto minimo de compra es de $50.000. Agrega al carrito los productos que quieras y completa los datos personales.</p>
+                <p class="banner-shopping__text">El monto mínimo de compra es de $50.000. Agrega al carrito los productos que quieras y completa los datos personales.</p>
             </div>
             <div class="banner-shopping__item col-lg-3 col-md-6 col-xs-12">
                 <i class="fa fa-whatsapp fa-4x"></i>
