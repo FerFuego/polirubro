@@ -206,14 +206,15 @@ Class Polirubro {
         $config  = new Configuracion();
         $aumento = $config->getAumento();
         
-        $user = new Usuarios($_SESSION["Id_Cliente"]);
-        $tipo = $user->getTipo();
-
+        
         // Usuario logueado
-        if (isset($_SESSION["Id_Cliente"]) && $tipo === 1) {
-            // usuario regulares
-            $precio = $product->PreVtaFinal1();
-        } 
+        if (isset($_SESSION["user"])) {
+            // usuario premium
+            $user = new Usuarios($_SESSION["Id_Cliente"]);
+            if ($user->getTipo() == 1) {
+                return number_format($product->PreVtaFinal1(), 2,',','.');
+            }
+        }
         
         // Usuario no logueado o tipo 2
         if ($aumento) {

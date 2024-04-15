@@ -26,7 +26,7 @@
         $result = $pedido->getPedidoAbierto($_SESSION["Id_Cliente"]);
         $result['cpanel'] = false;
 
-        if ( !$_SESSION["id_user"] ) {
+        if ( !isset($_SESSION["id_user"]) ) {
             // form guest users
             require 'inc/parts/form-user-pedido.php';
         }

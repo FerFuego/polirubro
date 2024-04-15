@@ -76,14 +76,9 @@ class Productos {
         
         // Usuario logueado
         if (isset($_SESSION["user"])) {
-            
-            $user = new Usuarios($_SESSION["Id_Cliente"]);
-            $tipo = $user->getTipo();
-
             // usuario premium
-            if ($tipo == 1) {
-                return $precio;
-            }
+            $user = new Usuarios($_SESSION["Id_Cliente"]);
+            if ($user->getTipo() == 1) return $precio;
         } 
         
         // Usuario no logueado o tipo 2
@@ -99,17 +94,11 @@ class Productos {
         $config  = new Configuracion();
         $aumento = $config->getAumento();
         
-        
         // Usuario logueado
         if (isset($_SESSION["user"])) {
-            
-            $user = new Usuarios($_SESSION["Id_Cliente"]);
-            $tipo = $user->getTipo();
-
             // usuario premium
-            if ($tipo == 1) {
-                return $this->precio_venta_final_1;
-            }
+            $user = new Usuarios($_SESSION["Id_Cliente"]);
+            if ($user->getTipo() == 1) return $this->precio_venta_final_1;
         } 
         
         // Usuario no logueado o tipo 2

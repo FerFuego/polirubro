@@ -47,6 +47,7 @@
         <div class="col-lg-6">
             <div class="js-cart-message"></div>
             <div class="shoping__continue">
+                <?php if (!isset($_SESSION['user'])): ?>
                 <div class="shoping__discount shoping__checkout">
                     <h5>Tabla de Descuentos</h5>
                     <table class="table table-bordered">
@@ -75,6 +76,7 @@
                         <button type="submit" class="site-btn">APPLY COUPON</button>
                     </form> -->
                 </div>
+                <?php endif; ?>
             </div>
         </div>
         <div class="col-lg-6">
