@@ -442,7 +442,7 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'operationB
         $imageFileType = pathinfo($location,PATHINFO_EXTENSION);
         $imageFileType = strtolower($imageFileType);
         // Valid extensions
-        $valid_extensions = array("jpg","jpeg","png");
+        $valid_extensions = array("jpg","jpeg","png","webp");
         // Check file extension
         if(in_array(strtolower($imageFileType), $valid_extensions)) {
             // Upload file
@@ -517,7 +517,7 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'operationC
             $imageFileType = pathinfo($location,PATHINFO_EXTENSION);
             $imageFileType = strtolower($imageFileType);
             // Valid extensions
-            $valid_extensions = array("jpg","jpeg","png");
+            $valid_extensions = array("jpg","jpeg","png","webp");
             // Check file extension
             if(in_array(strtolower($imageFileType), $valid_extensions)) {
                 // Upload file
@@ -535,7 +535,7 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'operationC
             $imageFileType = pathinfo($location,PATHINFO_EXTENSION);
             $imageFileType = strtolower($imageFileType);
             // Valid extensions
-            $valid_extensions = array("jpg","jpeg","png");
+            $valid_extensions = array("jpg","jpeg","png","webp");
             // Check file extension
             if(in_array(strtolower($imageFileType), $valid_extensions)) {
                 // Upload file
@@ -604,7 +604,7 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'operationC
         $imageFileType = pathinfo($location,PATHINFO_EXTENSION);
         $imageFileType = strtolower($imageFileType);
         // Valid extensions
-        $valid_extensions = array("jpg","jpeg","png");
+        $valid_extensions = array("jpg","jpeg","png","webp");
         // Check file extension
         if(in_array(strtolower($imageFileType), $valid_extensions)) {
             // Upload file
