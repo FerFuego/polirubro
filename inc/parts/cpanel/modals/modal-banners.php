@@ -19,7 +19,7 @@
 					<div class="form-group d-flex">
 						<div style="width:75%">
 							<label for="name">Imagen Banner</label>
-							<input type="file" name="image" id="imagePreview" accept="image/gif, image/jpeg, image/png">
+							<input type="file" name="image" id="imagePreview" accept="image/gif, image/jpeg, image/png, image/webp">
 						</div>
 						<div class="d-flex text-center" style="width:25%">
 							<img src="img/sin-imagen.jpg" id="preview-img" class="mx-auto" height="70px">
