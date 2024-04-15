@@ -48,3 +48,4 @@ endif; ?>
 <!-- Footer Section Begin -->
 <?php require_once('inc/layout/footer.php'); ?>
 <!-- Footer Section End -->
+
