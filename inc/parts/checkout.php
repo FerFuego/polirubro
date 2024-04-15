@@ -103,7 +103,7 @@
                 <input type="hidden" name="total" value="<?php echo $pedido->getTotalFinal() - $descuento; ?>">
                  
                 <!-- Danger Bootstrap -->
-                 <?php if ($pedido->getTotalFinal() < $general->getMinimo()) : ?>
+                 <?php if ($pedido->getTotalFinal() < $general->getMinimo() && !isset($_SESSION['user'])) : ?>
                     <div class="alert alert-danger" role="alert">
                         <i class="fa fa-exclamation-circle"></i> El minimo de compra para cerrar el pedido es de <strong>$<?php echo number_format($general->getMinimo(), 0,'','.'); ?></strong>
                     </div>
