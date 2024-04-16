@@ -9,10 +9,10 @@ class Connection {
     
 	function __construct() {
 
-		$con['server'] = str_replace('"', '', getenv('SERVER'));
-		$con['base'] = str_replace('"', '', getenv('BASE'));
-		$con['user'] = str_replace('"', '', getenv('USER'));
-		$con['pass'] = str_replace('"', '', getenv('PASS'));
+		$con['server'] = getenv('SERVER');
+		$con['base'] = getenv('BASE');
+		$con['user'] = getenv('USER');
+		$con['pass'] = getenv('PASS');
 
 		$result = new mysqli($con['server'], $con['user'], $con['pass'], $con['base']);
         

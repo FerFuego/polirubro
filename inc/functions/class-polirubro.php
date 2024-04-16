@@ -13,11 +13,11 @@ Class Polirubro {
     }
 
     public static function get_google_api() {
-        return str_replace('"', '', getenv('GOOGLE_API'));
+        return getenv('GOOGLE_API');
     }
 
     public static function get_site_key() {
-        return str_replace('"', '', getenv('SITE_KEY'));
+        return getenv('SITE_KEY');
     }
 
     public static function normalize_title() {
@@ -142,13 +142,13 @@ Class Polirubro {
 
     public function sendMail($id_pedido, $emailCopia, $cuerpo) {
 
-        $smtpHost = str_replace('"', '', getenv('SMTP_HOST')); // Dominio alternativo brindado en el email de alta 
-        $smtpUsuario = str_replace('"', '', getenv('SMTP_USURIO')); // Mi cuenta de correo
-        $smtpClave = str_replace('"', '', getenv('SMTP_KEY'));
-        $nombre =  str_replace('"', '', getenv('SMTP_FROM'));
+        $smtpHost = getenv('SMTP_HOST'); // Dominio alternativo brindado en el email de alta 
+        $smtpUsuario = getenv('SMTP_USURIO'); // Mi cuenta de correo
+        $smtpClave = getenv('SMTP_KEY');
+        $nombre =  getenv('SMTP_FROM');
         
-        $emailDestino = str_replace('"', '', getenv('SMTP_EMAIL_DESTINO'));
-        $emailDestino2 = str_replace('"', '', getenv('SMTP_EMAIL_DESTINO_2'));
+        $emailDestino = getenv('SMTP_EMAIL_DESTINO');
+        $emailDestino2 = getenv('SMTP_EMAIL_DESTINO_2');
         
         $mail = new PHPMailer();
         $mail->IsSMTP();

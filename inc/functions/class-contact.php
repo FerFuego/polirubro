@@ -57,13 +57,13 @@ class Contact {
 
     public function send() {
         
-        $smtpHost = "";  // Dominio alternativo brindado en el email de alta 
-        $smtpUsuario = "";  // Mi cuenta de correo
-        $smtpClave = "";
-        $nombre = "";
+        $smtpHost = getenv('SMTP_HOST'); // Dominio alternativo brindado en el email de alta 
+        $smtpUsuario = getenv('SMTP_USURIO'); // Mi cuenta de correo
+        $smtpClave = getenv('SMTP_KEY');
+        $nombre =  getenv('SMTP_FROM');
         
-        $emailDestino = "";
-        $emailDestino2 = "";
+        $emailDestino = getenv('SMTP_EMAIL_DESTINO');
+        $emailDestino2 = getenv('SMTP_EMAIL_DESTINO_2');
         
         $mail = new PHPMailer();
         $mail->IsSMTP();
