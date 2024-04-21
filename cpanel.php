@@ -15,12 +15,12 @@
 <!-- Header Section End -->
 
 <!-- Cart Section Begin -->
-<section class="cpanel container-fluid mt-5 mb-5">
+<section class="cpanel container mt-5 mb-5">
     <div class="row">
 
         <?php require_once('inc/parts/cpanel/sidebar.php'); ?>
         
-        <div class="col-xs-12 col-lg-10">
+        <div class="col-md-8 col-lg-9">
             <?php
                 switch ($opcion) {
                     case 'importar':

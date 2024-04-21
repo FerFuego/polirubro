@@ -1,5 +1,5 @@
 <!-- Resumen Boxes -->
-<div class="row col-xs-12 col-sm-8">
+<div class="row col-xs-12 col-sm-12">
     <div class="col-xs col-sm-4">
         <div class="card text-white bg-danger mb-3" style="max-width: 18rem;">
             <div class="card-body">
@@ -33,7 +33,7 @@
 <!-- End Resumen Boxes -->
 
 <!-- Form Configuration -->
-<div class="row mt-5 col-xs-12 col-sm-8">
+<div class="row mt-5 col-xs-12 col-sm-12">
     <?php $general = new Configuracion(); ?>
     <div class="col-12">
         <h2>Datos Generales</h2><hr>
@@ -199,7 +199,7 @@
 <!-- End Form Configuration -->
 
 <!-- Historic Orders -->
-<div class="row mt-5 col-xs-12 col-sm-8">
+<div class="row mt-5 col-xs-12 col-sm-12">
     <table class="table table-bordered table-striped ml-3 mr-3">
         <thead>
             <tr class="bg-dark text-white">
