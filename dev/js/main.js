@@ -689,10 +689,10 @@ $(document).ready( function () {
             formData.append('twitter', values.twitter);
             formData.append('aumento_1', values.aumento_1);
             formData.append('minimo', values.minimo);
+            formData.append('show_prices', values.show_prices);
+            formData.append('show_instagram', values.show_instagram);
             formData.append('descuentos', JSON.stringify(obj));
 
-            console.log(JSON.stringify(obj))
-    
         jQuery.ajax({
             cache: false,
             url: 'inc/functions/ajax-requests.php',

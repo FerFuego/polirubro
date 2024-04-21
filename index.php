@@ -45,6 +45,12 @@ endif; ?>
 <?php //require_once('inc/parts/blog-section.php'); ?>
 <!-- Blog Section End -->
 
+<!-- Instagram Section Begin -->
+<?php if ($general->show_instagram) : ?>
+<?php require_once('inc/parts/instagram-section.php'); ?>
+<?php endif; ?>
+<!-- Instagram Section End -->
+
 <!-- Footer Section Begin -->
 <?php require_once('inc/layout/footer.php'); ?>
 <!-- Footer Section End -->
