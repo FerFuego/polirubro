@@ -5,6 +5,6 @@
                 <h2>Visitanos en Instagram</h2>
             </div>
         </div>
-        <iframe width="100%" height="1000" src="https://www.instagram.com/nuestropolirrubros/embed/" frameborder="0"></iframe>
+        <?php printf('<iframe width="100%" height="1000" src="%s/embed/" frameborder="0"></iframe>', $general->instagram); ?>
     </div>
 </section>
