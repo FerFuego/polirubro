@@ -5,6 +5,6 @@
                 <h2>Visitanos en Instagram</h2>
             </div>
         </div>
-        <?php printf('<iframe width="100%" height="1000" src="%s/embed/" frameborder="0"></iframe>', $general->instagram); ?>
+        <?php printf("<iframe width='%s' height='1000' src='%s/embed/' frameborder='0'></iframe>", '100%', $general->instagram); ?>
     </div>
 </section>
