@@ -8,7 +8,7 @@
         <button type="button" class="close modal-promo-banner-close" data-bs-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
-        <img src="<?php echo $general->promo_modal; ?>" alt="banner promo">
+        <img class="image-modal-banner" src="<?php echo $general->promo_modal; ?>" alt="banner promo">
       </div>
     </div>
   </div>
