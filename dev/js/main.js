@@ -656,6 +656,7 @@ $(document).ready( function () {
         var values = {};
         var logo = $('#logo')[0].files;
         var banner = $('#banner')[0].files;
+        var promo_modal = $('#promo_modal')[0].files;
 
         $.each($(this).serializeArray(), function(i, field) {
             values[field.name] = field.value;
@@ -679,6 +680,7 @@ $(document).ready( function () {
             formData.append('action', 'operationConfiguration');
             formData.append('logo', logo[0]);
             formData.append('banner', banner[0]);
+            formData.append('promo_modal', promo_modal[0]);
             formData.append('email', values.email);
             formData.append('telefono', values.telefono);
             formData.append('atencion', values.atencion);
@@ -703,6 +705,9 @@ $(document).ready( function () {
             success: function (response) {
                 if (response == 'true') {
                     toastr.success('Datos Cargados Correctamente!');
+                    setTimeout(function() {
+                        location.reload();
+                    }, 3000);
                 } else {
                     toastr.error('Ocurrio un error, por favor recarge la pagina e intente nuevamente.');
                 }
@@ -1086,8 +1091,49 @@ $(document).ready( function () {
                 }
             });
         })
-});
 
+        /*--------------------
+            Modal Promo
+        ---------------------*/
+        $("#promoModal").modal('show');
+        const promoModalClose = document.querySelector('#promoModal .close');
+        if (promoModalClose) {
+            promoModalClose.addEventListener('click', function() {
+                $('#promoModal').modal('hide');
+            });
+        }
+
+        /*-------------------
+            Remove Promo
+        --------------------*/
+        $('.remove-promo-banner').click( function (e) {
+
+            e.preventDefault();
+
+            if (!confirm("Seguro desea eliminar el banner de promocion?")){
+                return false;
+            }
+            
+            var formData = new FormData();
+                formData.append('action', 'operationRemovePromoBanner');
+        
+            jQuery.ajax({
+                cache: false,
+                url: 'inc/functions/ajax-requests.php',
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response == 'true') {
+                        location.reload();
+                    } else {
+                        toastr.error('Ocurrio un error, por favor recarge la pagina e intente nuevamente.');
+                    }
+                }
+            });
+        })
+});
 /*-----------------------
     Show Preview Image
 -----------------------*/

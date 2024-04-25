@@ -494,6 +494,7 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'operationC
     $response  = 0;
     $logo = null;
     $banner = null;
+    $promo_modal = null;
     $email = (isset($_POST['email']) ? filter_var($_POST['email'], FILTER_SANITIZE_EMAIL) : null);
     $telefono = (isset($_POST['telefono']) ? filter_var($_POST['telefono'], FILTER_UNSAFE_RAW) : null);
     $atencion = (isset($_POST['atencion']) ? filter_var($_POST['atencion'], FILTER_UNSAFE_RAW) : null);
@@ -507,7 +508,6 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'operationC
     $descuentos = (isset($_POST['descuentos']) ? $_POST['descuentos'] : null);
     $show_prices = (isset($_POST['show_prices']) ? $_POST['show_prices'] : null);
     $show_instagram = (isset($_POST['show_instagram']) ? $_POST['show_instagram'] : null);
-
     
     try {
 
@@ -547,9 +547,28 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'operationC
             }
         }
 
+        if(isset($_FILES['promo_modal']['name'])){
+            $filename = $_FILES['promo_modal']['name'];
+            $prefijo = substr(md5(uniqid(rand())),0,6);
+            $path = "img/config/".$prefijo.'_'.$filename;
+            $location = "../../img/config/".$prefijo.'_'.$filename;
+            $imageFileType = pathinfo($location,PATHINFO_EXTENSION);
+            $imageFileType = strtolower($imageFileType);
+            // Valid extensions
+            $valid_extensions = array("jpg","jpeg","png","webp");
+            // Check file extension
+            if(in_array(strtolower($imageFileType), $valid_extensions)) {
+                // Upload file
+                if(move_uploaded_file($_FILES['promo_modal']['tmp_name'],$location)){
+                    $promo_modal = $path;
+                }
+            }
+        }
+
         $general = new Configuracion();
         if ($logo) $general->logo = $logo;
         if ($banner) $general->banner = $banner;
+        if ($promo_modal) $general->promo_modal = $promo_modal;
         $general->telefono = $telefono;
         $general->email = $email;
         $general->direccion = $direccion;
@@ -564,6 +583,21 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'operationC
         $general->show_prices = $show_prices == '1' ? 1 : 0;
         $general->show_instagram = $show_instagram == '1' ? 1 : 0;
         $general->update();
+        die('true');
+
+    } catch (Exception $e) {
+        die('false');
+    }
+}
+
+/**
+ * Request of Remove Promo Banner
+ */
+if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'operationRemovePromoBanner') {
+
+    try {
+        $general = new Configuracion();
+        $general->deletePromoBanner();
         die('true');
 
     } catch (Exception $e) {

@@ -51,7 +51,10 @@ endif; ?>
 <?php endif; ?>
 <!-- Instagram Section End -->
 
+<!-- Modal Promo -->
+<?php require_once('inc/parts/promo-modal.php'); ?>
+<!-- Modal Promo End -->
+
 <!-- Footer Section Begin -->
 <?php require_once('inc/layout/footer.php'); ?>
 <!-- Footer Section End -->
-

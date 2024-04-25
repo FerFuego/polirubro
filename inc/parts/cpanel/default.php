@@ -40,7 +40,7 @@
         <form id="form-general">
             <div class="d-flex justify-content-between">
                 <div class="form-group">
-                    <label for="logo">Imagen Logo</label>
+                    <label for="logo">Imagen Logo</label><br>
                     <input type="file" name="logo" id="logo">
                 </div>
                 <div class="form-group">
@@ -49,11 +49,25 @@
             </div>
             <div class="d-flex justify-content-between">
                 <div class="form-group">
-                    <label for="banner">Imagen Banner</label>
+                    <label for="banner">Imagen Banner</label><br>
                     <input type="file" name="banner" id="banner">
                 </div>
                 <div class="form-group">
                     <img src="<?php echo $general->banner; ?>" width="300px">
+                </div>
+            </div>
+            <div class="d-flex justify-content-between">
+                <div class="form-group">
+                    <label for="promo_modal">Imagen Promo</label><br>
+                    <input type="file" name="promo_modal" id="promo_modal">
+                </div>
+                <div class="form-group control-promo-banner">
+                    <?php if ($general->promo_modal) : ?>
+                        <button type="button" class="close text-danger remove-promo-banner" data-bs-dismiss="modal" aria-label="Eliminar Promo" alt="Eliminar Promo">
+                            <span aria-hidden="true">&times;</span> 
+                        </button>
+                    <?php endif; ?>
+                    <img src="<?php echo $general->promo_modal; ?>" width="300px">
                 </div>
             </div>
             <hr>
