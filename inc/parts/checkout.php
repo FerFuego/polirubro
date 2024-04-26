@@ -110,7 +110,7 @@
                 <?php endif; ?>
                 
                 <!-- Final Order -->
-                <?php if (!$result['cpanel'] && $pedido->getTotalFinal() >= $general->getMinimo()) : ?>
+                <?php if ((!$result['cpanel'] && $pedido->getTotalFinal() >= $general->getMinimo()) || isset($_SESSION['user'])) : ?>
                     <a href="#" id="js-finally-order" data-id="<?php echo $result['Id_Pedido']; ?>" class="primary-btn">Finalizar Pedido</a>
                 <?php endif; ?>
             </div>
