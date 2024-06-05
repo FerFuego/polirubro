@@ -103,19 +103,16 @@ class Usuarios {
     }
 
     public function insert() {
-
         $this->obj = new sQuery();
-        $this->obj->executeQuery("INSERT INTO clientes (Id_Cliente, Nombre, Localidad, Mail, Usuario, Password, ListaPrecioDef) VALUES ('$this->Id_Cliente','$this->Nombre','$this->Localidad','$this->Mail','$this->Usuario','$this->Password','$this->ListaPrecioDef')");
+        $this->obj->executeQuery("INSERT INTO clientes (Id_Cliente, Nombre, Localidad, Mail, Usuario, Password, ListaPrecioDef, tipo, is_Admin) VALUES ($this->Id_Cliente,'$this->Nombre','$this->Localidad','$this->Mail','$this->Usuario','$this->Password',$this->ListaPrecioDef,$this->tipo,$this->is_Admin)");
     }
 
     public function update() {
-
         $this->obj = new sQuery();
-        $this->obj->executeQuery("UPDATE clientes SET Nombre = '$this->Nombre', Localidad = '$this->Localidad', Mail = '$this->Mail', Usuario = '$this->Usuario', Password = '$this->Password', ListaPrecioDef = '$this->ListaPrecioDef', tipo = '$this->tipo' WHERE (Id_Cliente = '$this->Id_Cliente')");
+        $this->obj->executeQuery("UPDATE clientes SET Nombre = '$this->Nombre', Localidad = '$this->Localidad', Mail = '$this->Mail', Usuario = '$this->Usuario', Password = $this->Password, ListaPrecioDef = '$this->ListaPrecioDef', tipo = '$this->tipo' WHERE (Id_Cliente = '$this->Id_Cliente')");
     }
 
     public function delete() {
-
         $this->obj = new sQuery();
         $this->obj->executeQuery("DELETE FROM clientes WHERE (Id_Cliente = '$this->Id_Cliente')");
     }

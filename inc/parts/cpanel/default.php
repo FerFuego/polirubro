@@ -150,6 +150,16 @@
             <div class="d-flex">
                 <div class="form-group w-100 pl-2">
                     <br>
+                    <label for="active_register">Activar el regitros de usuarios</label> 
+                </div>
+                <div class="form-group w-100 pl-2">
+                    <label for="active_register">Marcada = Activa / Desmarcada = Desactiva</label> <br>
+                    <input type="checkbox" name="active_register" id="active_register" value="1" <?php echo $general->active_register ? 'checked' : ''; ?>>
+                </div>
+            </div>
+            <div class="d-flex">
+                <div class="form-group w-100 pl-2">
+                    <br>
                     <label for="show_instagram">Mostrar Instagram en la tienda implica mostrar una seccion en la home con la seccion de Instagram <span class="text-danger">(necesita tener una cuenta y estar seteada en el campo instagram).</span></label> 
                 </div>
                 <div class="form-group w-100 pl-2">

@@ -76,7 +76,9 @@ class Productos {
         
         // Usuario logueado
         if (isset($_SESSION["user"])) {
-            return $precio;
+            // user recurrente
+            $user = new Usuarios($_SESSION["Id_Cliente"]);
+            if ($user->getTipo() == 1) return $precio;
         } 
         
         // Usuario no logueado o tipo 2
@@ -94,7 +96,9 @@ class Productos {
         
         // Usuario logueado
         if (isset($_SESSION["user"])) {
-            return $this->precio_venta_final_1;
+            // user recurrente
+            $user = new Usuarios($_SESSION["Id_Cliente"]);
+            if ($user->getTipo() == 1) return $this->precio_venta_final_1;
         } 
         
         // Usuario no logueado o tipo 2

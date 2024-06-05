@@ -10,11 +10,7 @@
       </div>
       <div class="modal-body">
         <form class="form-cli" id="js-form-cli">
-            <input type="hidden" name="type" id="type_cli" value="new">
-            <div class="form-group">
-                <label for="name">ID Cliente</label>
-                <input type="text" name="id" id="id_cli">
-            </div>
+            <input type="hidden" name="type_cli" id="type_cli" value="new">
             <div class="form-group">
                 <label for="name">Nombre</label>
                 <input type="text" name="name" id="name">
@@ -36,8 +32,12 @@
                 <input type="text" name="password" id="pass_cli">
             </div>
             <div class="form-group">
-                <label for="price">Lista Precios</label>
-                <input type="text" name="price" id="price">
+                <label for="type">Tipo</label>
+                <select name="type" id="type">
+                    <option value="">Seleccione</option>
+                    <option value="0">0 - Precio Aumentado</option>
+                    <option value="1">1 - Precio Descuento</option>
+                </select>
             </div>
         </form>
       </div>

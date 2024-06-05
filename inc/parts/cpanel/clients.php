@@ -9,7 +9,7 @@
                 <th class="text-left">ID</th>
                 <th class="text-left">Nombre</th>
                 <th class="text-left">Usuario</th>
-                <th class="text-left">Password</th>
+                <th class="text-left">Tipo</th>
                 <th class="text-left">Editar</th>
                 <th class="text-left">Eliminar</th>
             </tr>

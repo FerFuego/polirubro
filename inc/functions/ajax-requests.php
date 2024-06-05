@@ -12,16 +12,25 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'actionLogi
 
     $user = (isset($_POST['user']) ? filter_var($_POST['user'], FILTER_UNSAFE_RAW) : null);
     $pass = (isset($_POST['pass']) ? filter_var($_POST['pass'], FILTER_UNSAFE_RAW) : null);
+    $csrf      = (isset($_POST['csrf']) ? filter_var($_POST['csrf'], FILTER_UNSAFE_RAW) : null);
     $recaptcha = (isset($_POST['g-recaptcha-response']) ? $_POST['g-recaptcha-response'] : null);
     $login = 'false';
     $updated = false;
 
-    $request = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".Polirubro::get_google_api()."&response=".$recaptcha."&remoteip=".$_SERVER['REMOTE_ADDR']);
-    $response = json_decode($request);
-    
-    if ( $response->success === false ) {
-        echo 'Captcha Incorrecto!';
-        die();
+    // CSRF Protection
+    if ( $csrf !== $_SESSION["token"] ) {
+        die('false');
+    }
+
+    // ReCaptcha Protection
+    if (getenv('ENVIRONMENT') == 'production') {
+        $request = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".Polirubro::get_google_api()."&response=".$recaptcha."&remoteip=".$_SERVER['REMOTE_ADDR']);
+        $response = json_decode($request);
+        
+        if ( $response->success === false ) {
+            echo 'Captcha Incorrecto!';
+            die();
+        }
     }
 
     $access = new Login($user, $pass);
@@ -314,40 +323,46 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'operationC
 
     $id   = (isset($_POST['id']) ? filter_var($_POST['id'], FILTER_VALIDATE_INT) : null);
     $type = (isset($_POST['type']) ? filter_var($_POST['type'], FILTER_UNSAFE_RAW) : null);
+    $type_cli = (isset($_POST['type_cli']) ? filter_var($_POST['type_cli'], FILTER_UNSAFE_RAW) : null);
     $name = (isset($_POST['name']) ? filter_var($_POST['name'], FILTER_UNSAFE_RAW) : null);
     $mail = (isset($_POST['mail']) ? filter_var($_POST['mail'], FILTER_UNSAFE_RAW) : null);
-    $price = (isset($_POST['price']) ? filter_var($_POST['price'], FILTER_VALIDATE_INT) : null);
     $locality = (isset($_POST['locality']) ? filter_var($_POST['locality'], FILTER_UNSAFE_RAW) : null);
     $username = (isset($_POST['username']) ? filter_var($_POST['username'], FILTER_UNSAFE_RAW) : null);
     $password = (isset($_POST['password']) ? filter_var($_POST['password'], FILTER_UNSAFE_RAW) : null);
 
-    if ( $type == 'new') {
+    if ( $type_cli == 'new') {
         $user = new Usuarios();
-        $user->Id_Cliente = $id;
+        $user->Id_Cliente = date('YmdHis');
         $user->Nombre = $name;
         $user->Localidad = $locality;
         $user->Mail = $mail;
         $user->Usuario = $username;
-        $user->Password = $password;
-        $user->ListaPrecioDef = $price;
+        $user->Password = md5($password);
+        $user->ListaPrecioDef = 1;
+        $user->tipo = $type;
+        $user->is_Admin = 0;
         $user->insert();
         die('true');
     }
 
-    if ( $type == 'edit' ) {
+    if ( $type_cli == 'edit' ) {
         $user = new Usuarios();
         $user->Id_Cliente = $id;
         $user->Nombre = $name;
         $user->Localidad = $locality;
         $user->Mail = $mail;
         $user->Usuario = $username;
-        $user->Password = $password;
-        $user->ListaPrecioDef = $price;
+        if ($password) {
+            $user->Password = md5($password);
+        }
+        $user->ListaPrecioDef = 1;
+        $user->tipo = $type;
+        $user->is_Admin = 0;
         $user->update();
         die('true');
     }
 
-    if ( $type == 'delete' ) {
+    if ( $type_cli == 'delete' ) {
         $user = new Usuarios();
         $user->Id_Cliente = $id;
         $user->delete();
@@ -507,6 +522,7 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'operationC
     $minimo = (isset($_POST['minimo']) ? filter_var($_POST['minimo'], FILTER_UNSAFE_RAW) : null);
     $descuentos = (isset($_POST['descuentos']) ? $_POST['descuentos'] : null);
     $show_prices = (isset($_POST['show_prices']) ? $_POST['show_prices'] : null);
+    $active_register = (isset($_POST['active_register']) ? $_POST['active_register'] : null);
     $show_instagram = (isset($_POST['show_instagram']) ? $_POST['show_instagram'] : null);
     
     try {
@@ -581,6 +597,7 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'operationC
         $general->minimo = $minimo;
         $general->descuentos = $descuentos;
         $general->show_prices = $show_prices == '1' ? 1 : 0;
+        $general->active_register = $active_register == '1' ? 1 : 0;
         $general->show_instagram = $show_instagram == '1' ? 1 : 0;
         $general->update();
         die('true');
@@ -759,3 +776,56 @@ if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'sendContac
 
     die('false');
 } 
+
+
+/**
+ * Request of Register User
+ */
+if( !empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'registerUser') {
+    
+    $obj = new Connection();
+    $conn = $obj->getConnection();
+
+    $name      = (isset($_POST['user_name'])    ? mysqli_escape_string($conn, addslashes($_POST['user_name'])) : null);
+    $email     = (isset($_POST['email'])  ? mysqli_escape_string($conn, addslashes($_POST['email']))  : null);
+    $username  = (isset($_POST['user_cli'])   ? mysqli_escape_string($conn, addslashes($_POST['user_cli'])) : null);
+    $password  = (isset($_POST['pass_cli'])    ? mysqli_escape_string($conn, addslashes($_POST['pass_cli'])) : null);
+    $locality  = (isset($_POST['user_locality'])  ? mysqli_escape_string($conn, addslashes($_POST['user_locality'])) : null);
+    $csrf      = (isset($_POST['user_csrf'])   ? mysqli_escape_string($conn, addslashes($_POST['user_csrf'])) : null);
+    $recaptcha = (isset($_POST['g-recaptcha-response']) ? $_POST['g-recaptcha-response'] : null);
+
+    // CSRF Protection
+    if ( $csrf !== $_SESSION["token"] ) {
+        die('false');
+    }
+
+    // ReCaptcha Protection
+    if (getenv('ENVIRONMENT') == 'production') {
+        $request = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".Polirubro::get_google_api()."&response=".$recaptcha."&remoteip=".$_SERVER['REMOTE_ADDR']);
+        $response = json_decode($request);
+        
+        if ( $response->success === false ) {
+            die('false-captcha');
+        }
+    }
+
+    // Validations for empty fields
+    if ( !$name || !$email || !$password || !$username || !$locality ) {
+        die('false');
+    }
+
+    // Insert User
+    $user = new Usuarios();
+    $user->Id_Cliente = date('YmdHis');
+    $user->Nombre = $name;
+    $user->Mail = $email;
+    $user->Usuario = $username;
+    $user->Password = md5($password);
+    $user->Localidad = $locality;
+    $user->ListaPrecioDef = 1;
+    $user->tipo = 0;
+    $user->is_Admin = 0;
+    $result = $user->insert();
+    // $result = $user->send();
+    die($result);
+}
