@@ -14,7 +14,7 @@
                     <div id="control_name"></div>
                 </div>
                 <div class="col-lg-6 col-md-12">
-                    <input type="text" name="email" id="email" placeholder="Correo Electronico">
+                    <input type="text" name="email" id="email" placeholder="Correo Electrónico">
                     <div id="control_email"></div>
                 </div>
                 <div class="col-lg-6 col-md-12">
@@ -26,11 +26,11 @@
                     <div id="control_locality"></div>
                 </div>
                 <div class="col-lg-6 col-md-12">
-                    <input type="text" name="address" id="address" placeholder="Direccion">
+                    <input type="text" name="address" id="address" placeholder="Dirección">
                     <div id="control_address"></div>
                 </div>
                 <div class="col-lg-6 col-md-12">
-                    <input type="text" name="phone" id="phone" placeholder="Telefono">
+                    <input type="text" name="phone" id="phone" placeholder="Teléfono">
                     <div id="control_phone"></div>
                 </div>
                 <div class="col-lg-12 text-center">

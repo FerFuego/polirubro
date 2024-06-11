@@ -4,14 +4,14 @@
             <div class="col-lg-3 col-md-3 col-sm-6 text-center">
                 <div class="contact__widget">
                     <span class="icon_phone"></span>
-                    <h4>Telefono</h4>
+                    <h4>Teléfono</h4>
                     <a href="tel:<?php echo str_replace(['(',')',' ','-'],['','','',''],$general->telefono); ?>"><p><?php echo $general->telefono; ?></p></a>
                 </div>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-6 text-center">
                 <div class="contact__widget">
                     <span class="icon_pin_alt"></span>
-                    <h4>Direccion</h4>
+                    <h4>Dirección</h4>
                     <p><?php echo $general->direccion; ?></p>
                 </div>
             </div>
