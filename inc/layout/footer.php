@@ -4,8 +4,8 @@
             <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="footer__about">
                     <ul>
-                        <li><b>Direccion:</b> <?php echo $general->direccion; ?></li>
-                        <li><b>Telefono:</b> <?php echo $general->telefono; ?></li>
+                        <li><b>Dirección:</b> <?php echo $general->direccion; ?></li>
+                        <li><b>Teléfono:</b> <?php echo $general->telefono; ?></li>
                         <li><b>WhatsApp:</b> <?php echo $general->whatsapp; ?></li>
                         <li><b>Email:</b> <?php echo $general->email; ?></li>
                     </ul>
@@ -13,7 +13,7 @@
             </div>
             <div class="col-lg-4 col-md-6 col-sm-6 offset-lg-1">
                 <div class="footer__widget">
-                    <h6>Menu del sitio</h6>
+                    <h6>Menú del sitio</h6>
                     <ul>
                         <li class="<?php echo (Polirubro::normalize_title() === '')? 'active':''?>"><a href="./">Inicio</a></li>
                         <li class="<?php echo (Polirubro::normalize_title() === 'Nosotros')? 'active':''?>"><a href="./nosotros.php">Nosotros</a></li>
