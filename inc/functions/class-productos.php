@@ -113,7 +113,7 @@ class Productos {
         $where .= ( $id_subrubro ) ? ' AND Id_SubRubro='. $id_subrubro : '';
         $where .= ( $id_grupo ) ? ' AND Id_Grupo='. $id_grupo : '';
         $where .= ( $minamount && $maxamount ) ? ' AND PreVtaFinal1 BETWEEN '.$minamount.' AND '.$maxamount : '';
-        $orderBy = ( $order ) ? ' ORDER BY Id_Rubro, Id_SubRubro, Id_Grupo, PreVtaFinal1 '.$order : ' ORDER BY Nombre';
+        $orderBy = ( $order ) ? ' ORDER BY Id_Rubro, Id_SubRubro, Id_Grupo, PreVtaFinal1 '.$order : ' ORDER BY Id_Rubro, Id_SubRubro, Id_Grupo, Nombre';
 
         $query = "SELECT * FROM productos WHERE $where $orderBy";
 
