@@ -59,7 +59,7 @@
                                 <!-- <span>(18 reviews)</span> -->
                             </div>
 
-                            <h4>Cod.: <?php echo $product->getCode(); ?></h4>
+                            <h4>Cód.: <?php echo $product->getCode(); ?></h4>
                             <?php if ($general->showPrices()): ?>
                                 <form class="js-form-cart">
                                     <div class="product__details__price">$<?php echo number_format($product->PreVtaFinal1(), 2,',','.'); ?></div>
