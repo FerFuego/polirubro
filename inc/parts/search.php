@@ -2,7 +2,7 @@
     <div class="hero__search">
         <div class="hero__search__form">
             <form action="productos.php" method="GET">
-                <input type="text" name="s" placeholder="Que estas buscando?" value="<?php echo (isset($search))? $search : ''; ?>">
+                <input type="text" name="s" placeholder="Qué estas buscando?" value="<?php echo (isset($search))? $search : ''; ?>">
                 <button type="submit" class="site-btn">BUSCAR</button>
             </form>
         </div>

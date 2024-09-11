@@ -110,7 +110,7 @@
                     <!-- End Paginador -->
 
                 <?php else : ?>
-                    <h4>No se encontraron productos en esta categoria</h4>
+                    <h4>No se encontraron productos en esta categoría</h4>
                 <?php endif; ?>
 
                 <!-- Offer Section Begin -->
