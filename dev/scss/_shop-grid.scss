@@ -316,6 +316,11 @@
     height: 270px;
     position: relative;
     overflow: hidden;
+
+    @media (max-width: 768px) {
+        height: 360px;
+        background-size: contain !important;
+    }
 }
 
 .product__item__pic__hover {
