@@ -43,6 +43,9 @@
     height: 300px;
     position: relative;
     padding-top: 1px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
     //background-color: rgba(127, 173, 57, 1);
 
     img {
