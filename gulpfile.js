@@ -28,16 +28,16 @@ Use it to make something cool, have fun, and share what you've learned.
 const sassInit = () => {
 	console.log('Running sassInit task');
 	return gulp
-	    .src('./dev/scss/**/*.scss')
+		.src('./dev/scss/**/*.scss')
 		.pipe(sourcemaps.init())
-	    .pipe(sass.sync({
-	    	outputStyle: 'compressed',
-	    	sourceComments: false
-	    }).on('error', sass.logError))
+		.pipe(sass.sync({
+			outputStyle: 'compressed',
+			sourceComments: false
+		}).on('error', sass.logError))
 		//.pipe(concat('style.css'))
-		.pipe(header(banner, { })) 
+		.pipe(header(banner, {}))
 		.pipe(sourcemaps.write('.'))
-	    .pipe(gulp.dest('./dist/css/'));
+		.pipe(gulp.dest('./dist/css/'));
 }
 
 const sassWatch = () => {
@@ -51,7 +51,7 @@ const jsInit = () => {
 		.pipe(uglify())
 		.pipe(sourcemaps.write('.'))
 		.pipe(gulp.dest('./dist/js/'));
-    
+
 }
 
 const jsWatch = () => {

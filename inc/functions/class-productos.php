@@ -2,7 +2,8 @@
 /**
  * Productos class
  */
-class Productos {
+class Productos
+{
 
     public $id_producto;
     public $cod_producto;
@@ -28,12 +29,13 @@ class Productos {
     public $observaciones;
     protected $obj;
 
-    public function __construct($id=0) {
+    public function __construct($id = 0)
+    {
 
         if ($id != 0) {
-            
+
             $this->obj = new sQuery();
-            $result = $this->obj->executeQuery("SELECT * FROM productos WHERE CodProducto='$id'");
+            $result = $this->obj->executeQuery("SELECT * FROM productos WHERE Id_Producto='$id'");
             $row = mysqli_fetch_assoc($result);
 
             $this->id_producto = $row['Id_Producto'];
@@ -62,58 +64,79 @@ class Productos {
         }
     }
 
-    public function getID(){ return $this->id_producto; }
-    public function getCode(){ return $this->cod_producto; }
-    public function getRubroID(){ return $this->id_rubro; }
-    public function getSubRubroID(){ return $this->id_subrubro; }
-    public function getGrupoID(){ return $this->id_grupo; }
-    public function getNombre(){ return $this->nombre; }
-    
-    public static function PreVtaFinal($precio){ 
-        $config  = new Configuracion();
+    public function getID()
+    {
+        return $this->id_producto;
+    }
+    public function getCode()
+    {
+        return $this->cod_producto;
+    }
+    public function getRubroID()
+    {
+        return $this->id_rubro;
+    }
+    public function getSubRubroID()
+    {
+        return $this->id_subrubro;
+    }
+    public function getGrupoID()
+    {
+        return $this->id_grupo;
+    }
+    public function getNombre()
+    {
+        return $this->nombre;
+    }
+
+    public static function PreVtaFinal($precio)
+    {
+        $config = new Configuracion();
         $aumento = $config->getAumento();
-        
-        
+
+
         // Usuario logueado
         if (isset($_SESSION["user"])) {
             return $precio;
-        } 
-        
+        }
+
         // Usuario no logueado o tipo 2
         if ($aumento) {
             // aumento %
             return $precio + ($precio * ($aumento / 100));
         }
 
-        return $precio; 
+        return $precio;
     }
-    public function PreVtaFinal1(){ 
-        $precio  = 0;
-        $config  = new Configuracion();
+    public function PreVtaFinal1()
+    {
+        $precio = 0;
+        $config = new Configuracion();
         $aumento = $config->getAumento();
-        
+
         // Usuario logueado
         if (isset($_SESSION["user"])) {
             return $this->precio_venta_final_1;
-        } 
-        
+        }
+
         // Usuario no logueado o tipo 2
         if ($aumento) {
             // aumento %
             return $this->precio_venta_final_1 + ($this->precio_venta_final_1 * ($aumento / 100));
         }
 
-        return $precio; 
+        return $precio;
     }
 
-    public function getProducts($opcion, $id_rubro, $id_subrubro, $id_grupo, $minamount, $maxamount, $order){
+    public function getProducts($opcion, $id_rubro, $id_subrubro, $id_grupo, $minamount, $maxamount, $order)
+    {
 
         $where = '1=1';
-        $where .= ( $id_rubro ) ? ' AND Id_Rubro='. $id_rubro : '';
-        $where .= ( $id_subrubro ) ? ' AND Id_SubRubro='. $id_subrubro : '';
-        $where .= ( $id_grupo ) ? ' AND Id_Grupo='. $id_grupo : '';
-        $where .= ( $minamount && $maxamount ) ? ' AND PreVtaFinal1 BETWEEN '.$minamount.' AND '.$maxamount : '';
-        $orderBy = ( $order ) ? ' ORDER BY Id_Rubro, Id_SubRubro, Id_Grupo, PreVtaFinal1 '.$order : ' ORDER BY Id_Rubro, Id_SubRubro, Id_Grupo, Nombre';
+        $where .= ($id_rubro) ? ' AND Id_Rubro=' . $id_rubro : '';
+        $where .= ($id_subrubro) ? ' AND Id_SubRubro=' . $id_subrubro : '';
+        $where .= ($id_grupo) ? ' AND Id_Grupo=' . $id_grupo : '';
+        $where .= ($minamount && $maxamount) ? ' AND PreVtaFinal1 BETWEEN ' . $minamount . ' AND ' . $maxamount : '';
+        $orderBy = ($order) ? ' ORDER BY Id_Rubro, Id_SubRubro, Id_Grupo, PreVtaFinal1 ' . $order : ' ORDER BY Id_Rubro, Id_SubRubro, Id_Grupo, Nombre';
 
         $query = "SELECT * FROM productos WHERE $where $orderBy";
 
@@ -123,32 +146,35 @@ class Productos {
         $result = [
             'total' => $this->obj->getResultados(),
             'query' => $query,
-            'params' => ($opcion ? 'opcion='. $opcion .'&' : null).'id_rubro='.$id_rubro.'&id_subrubro='.$id_subrubro.'&id_grupo='.$id_grupo. (($minamount && $maxamount) ? '&minamount='.$minamount.'&maxamount='.$maxamount : '') . (($order) ? '&order='.$order : '')
+            'params' => ($opcion ? 'opcion=' . $opcion . '&' : null) . 'id_rubro=' . $id_rubro . '&id_subrubro=' . $id_subrubro . '&id_grupo=' . $id_grupo . (($minamount && $maxamount) ? '&minamount=' . $minamount . '&maxamount=' . $maxamount : '') . (($order) ? '&order=' . $order : '')
         ];
 
         return $result;
     }
 
-    public function getCountProducts(){
+    public function getCountProducts()
+    {
         $this->obj = new sQuery();
         $this->obj->executeQuery("SELECT * FROM productos");
         return $this->obj->getResultados();
     }
 
-    public static function getImage($CodProducto) {
+    public static function getImage($CodProducto)
+    {
 
-        if (file_exists("./fotos/".$CodProducto.".JPG")) {
-            $img = "./fotos/".$CodProducto.".JPG";
-        } elseif (file_exists("./fotos/".$CodProducto.".jpg")) {
-            $img = "./fotos/".$CodProducto.".jpg";
+        if (file_exists("./fotos/" . $CodProducto . ".JPG")) {
+            $img = "./fotos/" . $CodProducto . ".JPG";
+        } elseif (file_exists("./fotos/" . $CodProducto . ".jpg")) {
+            $img = "./fotos/" . $CodProducto . ".jpg";
         } else {
             $img = "img/sin-imagen.jpg";
         }
-        
+
         return $img;
     }
 
-    public function getProductSearch($opcion, $search) {
+    public function getProductSearch($opcion, $search)
+    {
 
         $query = "SELECT * FROM productos WHERE Nombre LIKE '%$search%' OR CodProducto LIKE '%$search%'";
 
@@ -158,18 +184,19 @@ class Productos {
         $result = [
             'total' => $this->obj->getResultados(),
             'query' => $query,
-            'params' => ($opcion ? 'opcion='. $opcion .'&' : null).'s='.$search
+            'params' => ($opcion ? 'opcion=' . $opcion . '&' : null) . 's=' . $search
         ];
 
         return $result;
     }
 
-    public function getProductsOffert($id_rubro, $id_subrubro, $id_grupo){
+    public function getProductsOffert($id_rubro, $id_subrubro, $id_grupo)
+    {
 
         $where = 'Oferta = 1';
-        $where .= ( $id_rubro ) ? ' AND Id_Rubro='. $id_rubro : '';
-        $where .= ( $id_subrubro ) ? ' AND Id_SubRubro='. $id_subrubro : '';
-        $where .= ( $id_grupo ) ? ' AND Id_Grupo='. $id_grupo : '';
+        $where .= ($id_rubro) ? ' AND Id_Rubro=' . $id_rubro : '';
+        $where .= ($id_subrubro) ? ' AND Id_SubRubro=' . $id_subrubro : '';
+        $where .= ($id_grupo) ? ' AND Id_Grupo=' . $id_grupo : '';
 
         $this->obj = new sQuery();
         $result = $this->obj->executeQuery("SELECT * FROM productos WHERE $where ORDER BY Nombre");
@@ -177,7 +204,8 @@ class Productos {
         return $result;
     }
 
-    public function getProductNews($limit=10){
+    public function getProductNews($limit = 10)
+    {
 
         $this->obj = new sQuery();
         $result = $this->obj->executeQuery("SELECT * FROM productos WHERE Novedad = 1 ORDER BY Id_Producto DESC LIMIT $limit");
@@ -185,7 +213,8 @@ class Productos {
         return $result;
     }
 
-    public function getProductsOffertNews(){
+    public function getProductsOffertNews()
+    {
 
         $this->obj = new sQuery();
         $result = $this->obj->executeQuery("SELECT * FROM productos WHERE Oferta = 1 OR Novedad = 1 ORDER BY RAND() LIMIT 8");
@@ -193,12 +222,13 @@ class Productos {
         return $result;
     }
 
-    public function getRelatedProducts($id_rubro, $id_subrubro, $id_grupo, $id_producto){
+    public function getRelatedProducts($id_rubro, $id_subrubro, $id_grupo, $id_producto)
+    {
 
         $where = '1=1';
-        $where .= ( $id_rubro ) ? ' AND Id_Rubro='. $id_rubro : '';
-        $where .= ( $id_subrubro ) ? ' AND Id_SubRubro='. $id_subrubro : '';
-        $where .= ( $id_grupo ) ? ' AND Id_Grupo='. $id_grupo : '';
+        $where .= ($id_rubro) ? ' AND Id_Rubro=' . $id_rubro : '';
+        $where .= ($id_subrubro) ? ' AND Id_SubRubro=' . $id_subrubro : '';
+        $where .= ($id_grupo) ? ' AND Id_Grupo=' . $id_grupo : '';
 
         $this->obj = new sQuery();
         $result = $this->obj->executeQuery("SELECT * FROM productos WHERE $where AND Id_Producto NOT IN ($id_producto) ORDER BY Nombre Limit 4");
@@ -206,11 +236,13 @@ class Productos {
         return $result;
     }
 
-    public function getResultados() {
+    public function getResultados()
+    {
         $this->obj->getResults();
     }
 
-    public function importProducts($sql) {
+    public function importProducts($sql)
+    {
         try {
             $this->obj = new sQuery();
             //$this->obj->executeQuery("TRUNCATE TABLE productos");
@@ -222,19 +254,22 @@ class Productos {
         }
     }
 
-    public function update() {
+    public function update()
+    {
         $this->obj = new sQuery();
         $this->obj->executeQuery("UPDATE productos SET Nombre = '$this->nombre', Novedad = '$this->novedad', Oferta = '$this->oferta', Observaciones = '$this->observaciones' WHERE (CodProducto = '$this->cod_producto')");
     }
 
-    public function delete() {
+    public function delete()
+    {
         $this->obj = new sQuery();
         $this->obj->executeQuery("DELETE FROM productos WHERE (CodProducto = '$this->cod_producto')");
     }
 
-    public function closeConnection(){
+    public function closeConnection()
+    {
         @$this->obj->Clean();
-		$this->obj->Close();
-	} 
+        $this->obj->Close();
+    }
 
 }
