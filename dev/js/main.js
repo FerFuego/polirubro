@@ -136,18 +136,56 @@
         }
     });
 
-    /*---------------------------------
-        Product Details Pic Slider
-    ----------------------------------*/
+    /*--------------------
+        Product Details Pic Slider - DISABLED (using CSS Grid now)
+    -----------------------*/
+    /*
     $(".product__details__pic__slider").owlCarousel({
-        loop: true,
-        margin: 20,
         items: 4,
-        dots: true,
+        dots: false,
+        autoplay: true,
         smartSpeed: 1200,
-        autoHeight: false,
-        autoplay: true
+        margin: 20,
+        responsive: {
+
+            320: {
+                items: 1,
+            },
+
+            576: {
+                items: 2,
+            },
+
+            768: {
+                items: 3,
+            },
+
+            992: {
+                items: 3,
+            },
+
+            1200: {
+                items: 4,
+            }
+        }
     });
+    */
+
+    /*--------------------
+        Product Details Pic Click - DISABLED (using new gallery JS)
+    -----------------------*/
+    /*
+    $('.product__details__pic__slider img').on('click', function () {
+
+        var imgurl = $(this).data('imgbigurl');
+        var bigImg = $('.product__details__pic__item--large').attr('src');
+        if (imgurl != bigImg) {
+            $('.product__details__pic__item--large').attr({
+                src: imgurl
+            });
+        }
+    });
+    */
 
     /*-----------------------
         Price Range Slider

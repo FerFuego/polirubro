@@ -1,0 +1,198 @@
+/*---------------------
+  Product Gallery
+-----------------------*/
+
+// Product Card Slider
+.product-card-slider {
+    position: relative;
+    height: 270px;
+    overflow: hidden;
+    background-position: center center;
+    background-size: cover;
+
+    .slider-item {
+        display: none;
+        height: 100%;
+
+        &.active {
+            display: block;
+        }
+
+        a {
+            display: block;
+            height: 100%;
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+
+    .slider-nav {
+        position: absolute;
+        top: 50%;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 10px;
+        transform: translateY(-50%);
+        z-index: 10;
+        opacity: 0;
+        transition: opacity 0.3s;
+
+        button {
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: $normal-color;
+
+            &:hover {
+                background: $primary-color;
+                color: white;
+            }
+        }
+    }
+
+    &:hover .slider-nav {
+        opacity: 1;
+    }
+
+    .slider-dots {
+        position: absolute;
+        bottom: 15px;
+        width: 100%;
+        text-align: center;
+        z-index: 10;
+
+        .dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.6);
+            margin: 0 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+
+            &:hover {
+                background: rgba(255, 255, 255, 0.9);
+            }
+
+            &.active {
+                background: $primary-color;
+                border-color: white;
+            }
+        }
+    }
+
+    .product__code {
+        position: absolute;
+        left: 0;
+        top: 5px;
+        padding: 0 12px;
+        z-index: 5;
+        background-color: #7fad39;
+
+        h5 {
+            font-size: 16px;
+            color: #fff;
+            font-weight: 600;
+            line-height: 33px;
+            text-align: center;
+            margin: 0;
+        }
+    }
+}
+
+// Product Detail Gallery
+.product__details__pic__slider {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+    gap: 10px;
+    margin-top: 20px;
+
+    .thumb-item {
+        width: 100%;
+        height: 90px;
+        object-fit: cover;
+        cursor: pointer;
+        border: 3px solid transparent;
+        transition: all 0.3s;
+        border-radius: 4px;
+
+        &:hover,
+        &.active {
+            border-color: $primary-color;
+        }
+    }
+
+    .video-thumb {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: #f5f5f5;
+
+        i {
+            font-size: 28px;
+            color: $primary-color;
+            margin-bottom: 5px;
+        }
+
+        span {
+            font-size: 11px;
+            font-weight: 600;
+            color: $normal-color;
+            text-transform: uppercase;
+        }
+
+        &:hover {
+            background: #e8e8e8;
+        }
+    }
+}
+
+.product__details__pic__item--large {
+    width: 100%;
+    height: auto;
+    max-height: 550px;
+    object-fit: contain;
+    background: #f8f8f8;
+    border-radius: 4px;
+}
+
+// Responsive adjustments
+@media (max-width: 767px) {
+    .product-card-slider {
+        .slider-nav button {
+            width: 30px;
+            height: 30px;
+            font-size: 16px;
+        }
+
+        .slider-dots .dot {
+            width: 8px;
+            height: 8px;
+        }
+    }
+
+    .product__details__pic__slider {
+        grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+        gap: 8px;
+
+        .thumb-item {
+            height: 70px;
+        }
+    }
+}

@@ -173,6 +173,80 @@ class Productos
         return $img;
     }
 
+    /**
+     * Get all images for a product
+     * @param string $codProducto Product code
+     * @param int $limit Maximum number of images (0 = no limit)
+     * @return array Array of image paths
+     */
+    public static function getProductImages($codProducto, $limit = 0)
+    {
+        $images = [];
+        $fotosPath = "./fotos/";
+        $extensions = ['jpg', 'JPG', 'png', 'PNG', 'jpeg', 'JPEG'];
+
+        // Main image - try all extensions
+        foreach ($extensions as $ext) {
+            if (file_exists($fotosPath . $codProducto . "." . $ext)) {
+                $images[] = $fotosPath . $codProducto . "." . $ext;
+                break;
+            }
+        }
+
+        // Additional images (999999-1.jpg, 999999-2.jpg, etc.)
+        $counter = 1;
+        while (true) {
+            $imagePath = null;
+
+            // Try all extensions for each numbered image
+            foreach ($extensions as $ext) {
+                if (file_exists($fotosPath . $codProducto . "-" . $counter . "." . $ext)) {
+                    $imagePath = $fotosPath . $codProducto . "-" . $counter . "." . $ext;
+                    break;
+                }
+            }
+
+            if ($imagePath) {
+                $images[] = $imagePath;
+                $counter++;
+
+                // Check limit
+                if ($limit > 0 && count($images) >= $limit) {
+                    break;
+                }
+            } else {
+                break;
+            }
+        }
+
+        // Fallback to default image if no images found
+        if (empty($images)) {
+            $images[] = "img/sin-imagen.jpg";
+        }
+
+        return $images;
+    }
+
+    /**
+     * Get videos for a product
+     * @param string $codProducto Product code
+     * @return array Array of video paths
+     */
+    public static function getProductVideos($codProducto)
+    {
+        $videos = [];
+        $fotosPath = "./fotos/";
+        $extensions = ['mp4', 'webm', 'ogg'];
+
+        foreach ($extensions as $ext) {
+            if (file_exists($fotosPath . $codProducto . "-video." . $ext)) {
+                $videos[] = $fotosPath . $codProducto . "-video." . $ext;
+            }
+        }
+
+        return $videos;
+    }
+
     public function getProductSearch($opcion, $search)
     {
 

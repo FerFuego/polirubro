@@ -1,12 +1,31 @@
 <div class="col-lg-3 col-md-4 col-sm-6 mix <?php echo Polirubro::get_slug($product->Rubro); ?>">
     <div class="featured__item">
-        <a href="detalle.php?id=<?php echo $product->Id_Producto; ?>" class="featured__item__pic set-bg"
-            data-setbg="<?php echo Productos::getImage($product->CodProducto); ?>">
-            <!-- <div class="product__discount__percent">-20%</div> -->
+        <?php $images = Productos::getProductImages($product->CodProducto, 3); ?>
+        <div class="featured__item__pic product-card-slider">
+            <?php foreach ($images as $index => $image): ?>
+                <div class="slider-item <?php echo $index === 0 ? 'active' : ''; ?>">
+                    <a href="detalle.php?id=<?php echo $product->Id_Producto; ?>">
+                        <img src="<?php echo $image; ?>" alt="<?php echo $product->Nombre; ?>">
+                    </a>
+                </div>
+            <?php endforeach; ?>
+
+            <?php if (count($images) > 1): ?>
+                <div class="slider-nav">
+                    <button class="slider-prev"><i class="fa fa-angle-left"></i></button>
+                    <button class="slider-next"><i class="fa fa-angle-right"></i></button>
+                </div>
+                <div class="slider-dots">
+                    <?php foreach ($images as $index => $image): ?>
+                        <span class="dot <?php echo $index === 0 ? 'active' : ''; ?>" data-slide="<?php echo $index; ?>"></span>
+                    <?php endforeach; ?>
+                </div>
+            <?php endif; ?>
+
             <div class="product__code">
                 <h5><?php echo 'COD: ' . $product->CodProducto; ?></h5>
             </div>
-        </a>
+        </div>
         <div class="featured__item__text">
             <span><?php echo $product->Rubro; ?></span>
             <h6><a href="detalle.php?id=<?php echo $product->Id_Producto; ?>"><?php echo $product->Nombre; ?></a></h6>
