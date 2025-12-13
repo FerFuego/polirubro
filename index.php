@@ -16,8 +16,8 @@
 <!-- Hero Section End -->
 
 <!-- Slider Begin -->
-<?php if ($_SERVER['REQUEST_URI'] === '/' || $_SERVER['REQUEST_URI'] === '/index.php' || $_SERVER['REQUEST_URI'] === '/nuevo/' || $_SERVER['REQUEST_URI'] === '/nuevo/index.php') :
-    require_once('inc/parts/slider.php'); 
+<?php if ($_SERVER['REQUEST_URI'] === '/' || $_SERVER['REQUEST_URI'] === '/index.php' || $_SERVER['REQUEST_URI'] === '/nuevo/' || $_SERVER['REQUEST_URI'] === '/nuevo/index.php'):
+    require_once('inc/parts/slider.php');
 endif; ?>
 <!-- Slider End -->
 
@@ -26,7 +26,7 @@ endif; ?>
 <!-- Banner End -->
 
 <!-- Banner Begin -->
-<?php require_once('inc/parts/banner-section.php'); ?>
+<?php //require_once('inc/parts/banner-section.php'); ?>
 <!-- Banner End -->
 
 <!-- Categories Section Begin -->
@@ -46,8 +46,8 @@ endif; ?>
 <!-- Blog Section End -->
 
 <!-- Instagram Section Begin -->
-<?php if ($general->show_instagram) : ?>
-<?php require_once('inc/parts/instagram-section.php'); ?>
+<?php if ($general->show_instagram): ?>
+    <?php require_once('inc/parts/instagram-section.php'); ?>
 <?php endif; ?>
 <!-- Instagram Section End -->
 
