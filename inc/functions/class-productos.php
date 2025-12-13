@@ -222,6 +222,37 @@ class Productos
         return $result;
     }
 
+    public function getRecentProducts($limit = 8)
+    {
+        // Get products from the last 20 days based on the most recent product's date
+        // This ensures we always show products even if they're not uploaded daily
+        $this->obj = new sQuery();
+
+        // First, try to get products from the last 20 days based on the most recent date
+        $result = $this->obj->executeQuery("
+            SELECT * FROM productos 
+            WHERE FecAltaWeb IS NOT NULL 
+            AND FecAltaWeb >= (
+                SELECT DATE_SUB(MAX(FecAltaWeb), INTERVAL 20 DAY) 
+                FROM productos
+                WHERE FecAltaWeb IS NOT NULL
+            ) 
+            ORDER BY RAND() 
+            LIMIT $limit
+        ");
+
+        // If no products found with date criteria, fallback to random products
+        if ($result->num_rows == 0) {
+            $result = $this->obj->executeQuery("
+                SELECT * FROM productos 
+                ORDER BY RAND() 
+                LIMIT $limit
+            ");
+        }
+
+        return $result;
+    }
+
     public function getRelatedProducts($id_rubro, $id_subrubro, $id_grupo, $id_producto)
     {
 
