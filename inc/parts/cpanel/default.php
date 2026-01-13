@@ -36,7 +36,8 @@
 <div class="row mt-5 col-xs-12 col-sm-12">
     <?php $general = new Configuracion(); ?>
     <div class="col-12">
-        <h2>Datos Generales</h2><hr>
+        <h2>Datos Generales</h2>
+        <hr>
         <form id="form-general">
             <div class="d-flex justify-content-between">
                 <div class="form-group">
@@ -62,9 +63,10 @@
                     <input type="file" name="promo_modal" id="promo_modal">
                 </div>
                 <div class="form-group control-promo-banner">
-                    <?php if ($general->promo_modal) : ?>
-                        <button type="button" class="close text-danger remove-promo-banner" data-bs-dismiss="modal" aria-label="Eliminar Promo" alt="Eliminar Promo">
-                            <span aria-hidden="true">&times;</span> 
+                    <?php if ($general->promo_modal): ?>
+                        <button type="button" class="close text-danger remove-promo-banner" data-bs-dismiss="modal"
+                            aria-label="Eliminar Promo" alt="Eliminar Promo">
+                            <span aria-hidden="true">&times;</span>
                         </button>
                     <?php endif; ?>
                     <img src="<?php echo $general->promo_modal; ?>" width="300px">
@@ -74,39 +76,47 @@
             <div class="d-flex">
                 <div class="form-group w-100 pl-2">
                     <label for="telefono">Telefono</label> <br>
-                    <input type="text" name="telefono" id="telefono" class="form-control" value="<?php echo $general->telefono; ?>">
+                    <input type="text" name="telefono" id="telefono" class="form-control"
+                        value="<?php echo $general->telefono; ?>">
                 </div>
                 <div class="form-group w-100 pl-2">
                     <label for="email">Email</label> <br>
-                    <input type="text" name="email" id="email" class="form-control" value="<?php echo $general->email; ?>">
+                    <input type="text" name="email" id="email" class="form-control"
+                        value="<?php echo $general->email; ?>">
                 </div>
                 <div class="form-group w-100 pl-2">
                     <label for="atencion">Atencion</label> <br>
-                    <input type="text" name="atencion" id="atencion" class="form-control" value="<?php echo $general->atencion; ?>">
+                    <input type="text" name="atencion" id="atencion" class="form-control"
+                        value="<?php echo $general->atencion; ?>">
                 </div>
             </div>
             <div class="d-flex">
                 <div class="form-group w-100 pl-2">
                     <label for="direccion">Direccion</label> <br>
-                    <input type="text" name="direccion" id="direccion" class="form-control" value="<?php echo $general->direccion; ?>">
+                    <input type="text" name="direccion" id="direccion" class="form-control"
+                        value="<?php echo $general->direccion; ?>">
                 </div>
                 <div class="form-group w-100 pl-2">
                     <label for="whatsapp">WhatsApp</label> <br>
-                    <input type="text" name="whatsapp" id="whatsapp" class="form-control" value="<?php echo $general->whatsapp; ?>">
+                    <input type="text" name="whatsapp" id="whatsapp" class="form-control"
+                        value="<?php echo $general->whatsapp; ?>">
                 </div>
             </div>
             <div class="d-flex">
                 <div class="form-group w-100 pl-2">
                     <label for="instagram">Instagram</label> <br>
-                    <input type="text" name="instagram" id="instagram" class="form-control" value="<?php echo $general->instagram; ?>">
+                    <input type="text" name="instagram" id="instagram" class="form-control"
+                        value="<?php echo $general->instagram; ?>">
                 </div>
                 <div class="form-group w-100 pl-2">
                     <label for="facebook">Facebook</label> <br>
-                    <input type="text" name="facebook" id="facebook" class="form-control" value="<?php echo $general->facebook; ?>">
+                    <input type="text" name="facebook" id="facebook" class="form-control"
+                        value="<?php echo $general->facebook; ?>">
                 </div>
                 <div class="form-group w-100 pl-2">
                     <label for="twitter">Twitter</label> <br>
-                    <input type="text" name="twitter" id="twitter" class="form-control" value="<?php echo $general->twitter; ?>">
+                    <input type="text" name="twitter" id="twitter" class="form-control"
+                        value="<?php echo $general->twitter; ?>">
                 </div>
             </div>
             <div class="d-flex">
@@ -116,31 +126,35 @@
                 </div>
             </div>
             <br><br>
-            <h2>Configuración</h2><hr>
+            <h2>Configuración</h2>
+            <hr>
             <div class="d-flex">
                 <div class="form-group w-100 pl-2">
                     <br>
-                    <label for="aumento_1">Aumento sobre el precio de Lista 1 para nuevos usuarios.</label> 
+                    <label for="aumento_1">Aumento sobre el precio de Lista 1 para nuevos usuarios.</label>
                 </div>
                 <div class="form-group w-100 pl-2">
                     <label for="aumento_1">Aumento (%)</label> <br>
-                    <input type="number" name="aumento_1" id="aumento_1" class="form-control" value="<?php echo $general->aumento_1; ?>">
+                    <input type="number" name="aumento_1" id="aumento_1" class="form-control"
+                        value="<?php echo $general->aumento_1; ?>">
                 </div>
             </div>
             <div class="d-flex">
                 <div class="form-group w-100 pl-2">
                     <br>
-                    <label for="aumento_1">Minimo de Compra</label> 
+                    <label for="aumento_1">Minimo de Compra</label>
                 </div>
                 <div class="form-group w-100 pl-2">
                     <label for="aumento_1">Pesos ($)</label> <br>
-                    <input type="number" name="minimo" id="minimo" class="form-control" value="<?php echo $general->minimo; ?>">
+                    <input type="number" name="minimo" id="minimo" class="form-control"
+                        value="<?php echo $general->minimo; ?>">
                 </div>
             </div>
             <div class="d-flex">
                 <div class="form-group w-100 pl-2">
                     <br>
-                    <label for="show_prices">Mostrar Precios en la tienda implica que los usuarios puedan realizar pedidos sin iniciar sesión.</label> 
+                    <label for="show_prices">Mostrar Precios en la tienda implica que los usuarios puedan realizar
+                        pedidos sin iniciar sesión.</label>
                 </div>
                 <div class="form-group w-100 pl-2">
                     <label for="show_prices">Marcada = Mostras / Desmarcada = Ocultar</label> <br>
@@ -150,7 +164,19 @@
             <div class="d-flex">
                 <div class="form-group w-100 pl-2">
                     <br>
-                    <label for="show_instagram">Mostrar Instagram en la tienda implica mostrar una seccion en la home con la seccion de Instagram <span class="text-danger">(necesita tener una cuenta y estar seteada en el campo instagram).</span></label> 
+                    <label for="active_register">Activar el regitros de usuarios</label>
+                </div>
+                <div class="form-group w-100 pl-2">
+                    <label for="active_register">Marcada = Activa / Desmarcada = Desactiva</label> <br>
+                    <input type="checkbox" name="active_register" id="active_register" value="1" <?php echo $general->active_register ? 'checked' : ''; ?>>
+                </div>
+            </div>
+            <div class="d-flex">
+                <div class="form-group w-100 pl-2">
+                    <br>
+                    <label for="show_instagram">Mostrar Instagram en la tienda implica mostrar una seccion en la home
+                        con la seccion de Instagram <span class="text-danger">(necesita tener una cuenta y estar seteada
+                            en el campo instagram).</span></label>
                 </div>
                 <div class="form-group w-100 pl-2">
                     <label for="show_instagram">Marcada = Mostras / Desmarcada = Ocultar</label> <br>
@@ -170,18 +196,21 @@
                                 <tr>
                                     <td>Precio ($)</td>
                                     <td>Descuento (%)</td>
-                                </tr>   
+                                </tr>
                             </th>
                         </thead>
                         <tbody>
-                            <?php 
+                            <?php
                             $data = json_decode($general->descuentos, true);
-                            if (!empty($data)) :
+                            if (!empty($data)):
                                 foreach ($data as $key => $value) { ?>
                                     <tr>
-                                        <td><input type="number" name="precio[]" class="form-control" value="<?php echo $value['precio']; ?>"></td>
-                                        <td><input type="number" name="descuento[]" class="form-control" value="<?php echo $value['descuento']; ?>"></td>
-                                        <td><button type="button" class="btn btn-danger" onclick="deleteRow(this)">Eliminar</button></td>
+                                        <td><input type="number" name="precio[]" class="form-control"
+                                                value="<?php echo $value['precio']; ?>"></td>
+                                        <td><input type="number" name="descuento[]" class="form-control"
+                                                value="<?php echo $value['descuento']; ?>"></td>
+                                        <td><button type="button" class="btn btn-danger"
+                                                onclick="deleteRow(this)">Eliminar</button></td>
                                     </tr>
                                 <?php } ?>
                             <?php else: ?>
@@ -195,7 +224,8 @@
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td><button type="button" class="btn btn-success mt-2" id="js-add-row">Agregar Fila +</button></td>
+                                <td><button type="button" class="btn btn-success mt-2" id="js-add-row">Agregar Fila
+                                        +</button></td>
                             </tr>
                         </tfoot>
                     </table>
@@ -227,20 +257,22 @@
             </tr>
         </thead>
         <tbody>
-            <?php 
-                $orders = new Pedidos();
-                $orders = $orders->getTotalOrderByMonth();
-                if ($orders) :
-                    while ( $row = $orders->fetch_object() ) : ?>
-                        <tr>
-                            <td><?php echo $row->mes .'/'. $row->ano; ?></td>
-                            <td><?php echo $row->total; ?></td>
-                        </tr>
-                    <?php endwhile; 
-                else : ?>
+            <?php
+            $orders = new Pedidos();
+            $orders = $orders->getTotalOrderByMonth();
+            if ($orders):
+                while ($row = $orders->fetch_object()): ?>
                     <tr>
-                        <td colspan="2"><h3>No existen registros</h3></td>
+                        <td><?php echo $row->mes . '/' . $row->ano; ?></td>
+                        <td><?php echo $row->total; ?></td>
                     </tr>
+                <?php endwhile;
+            else: ?>
+                <tr>
+                    <td colspan="2">
+                        <h3>No existen registros</h3>
+                    </td>
+                </tr>
             <?php endif; ?>
         </tbody>
     </table>

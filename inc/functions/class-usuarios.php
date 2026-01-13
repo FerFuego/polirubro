@@ -2,7 +2,8 @@
 /**
  * Usuarios class
  */
-class Usuarios {
+class Usuarios
+{
 
     public $Id_Cliente;
     public $Nombre;
@@ -15,14 +16,16 @@ class Usuarios {
     public $is_Admin;
     protected $obj;
 
-    public function __construct($id=0) {
+    public function __construct($id = 0)
+    {
 
         if ($id != 0) {
-            
+
             $this->obj = new sQuery();
             $result = $this->obj->executeQuery("SELECT * FROM clientes WHERE Id_Cliente = '$id'");
-            
-            if ($result->num_rows == 0)  return $result;
+
+            if ($result->num_rows == 0)
+                return $result;
 
             $row = mysqli_fetch_assoc($result);
             $this->Id_Cliente = $row['Id_Cliente'];
@@ -37,23 +40,49 @@ class Usuarios {
         }
     }
 
-    public function getID(){ return $this->Id_Cliente; }
-    public function getNombre(){ return $this->Nombre; }
-    public function getLocalidad(){ return $this->Localidad; }
-    public function getMail(){ return $this->Mail; }
-    public function getUsuario(){ return $this->Usuario; }
-    public function getPassword(){ return $this->Password; }
-    public function getListaPrecioDef(){ return $this->ListaPrecioDef; }
-    public function getTipo(){ return $this->tipo; }
+    public function getID()
+    {
+        return $this->Id_Cliente;
+    }
+    public function getNombre()
+    {
+        return $this->Nombre;
+    }
+    public function getLocalidad()
+    {
+        return $this->Localidad;
+    }
+    public function getMail()
+    {
+        return $this->Mail;
+    }
+    public function getUsuario()
+    {
+        return $this->Usuario;
+    }
+    public function getPassword()
+    {
+        return $this->Password;
+    }
+    public function getListaPrecioDef()
+    {
+        return $this->ListaPrecioDef;
+    }
+    public function getTipo()
+    {
+        return $this->tipo;
+    }
 
 
-    public function getUsuarios(){
+    public function getUsuarios()
+    {
         $this->obj = new sQuery();
         $result = $this->obj->executeQuery("SELECT * FROM clientes ORDER BY Nombre");
         return $result;
     }
 
-    public function is_Admin() {
+    public function is_Admin()
+    {
         $this->obj = new sQuery();
         $this->obj->executeQuery("SELECT * FROM clientes WHERE Id_Cliente = $this->Id_Cliente AND is_admin = 1 LIMIT 1");
 
@@ -64,7 +93,8 @@ class Usuarios {
         }
     }
 
-    public function getUsersCpanel($opcion) {
+    public function getUsersCpanel($opcion)
+    {
 
         $query = "SELECT * FROM clientes ORDER BY Nombre";
 
@@ -80,7 +110,8 @@ class Usuarios {
         return $result;
     }
 
-    public function getUsersSearch($opcion, $search) {
+    public function getUsersSearch($opcion, $search)
+    {
 
         $query = "SELECT * FROM clientes WHERE Nombre LIKE '%$search%' OR Id_Cliente LIKE '%$search%'";
 
@@ -90,39 +121,49 @@ class Usuarios {
         $result = [
             'total' => $this->obj->getResultados(),
             'query' => $query,
-            'params' => ($opcion ? 'opcion='. $opcion .'&' : null).'s='.$search
+            'params' => ($opcion ? 'opcion=' . $opcion . '&' : null) . 's=' . $search
         ];
 
         return $result;
     }
 
-    public function getCountClients(){
+    public function getCountClients()
+    {
         $this->obj = new sQuery();
         $this->obj->executeQuery("SELECT * FROM clientes WHERE Id_Cliente NOT IN (1, 99999)");
         return $this->obj->getResultados();
     }
 
-    public function insert() {
+    public function insert()
+    {
+        $obj = new Connection();
+        $conn = $obj->getConnection();
+        $nombre = mysqli_real_escape_string($conn, $this->Nombre);
+        $mail = mysqli_real_escape_string($conn, $this->Mail);
+        $pass = md5($this->Password);
 
         $this->obj = new sQuery();
-        $this->obj->executeQuery("INSERT INTO clientes (Id_Cliente, Nombre, Localidad, Mail, Usuario, Password, ListaPrecioDef) VALUES ('$this->Id_Cliente','$this->Nombre','$this->Localidad','$this->Mail','$this->Usuario','$this->Password','$this->ListaPrecioDef')");
+        $this->obj->executeQuery("INSERT INTO clientes (Id_Cliente, Nombre, Localidad, Mail, Usuario, Password, ListaPrecioDef, tipo, is_Admin) VALUES ($this->Id_Cliente,'$nombre','$this->Localidad','$mail','$this->Usuario','$pass',$this->ListaPrecioDef,$this->tipo,$this->is_Admin)");
     }
 
-    public function update() {
+    public function update()
+    {
 
         $this->obj = new sQuery();
         $this->obj->executeQuery("UPDATE clientes SET Nombre = '$this->Nombre', Localidad = '$this->Localidad', Mail = '$this->Mail', Usuario = '$this->Usuario', Password = '$this->Password', ListaPrecioDef = '$this->ListaPrecioDef', tipo = '$this->tipo' WHERE (Id_Cliente = '$this->Id_Cliente')");
     }
 
-    public function delete() {
+    public function delete()
+    {
 
         $this->obj = new sQuery();
         $this->obj->executeQuery("DELETE FROM clientes WHERE (Id_Cliente = '$this->Id_Cliente')");
     }
 
-    public function closeConnection(){
+    public function closeConnection()
+    {
         @$this->obj->Clean();
-		@$this->obj->Close();
-	} 
+        @$this->obj->Close();
+    }
 
 }
