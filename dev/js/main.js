@@ -429,30 +429,42 @@ $(document).ready(function () {
             },
             success: function (response) {
 
-                var data = JSON.parse(response);
-                toastr.success('Pedido Actualizado Correctamente.');
-
-                if (data.updated.updated > 0) {
-                    toastr.info(data.updated.updated + ' Productos Actualizados');
-                }
-
-                if (data.updated.deleted > 0) {
-                    toastr.info(data.updated.deleted + ' Productos Eliminados');
-                }
-
                 setTimeout(function () {
+                    var data = JSON.parse(response);
+
                     if (data.login == 'true') {
+
+                        toastr.success('Pedido Actualizado Correctamente.');
+
+                        if (data.updated.updated > 0) {
+                            toastr.info(data.updated.updated + ' Productos Actualizados');
+                        }
+
+                        if (data.updated.deleted > 0) {
+                            toastr.info(data.updated.deleted + ' Productos Eliminados');
+                        }
+
                         $('.js-login-message').html('<small class="text-success">Usuario Validado, Redireccionando...</small>');
-                        location.reload();
+
+                        setTimeout(function () {
+                            location.reload();
+                        }, 2000);
+
                     } else if (data.login == 'admin') {
+
                         $('.js-login-message').html('<small class="text-success">Usuario Validado, Redireccionando...</small>');
+
                         location.href = 'cpanel.php';
+
                     } else if (data.login == 'Captcha Incorrecto!') {
+
                         $('.js-login-message').html('<small class="text-danger">' + data.login + '</small>');
+
                     } else {
+
                         $('.js-login-message').html('<small class="text-danger">Usuario o contrseña Incorrecto!</small>');
                     }
-                }, 3000);
+                }, 1000);
             }
         });
     })
@@ -521,7 +533,7 @@ $(document).ready(function () {
         var formData = new FormData();
         formData.append('action', 'updateProductCart');
         formData.append('id_item', values.id_item);
-        formData.append('codprod', values.codprod);
+        formData.append('id_product', values.id_product);
         formData.append('cant', $('#cant_' + values.id_item).val());
         formData.append('nota', $('#nota_' + values.id_item).val());
 
@@ -774,14 +786,12 @@ $(document).ready(function () {
 
         var formData = new FormData();
         formData.append('action', 'operationClient');
-        formData.append('type', values.type);
-        formData.append('id', values.id);
+        formData.append('type_cli', values.type_cli);
         formData.append('name', values.name);
         formData.append('locality', values.locality);
         formData.append('mail', values.mail);
         formData.append('username', values.username);
         formData.append('password', values.password);
-        formData.append('price', values.price);
 
         jQuery.ajax({
             cache: false,
@@ -821,7 +831,7 @@ $(document).ready(function () {
 
         var formData = new FormData();
         formData.append('action', 'operationClient');
-        formData.append('type', 'delete');
+        formData.append('type_cli', 'delete');
         formData.append('id', values.id_item);
 
         jQuery.ajax({
@@ -1274,7 +1284,7 @@ function getClientdata(obj) {
                 $('#mail').val(data.Mail);
                 $('#username').val(data.Usuario);
                 $('#pass_cli').val(data.Password);
-                $('#price').val(data.ListaPrecioDef);
+                $('#type').val(data.tipo).change();
             }
         }
     });

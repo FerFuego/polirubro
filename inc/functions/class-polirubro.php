@@ -228,7 +228,11 @@ class Polirubro
 
         // Usuario logueado
         if (isset($_SESSION["user"])) {
-            return number_format($product->PreVtaFinal1(), 2, ',', '.');
+            // usuario recurrente
+            $user = new Usuarios($_SESSION["Id_Cliente"]);
+            if ($user->getTipo() == 1) {
+                return number_format($product->PreVtaFinal1(), 2, ',', '.');
+            }
         }
 
         // Usuario no logueado o tipo 2

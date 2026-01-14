@@ -162,7 +162,7 @@ if (!empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'insertProd
         die('exist');
 
     // Check Product
-    $prod = new Productos($cod_product);
+    $prod = new Productos($id_product);
     if (!$prod)
         die('false');
 
@@ -187,10 +187,10 @@ if (!empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'updateProd
 
     $note = (isset($_POST['nota']) ? filter_var($_POST['nota'], FILTER_UNSAFE_RAW) : null);
     $cant = (isset($_POST['cant']) ? filter_var($_POST['cant'], FILTER_VALIDATE_INT) : null);
-    $CodProducto = (isset($_POST['codprod']) ? filter_var($_POST['codprod'], FILTER_VALIDATE_INT) : null);
+    $Id_Producto = (isset($_POST['id_product']) ? filter_var($_POST['id_product'], FILTER_VALIDATE_INT) : null);
     $id_productItem = (isset($_POST['id_item']) ? filter_var($_POST['id_item'], FILTER_VALIDATE_INT) : null);
 
-    $prod = new Productos($CodProducto);
+    $prod = new Productos($Id_Producto);
 
     if (!$prod)
         die('false');
@@ -328,41 +328,45 @@ if (!empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'dataClient
 if (!empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'operationClient') {
 
     $id = (isset($_POST['id']) ? filter_var($_POST['id'], FILTER_VALIDATE_INT) : null);
-    $type = (isset($_POST['type']) ? filter_var($_POST['type'], FILTER_UNSAFE_RAW) : null);
+    $type_cli = (isset($_POST['type_cli']) ? filter_var($_POST['type_cli'], FILTER_UNSAFE_RAW) : null);
     $name = (isset($_POST['name']) ? filter_var($_POST['name'], FILTER_UNSAFE_RAW) : null);
     $mail = (isset($_POST['mail']) ? filter_var($_POST['mail'], FILTER_UNSAFE_RAW) : null);
-    $price = (isset($_POST['price']) ? filter_var($_POST['price'], FILTER_VALIDATE_INT) : null);
     $locality = (isset($_POST['locality']) ? filter_var($_POST['locality'], FILTER_UNSAFE_RAW) : null);
     $username = (isset($_POST['username']) ? filter_var($_POST['username'], FILTER_UNSAFE_RAW) : null);
     $password = (isset($_POST['password']) ? filter_var($_POST['password'], FILTER_UNSAFE_RAW) : null);
 
-    if ($type == 'new') {
+    if ($type_cli == 'new') {
         $user = new Usuarios();
-        $user->Id_Cliente = $id;
+        $user->Id_Cliente = ($id) ? $id : date('YmdHis');
         $user->Nombre = $name;
         $user->Localidad = $locality;
         $user->Mail = $mail;
         $user->Usuario = $username;
         $user->Password = $password;
-        $user->ListaPrecioDef = $price;
+        $user->ListaPrecioDef = $ListaPrecioDef;
+        $user->tipo = $ListaPrecioDef;
+        $user->is_Admin = 0;
         $user->insert();
         die('true');
     }
 
-    if ($type == 'edit') {
+    if ($type_cli == 'edit') {
         $user = new Usuarios();
         $user->Id_Cliente = $id;
         $user->Nombre = $name;
         $user->Localidad = $locality;
         $user->Mail = $mail;
         $user->Usuario = $username;
-        $user->Password = $password;
-        $user->ListaPrecioDef = $price;
+        if ($password) {
+            $user->Password = $password;
+        }
+        $user->ListaPrecioDef = $ListaPrecioDef;
+        $user->tipo = $ListaPrecioDef;
         $user->update();
         die('true');
     }
 
-    if ($type == 'delete') {
+    if ($type_cli == 'delete') {
         $user = new Usuarios();
         $user->Id_Cliente = $id;
         $user->delete();

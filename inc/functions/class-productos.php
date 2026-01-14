@@ -35,32 +35,33 @@ class Productos
         if ($id != 0) {
 
             $this->obj = new sQuery();
-            $result = $this->obj->executeQuery("SELECT * FROM productos WHERE Id_Producto='$id'");
+            $result = $this->obj->executeQuery("SELECT * FROM productos WHERE Id_Producto='" . intval($id) . "'");
             $row = mysqli_fetch_assoc($result);
 
-            $this->id_producto = $row['Id_Producto'];
-            $this->cod_producto = $row['CodProducto'];
-            $this->nombre = $row['Nombre'];
-            $this->id_marca = $row['Id_Marca'];
-            $this->marca = $row['Marca'];
-            $this->id_rubro = $row['Id_Rubro'];
-            $this->rubro = $row['Rubro'];
-            $this->id_subrubro = $row['Id_SubRubro'];
-            $this->subrubro = $row['SubRubro'];
-            $this->id_grupo = $row['Id_Grupo'];
-            $this->grupo = $row['Grupo'];
-            $this->precio_venta_neto_1 = $row['PreVtaNeto1'];
-            $this->precio_venta_final_1 = $row['PreVtaFinal1'];
-            $this->precio_venta_neto_2 = $row['PreVtaNeto2'];
-            $this->precio_venta_final_2 = $row['PreVtaFinal2'];
-            $this->precio_venta_neto_3 = $row['PreVtaNeto3'];
-            $this->precio_venta_final_3 = $row['PreVtaFinal3'];
-            $this->fecha_alta = $row['FecAlta'];
-            $this->fecha_alta_web = $row['FecAltaWeb'];
-            $this->novedad = $row['Novedad'];
-            $this->oferta = $row['Oferta'];
-            $this->observaciones = $row['Observaciones'];
-
+            if ($row) {
+                $this->id_producto = $row['Id_Producto'];
+                $this->cod_producto = $row['CodProducto'];
+                $this->nombre = $row['Nombre'];
+                $this->id_marca = $row['Id_Marca'];
+                $this->marca = $row['Marca'];
+                $this->id_rubro = $row['Id_Rubro'];
+                $this->rubro = $row['Rubro'];
+                $this->id_subrubro = $row['Id_SubRubro'];
+                $this->subrubro = $row['SubRubro'];
+                $this->id_grupo = $row['Id_Grupo'];
+                $this->grupo = $row['Grupo'];
+                $this->precio_venta_neto_1 = $row['PreVtaNeto1'];
+                $this->precio_venta_final_1 = $row['PreVtaFinal1'];
+                $this->precio_venta_neto_2 = $row['PreVtaNeto2'];
+                $this->precio_venta_final_2 = $row['PreVtaFinal2'];
+                $this->precio_venta_neto_3 = $row['PreVtaNeto3'];
+                $this->precio_venta_final_3 = $row['PreVtaFinal3'];
+                $this->fecha_alta = $row['FecAlta'];
+                $this->fecha_alta_web = $row['FecAltaWeb'];
+                $this->novedad = $row['Novedad'];
+                $this->oferta = $row['Oferta'];
+                $this->observaciones = $row['Observaciones'];
+            }
         }
     }
 
@@ -97,7 +98,10 @@ class Productos
 
         // Usuario logueado
         if (isset($_SESSION["user"])) {
-            return $precio;
+            // user recurrente
+            $user = new Usuarios($_SESSION["Id_Cliente"]);
+            if ($user->getTipo() == 1)
+                return $precio;
         }
 
         // Usuario no logueado o tipo 2
@@ -116,7 +120,10 @@ class Productos
 
         // Usuario logueado
         if (isset($_SESSION["user"])) {
-            return $this->precio_venta_final_1;
+            // user recurrente
+            $user = new Usuarios($_SESSION["Id_Cliente"]);
+            if ($user->getTipo() == 1)
+                return $this->precio_venta_final_1;
         }
 
         // Usuario no logueado o tipo 2

@@ -150,7 +150,7 @@ class Usuarios
     {
 
         $this->obj = new sQuery();
-        $this->obj->executeQuery("UPDATE clientes SET Nombre = '$this->Nombre', Localidad = '$this->Localidad', Mail = '$this->Mail', Usuario = '$this->Usuario', Password = '$this->Password', ListaPrecioDef = '$this->ListaPrecioDef', tipo = '$this->tipo' WHERE (Id_Cliente = '$this->Id_Cliente')");
+        $this->obj->executeQuery("UPDATE clientes SET Nombre = '$this->Nombre', Localidad = '$this->Localidad', Mail = '$this->Mail', Usuario = '$this->Usuario', Password = $this->Password, ListaPrecioDef = '$this->ListaPrecioDef', tipo = '$this->tipo' WHERE (Id_Cliente = '$this->Id_Cliente')");
     }
 
     public function delete()
