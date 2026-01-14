@@ -717,13 +717,14 @@ if (!empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'operationC
 if (!empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'updateCart') {
 
     $Id_Pedido = isset($_POST['Id_Pedido']) ? filter_var($_POST['Id_Pedido'], FILTER_VALIDATE_INT) : null;
+    $items = isset($_POST['items']) ? json_decode($_POST['items'], true) : [];
     $data = "<div>No se encontró el pedido</div>";
 
     if ($Id_Pedido):
         $order = new Pedidos();
         $result = $order->getPedidoAbierto($_SESSION["Id_Cliente"]);
         if ($result['num_rows'] > 0):
-            $data = $order->ActualizarPedido($Id_Pedido);
+            $data = $order->ActualizarPedido($Id_Pedido, $items);
         endif;
     endif;
     echo json_encode($data);

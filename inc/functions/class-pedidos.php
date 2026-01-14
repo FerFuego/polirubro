@@ -203,7 +203,7 @@ class Pedidos
         return $this->totalFinal;
     }
 
-    public function ActualizarPedido($Id_Pedido)
+    public function ActualizarPedido($Id_Pedido, $items_update = [])
     {
 
         $deleted = 0;
@@ -215,9 +215,29 @@ class Pedidos
         if ($results->num_rows > 0):
             while ($detalle = $results->fetch_object()):
                 $producto = new Productos($detalle->Id_Producto);
-                if (null !== $producto->id_producto) {
-                    if (Productos::PreVtaFinal($producto->precio_venta_final_1) !== $detalle->PreVtaFinal1):
-                        $items->ActualizarPrecio($Id_Pedido, $detalle->CodProducto, Productos::PreVtaFinal($producto->precio_venta_final_1));
+                if (isset($producto->id_producto) && $producto->id_producto !== null) {
+
+                    $preVta = (float) Productos::PreVtaFinal($producto->precio_venta_final_1);
+                    $cant = (float) $detalle->Cantidad;
+                    $nota = $detalle->Notas;
+
+                    // Si se enviaron actualizaciones desde el carrito, las buscamos
+                    if (!empty($items_update)) {
+                        foreach ($items_update as $upd) {
+                            if (isset($upd['id_item']) && $upd['id_item'] == $detalle->Auto) {
+                                $cant = (float) $upd['cant'];
+                                $nota = $upd['nota'];
+                                break;
+                            }
+                        }
+                    }
+
+                    // Verificamos si cambió el precio, la cantidad o la nota
+                    if ($preVta != $detalle->PreVtaFinal1 || $cant != $detalle->Cantidad || $nota != $detalle->Notas):
+                        $impTotal = $cant * $preVta;
+
+                        $this->obj = new sQuery();
+                        $this->obj->executeQuery("UPDATE PEDIDOS_DETA SET PreVtaFinal1 = $preVta, Cantidad = $cant, Notas = '$nota', ImpTotal = $impTotal WHERE Auto = $detalle->Auto");
                         $updated++;
                     endif;
                 } else {
