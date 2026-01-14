@@ -1407,9 +1407,20 @@ function getCategdata(obj) {
     Update Cart
 --------------------*/
 function updateCart(obj) {
+    var items = [];
+    $('.js-form-update').each(function () {
+        var id_item = $(this).find('input[name="id_item"]').val();
+        items.push({
+            id_item: id_item,
+            cant: $('#cant_' + id_item).val(),
+            nota: $('#nota_' + id_item).val()
+        });
+    });
+
     var formData = new FormData();
     formData.append('action', 'updateCart');
     formData.append('Id_Pedido', obj);
+    formData.append('items', JSON.stringify(items));
 
     jQuery.ajax({
         cache: false,
