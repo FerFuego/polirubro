@@ -215,7 +215,7 @@ class Pedidos
         if ($results->num_rows > 0):
             while ($detalle = $results->fetch_object()):
                 $producto = new Productos($detalle->Id_Producto);
-                if (null !== $producto->cod_producto) {
+                if (null !== $producto->id_producto) {
                     if (Productos::PreVtaFinal($producto->precio_venta_final_1) !== $detalle->PreVtaFinal1):
                         $items->ActualizarPrecio($Id_Pedido, $detalle->CodProducto, Productos::PreVtaFinal($producto->precio_venta_final_1));
                         $updated++;
