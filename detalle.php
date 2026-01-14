@@ -20,30 +20,47 @@
 <!-- Breadcrumb Section End -->
 
 <!-- Product Details Section Begin -->
-<?php if ( $id ) : 
-    
-    $product = new Productos( $id ); 
-    
-    if ( $product->getNombre() ) : ?>
+<?php if ($id):
+
+    $product = new Productos($id);
+
+    if ($product->getNombre()): ?>
 
         <section class="product-details spad">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-6 col-md-6">
                         <div class="product__details__pic">
+                            <?php
+                            $images = Productos::getProductImages($product->getCode());
+                            $videos = Productos::getProductVideos($product->getCode());
+                            $allMedia = array_merge($images, $videos);
+                            ?>
+
+                            <!-- Main Display -->
                             <div class="product__details__pic__item">
-                                <img class="product__details__pic__item--large" src="<?php echo Productos::getImage( $product->getCode() ); ?>" alt="">
+                                <img id="mainImage" class="product__details__pic__item--large" src="<?php echo $images[0]; ?>"
+                                    alt="<?php echo $product->getNombre(); ?>">
+                                <video id="mainVideo" class="product__details__pic__item--large" style="display:none;" controls>
+                                </video>
                             </div>
-                            <!--  <div class="product__details__pic__slider owl-carousel">
-                                <img data-imgbigurl="img/product/details/product-details-2.jpg"
-                                    src="img/product/details/thumb-1.jpg" alt="">
-                                <img data-imgbigurl="img/product/details/product-details-3.jpg"
-                                    src="img/product/details/thumb-2.jpg" alt="">
-                                <img data-imgbigurl="img/product/details/product-details-5.jpg"
-                                    src="img/product/details/thumb-3.jpg" alt="">
-                                <img data-imgbigurl="img/product/details/product-details-4.jpg"
-                                    src="img/product/details/thumb-4.jpg" alt="">
-                            </div> -->
+
+                            <!-- Thumbnails -->
+                            <?php if (count($allMedia) > 1): ?>
+                                <div class="product__details__pic__slider">
+                                    <?php foreach ($images as $index => $image): ?>
+                                        <img class="thumb-item <?php echo $index === 0 ? 'active' : ''; ?>" src="<?php echo $image; ?>"
+                                            data-type="image" data-src="<?php echo $image; ?>" alt="">
+                                    <?php endforeach; ?>
+
+                                    <?php foreach ($videos as $video): ?>
+                                        <div class="thumb-item video-thumb" data-type="video" data-src="<?php echo $video; ?>">
+                                            <i class="fa fa-play-circle"></i>
+                                            <span>Video</span>
+                                        </div>
+                                    <?php endforeach; ?>
+                                </div>
+                            <?php endif; ?>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6">
@@ -62,20 +79,22 @@
                             <h4>Cód.: <?php echo $product->getCode(); ?></h4>
                             <?php if ($general->showPrices()): ?>
                                 <form class="js-form-cart">
-                                    <div class="product__details__price">$<?php echo number_format($product->PreVtaFinal1(), 2,',','.'); ?></div>
+                                    <div class="product__details__price">
+                                        $<?php echo number_format($product->PreVtaFinal1(), 2, ',', '.'); ?></div>
                                     <input type="hidden" name="id_product" value="<?php echo $product->getID(); ?>">
                                     <input type="hidden" name="cod_product" value="<?php echo $product->getCode(); ?>">
                                     <input type="hidden" name="name_product" value="<?php echo $product->getNombre(); ?>">
                                     <input type="hidden" name="price_product" value="<?php echo $product->PreVtaFinal1(); ?>">
 
                                     <div>
-                                        <textarea type="text" name="nota" class="product__details__note" placeholder="Agregar Nota"></textarea>
+                                        <textarea type="text" name="nota" class="product__details__note"
+                                            placeholder="Agregar Nota"></textarea>
                                     </div>
 
                                     <div class="product__details__quantity">
                                         <div class="quantity">
                                             <div class="pro-qty">
-                                                <input type="number" name="cant" min="1" max="99999" value="1"> 
+                                                <input type="number" name="cant" min="1" max="99999" value="1">
                                             </div>
                                         </div>
                                     </div>
@@ -88,26 +107,28 @@
                             <div class="js-login-message"></div>
 
                             <ul>
-                                <?php if ($product->marca) : ?>
+                                <?php if ($product->marca): ?>
                                     <li><b>Marca</b> <span><?php echo ucfirst(strtolower($product->marca)); ?></span></li>
                                 <?php endif; ?>
-                                
-                                <?php if ($product->rubro) : ?>
+
+                                <?php if ($product->rubro): ?>
                                     <li><b>Rubro</b> <span><?php echo ucfirst(strtolower($product->rubro)); ?></span></li>
                                 <?php endif; ?>
-                                
-                                <?php if ($product->subrubro) : ?>
+
+                                <?php if ($product->subrubro): ?>
                                     <li><b>SubRubro</b> <span><?php echo ucfirst(strtolower($product->subrubro)); ?></span></li>
                                 <?php endif; ?>
-                                
-                                <?php if ($product->grupo) : ?>
+
+                                <?php if ($product->grupo): ?>
                                     <li><b>Grupo</b> <span><?php echo ucfirst(strtolower($product->grupo)); ?></span></li>
                                 <?php endif; ?>
 
                                 <li><b>Disponibilidad</b> <span>Hay Stock</span></li>
 
-                                <?php if ($product->observaciones) : ?>
-                                    <li><b>Observaciones</b> <span><?php echo ucfirst(strtolower($product->observaciones)); ?></span></li>
+                                <?php if ($product->observaciones): ?>
+                                    <li><b>Observaciones</b>
+                                        <span><?php echo ucfirst(strtolower($product->observaciones)); ?></span>
+                                    </li>
                                 <?php endif; ?>
                                 <!-- <li><b>Shipping</b> <span>01 day shipping. <samp>Free pickup today</samp></span></li>
                                 <li><b>Weight</b> <span>0.5 kg</span></li>
@@ -177,7 +198,7 @@
             </div>
         </section>
 
-    <?php else : ?>
+    <?php else: ?>
 
         <section class="product-details container spad">
             <h2>Producto no encontrado</h2>
@@ -185,7 +206,7 @@
 
     <?php endif; ?>
 
-<?php else : ?>
+<?php else: ?>
 
     <section class="product-details container spad">
         <h2>Producto no encontrado</h2>

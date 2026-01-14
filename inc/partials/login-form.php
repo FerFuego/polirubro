@@ -1,4 +1,11 @@
 <div class="header__top__right__auth">
+    <?php
+    $general = new Configuracion();
+    if ($general->active_register): ?>
+        <strong>
+            <a class="pl-0" href="registro.php">Registrarse</a>
+        </strong>
+    <?php endif; ?>
     <a href="#" onclick="formToggle();"><i class="fa fa-user"></i> Ingresar</a>
     <form class="form-login d-none" id="js-formx-login">
         <div class="form-group">
@@ -12,6 +19,7 @@
         </div>
 
         <div class="form-group">
+            <input type="hidden" name="csrf" id="csrf" value="<?php echo $_SESSION["token"]; ?>">
             <div class="g-recaptcha" data-sitekey="<?php echo Polirubro::get_site_key(); ?>"></div>
         </div>
 

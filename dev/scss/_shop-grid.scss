@@ -285,6 +285,7 @@
         left: 0;
         top: 5px;
         padding: 0 12px;
+
         h5 {
             font-size: 16px;
             color: #fff;
@@ -313,6 +314,7 @@
 }
 
 .product__item__pic {
+    display: block;
     height: 270px;
     position: relative;
     overflow: hidden;
