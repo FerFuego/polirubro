@@ -58,8 +58,9 @@ class Polirubro
                 $_SESSION["Id_Cliente"] = date('YmdHis');
             }
 
-            // Avoid rendering login form (and its reCAPTCHA) on registration page
-            if (basename($_SERVER['PHP_SELF']) === 'registro.php') {
+            // Avoid rendering login form (and its reCAPTCHA) on registration and login pages
+            $currentPage = basename($_SERVER['PHP_SELF']);
+            if ($currentPage === 'registro.php' || $currentPage === 'login.php') {
                 return '';
             }
 
