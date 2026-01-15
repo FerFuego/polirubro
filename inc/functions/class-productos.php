@@ -200,15 +200,15 @@ class Productos
             }
         }
 
-        // Additional images (999999-1.jpg, 999999-2.jpg, etc.)
+        // Additional images (999999_1.jpg, 999999_2.jpg, etc.)
         $counter = 1;
         while (true) {
             $imagePath = null;
 
             // Try all extensions for each numbered image
             foreach ($extensions as $ext) {
-                if (file_exists($fotosPath . $codProducto . "-" . $counter . "." . $ext)) {
-                    $imagePath = $fotosPath . $codProducto . "-" . $counter . "." . $ext;
+                if (file_exists($fotosPath . $codProducto . "_" . $counter . "." . $ext)) {
+                    $imagePath = $fotosPath . $codProducto . "_" . $counter . "." . $ext;
                     break;
                 }
             }
