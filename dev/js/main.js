@@ -1570,7 +1570,7 @@ function addClient() {
 
     var formData = new FormData();
     formData.append('action', 'registerUser');
-    formData.append('g-recaptcha-response', $('#g-recaptcha-response').val());
+    formData.append('g-recaptcha-response', grecaptcha.getResponse());
 
     const data = [
         'user_name',
