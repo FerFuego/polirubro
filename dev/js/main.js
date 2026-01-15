@@ -457,12 +457,11 @@ $(document).ready(function () {
                         location.href = 'cpanel.php';
 
                     } else if (data.login == 'Captcha Incorrecto!') {
-
                         $('.js-login-message').html('<small class="text-danger">' + data.login + '</small>');
-
+                        grecaptcha.reset();
                     } else {
-
                         $('.js-login-message').html('<small class="text-danger">Usuario o contrseña Incorrecto!</small>');
+                        grecaptcha.reset();
                     }
                 }, 1000);
             }
@@ -1605,8 +1604,10 @@ function addClient() {
         success: function (response) {
             if (response == 'false' || response == 'undefined') {
                 toastr.error('Ocurrio un error, por favor recarge la pagina e intente nuevamente.');
+                grecaptcha.reset();
             } else if (response == 'false-captcha') {
                 toastr.error('Ocurrio un error, por favor confirma que no eres un robot.');
+                grecaptcha.reset();
             } else {
                 toastr.success('Ya puedes iniciar sesion');
                 toastr.success('Usuario agregado correctamente.');

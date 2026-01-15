@@ -793,15 +793,12 @@ if (!empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'sendContac
  */
 if (!empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'registerUser') {
 
-    $obj = new Connection();
-    $conn = $obj->getConnection();
-
-    $name = (isset($_POST['user_name']) ? mysqli_escape_string($conn, addslashes($_POST['user_name'])) : null);
-    $email = (isset($_POST['email']) ? mysqli_escape_string($conn, addslashes($_POST['email'])) : null);
-    $username = (isset($_POST['user_cli']) ? mysqli_escape_string($conn, addslashes($_POST['user_cli'])) : null);
-    $password = (isset($_POST['pass_cli']) ? mysqli_escape_string($conn, addslashes($_POST['pass_cli'])) : null);
-    $locality = (isset($_POST['user_locality']) ? mysqli_escape_string($conn, addslashes($_POST['user_locality'])) : null);
-    $csrf = (isset($_POST['user_csrf']) ? mysqli_escape_string($conn, addslashes($_POST['user_csrf'])) : null);
+    $name = (isset($_POST['user_name']) ? $_POST['user_name'] : null);
+    $email = (isset($_POST['email']) ? $_POST['email'] : null);
+    $username = (isset($_POST['user_cli']) ? $_POST['user_cli'] : null);
+    $password = (isset($_POST['pass_cli']) ? $_POST['pass_cli'] : null);
+    $locality = (isset($_POST['user_locality']) ? $_POST['user_locality'] : null);
+    $csrf = (isset($_POST['user_csrf']) ? $_POST['user_csrf'] : null);
     $recaptcha = (isset($_POST['g-recaptcha-response']) ? $_POST['g-recaptcha-response'] : null);
 
     // CSRF Protection
@@ -811,10 +808,11 @@ if (!empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'registerUs
 
     // ReCaptcha Protection
     if (getenv('ENVIRONMENT') == 'production') {
-        $request = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=" . Polirubro::get_google_api() . "&response=" . $recaptcha . "&remoteip=" . $_SERVER['REMOTE_ADDR']);
-        $response = json_decode($request);
+        $verifyUrl = "https://www.google.com/recaptcha/api/siteverify?secret=" . Polirubro::get_google_api() . "&response=" . $recaptcha . "&remoteip=" . $_SERVER['REMOTE_ADDR'];
+        $request = @file_get_contents($verifyUrl);
+        $response = $request ? json_decode($request) : null;
 
-        if ($response->success === false) {
+        if (!$response || !isset($response->success) || $response->success === false) {
             die('false-captcha');
         }
     }
@@ -830,13 +828,11 @@ if (!empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'registerUs
     $user->Nombre = $name;
     $user->Mail = $email;
     $user->Usuario = $username;
-    //$user->Password = md5($password);
     $user->Password = $password;
     $user->Localidad = $locality;
     $user->ListaPrecioDef = 1;
     $user->tipo = 0;
     $user->is_Admin = 0;
     $result = $user->insert();
-    // $result = $user->send();
     die($result);
 }
