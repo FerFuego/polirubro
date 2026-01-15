@@ -28,5 +28,8 @@
         </div>
 
         <div class="js-login-message"></div>
+        <div class="form-group">
+            <a href="login.php" class="btn btn-link">No puedes iniciar sesión? Intenta aquí</a>
+        </div>
     </form>
 </div>
