@@ -1225,6 +1225,7 @@ function cleanModal() {
     $('#id_cli').val('');
     $('#pass_cli').val('');
     $('#type_cli').val('new');
+    $('select').niceSelect('update');
 }
 
 /*--------------------
@@ -1286,7 +1287,8 @@ function getClientdata(obj) {
                 $('#mail').val(data.Mail);
                 $('#username').val(data.Usuario);
                 //$('#pass_cli').val(data.Password);
-                $('#type').val(data.tipo).change();
+                var typeVal = (data.ListaPrecioDef !== undefined && data.ListaPrecioDef !== null) ? data.ListaPrecioDef : data.tipo;
+                $('#type').val(typeVal).niceSelect('update');
             }
         }
     });
