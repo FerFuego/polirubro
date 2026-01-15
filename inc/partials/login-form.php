@@ -6,8 +6,9 @@
             <a class="pl-0" href="registro.php">Registrarse</a>
         </strong>
     <?php endif; ?>
-    <a href="#" onclick="formToggle();"><i class="fa fa-user"></i> Ingresar</a>
-    <form class="form-login d-none" id="js-formx-login">
+    <a href="login.php"><i class="fa fa-user"></i> Ingresar</a>
+    <!-- <a href="#" onclick="formToggle();"><i class="fa fa-user"></i> Ingresar</a> -->
+    <!-- <form class="form-login d-none" id="js-formx-login">
         <div class="form-group">
             <label for="usuario">Usuario</label>
             <input type="text" name="user" class="form-control user" id="user" required>
@@ -19,8 +20,8 @@
         </div>
 
         <div class="form-group">
-            <input type="hidden" name="csrf" id="csrf" value="<?php echo $_SESSION["token"]; ?>">
-            <div class="g-recaptcha" data-sitekey="<?php echo Polirubro::get_site_key(); ?>"></div>
+            <input type="hidden" name="csrf" id="csrf" value="<?php //echo $_SESSION["token"]; ?>">
+            <div class="g-recaptcha" data-sitekey="<?php //echo Polirubro::get_site_key(); ?>"></div>
         </div>
 
         <div class="form-group">
@@ -31,5 +32,5 @@
         <div class="form-group">
             <a href="login.php" class="btn btn-link">No puedes iniciar sesión? Intenta aquí</a>
         </div>
-    </form>
+    </form> -->
 </div>
