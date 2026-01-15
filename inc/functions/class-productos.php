@@ -246,8 +246,8 @@ class Productos
         $extensions = ['mp4', 'webm', 'ogg'];
 
         foreach ($extensions as $ext) {
-            if (file_exists($fotosPath . $codProducto . "-video." . $ext)) {
-                $videos[] = $fotosPath . $codProducto . "-video." . $ext;
+            if (file_exists($fotosPath . $codProducto . "_video." . $ext)) {
+                $videos[] = $fotosPath . $codProducto . "_video." . $ext;
             }
         }
 
