@@ -36,7 +36,7 @@
             <label for="password">Contraseña</label>
             <input type="text" name="password" placeholder="Dejar vacio para no cambiar">
           </div>
-          <div class="form-group">
+          <div class="form-group" style="display: none;">
             <label for="type">Tipo</label>
             <select name="type" id="type">
               <option value="">Seleccione</option>
