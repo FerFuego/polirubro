@@ -334,7 +334,7 @@ if (!empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'operationC
     $locality = (isset($_POST['locality']) ? filter_var($_POST['locality'], FILTER_UNSAFE_RAW) : null);
     $username = (isset($_POST['username']) ? filter_var($_POST['username'], FILTER_UNSAFE_RAW) : null);
     $password = (isset($_POST['password']) ? filter_var($_POST['password'], FILTER_UNSAFE_RAW) : null);
-    $type = (isset($_POST['type']) ? filter_var($_POST['type'], FILTER_UNSAFE_RAW) : null);
+    $type = (isset($_POST['type']) ? filter_var($_POST['type'], FILTER_UNSAFE_RAW) : 1);
 
     if ($type_cli == 'new') {
         $user = new Usuarios();
@@ -347,8 +347,8 @@ if (!empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'operationC
         $user->ListaPrecioDef = $type;
         $user->tipo = $type;
         $user->is_Admin = 0;
-        $user->insert();
-        die('true');
+        $result = $user->insert();
+        die($result);
     }
 
     if ($type_cli == 'edit') {
@@ -363,8 +363,8 @@ if (!empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'operationC
         }
         $user->ListaPrecioDef = $type;
         $user->tipo = $type;
-        $user->update();
-        die('true');
+        $result = $user->update();
+        die($result);
     }
 
     if ($type_cli == 'delete') {

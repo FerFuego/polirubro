@@ -149,16 +149,35 @@ class Usuarios
         $usuario = mysqli_real_escape_string($conn, $this->Usuario);
         $pass = md5($this->Password);
 
+        $listaPrecio = (int) $this->ListaPrecioDef;
+        $tipo = (int) $this->tipo;
+        $isAdmin = (int) $this->is_Admin;
+
         $this->obj = new sQuery();
-        $result = $this->obj->executeQuery("INSERT INTO clientes (Id_Cliente, Nombre, Localidad, Mail, Usuario, Password, ListaPrecioDef, tipo, is_Admin) VALUES ($this->Id_Cliente,'$nombre','$localidad','$mail','$usuario','$pass',$this->ListaPrecioDef,$this->tipo,$this->is_Admin)");
+        $result = $this->obj->executeQuery("INSERT INTO clientes (Id_Cliente, Nombre, Localidad, Mail, Usuario, Password, ListaPrecioDef, tipo, is_Admin) VALUES ('$this->Id_Cliente', '$nombre', '$localidad', '$mail', '$usuario', '$pass', '$listaPrecio', '$tipo', '$isAdmin')");
 
         return $result ? 'true' : 'false';
     }
 
     public function update()
     {
+        $obj = new Connection();
+        $conn = $obj->getConnection();
+
+        if (!$conn) {
+            return 'false';
+        }
+
+        $nombre = mysqli_real_escape_string($conn, $this->Nombre);
+        $mail = mysqli_real_escape_string($conn, $this->Mail);
+        $localidad = mysqli_real_escape_string($conn, $this->Localidad);
+        $usuario = mysqli_real_escape_string($conn, $this->Usuario);
+
+        $listaPrecio = (int) $this->ListaPrecioDef;
+        $tipo = (int) $this->tipo;
+
         $this->obj = new sQuery();
-        $query = "UPDATE clientes SET Nombre = '$this->Nombre', Localidad = '$this->Localidad', Mail = '$this->Mail', Usuario = '$this->Usuario', ListaPrecioDef = '$this->ListaPrecioDef', tipo = '$this->tipo'";
+        $query = "UPDATE clientes SET Nombre = '$nombre', Localidad = '$localidad', Mail = '$mail', Usuario = '$usuario', ListaPrecioDef = '$listaPrecio', tipo = '$tipo'";
 
         if ($this->Password) {
             $pass = md5($this->Password);
@@ -166,7 +185,9 @@ class Usuarios
         }
 
         $query .= " WHERE (Id_Cliente = '$this->Id_Cliente')";
-        $this->obj->executeQuery($query);
+        $result = $this->obj->executeQuery($query);
+
+        return $result ? 'true' : 'false';
     }
 
     public function delete()
