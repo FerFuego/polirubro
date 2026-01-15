@@ -54,9 +54,13 @@ class Polirubro
             ob_end_clean();
 
         } else {
-
             if (!isset($_SESSION["Id_Cliente"]) || $_SESSION["Id_Cliente"] == 0) {
                 $_SESSION["Id_Cliente"] = date('YmdHis');
+            }
+
+            // Avoid rendering login form (and its reCAPTCHA) on registration page
+            if (basename($_SERVER['PHP_SELF']) === 'registro.php') {
+                return '';
             }
 
             ob_start();
