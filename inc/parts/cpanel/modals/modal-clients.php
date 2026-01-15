@@ -13,6 +13,10 @@
         <form class="form-cli" id="js-form-cli">
           <input type="hidden" name="type_cli" id="type_cli" value="new">
           <div class="form-group">
+            <label for="id">ID Cliente</label>
+            <input type="text" name="id" id="id_cli">
+          </div>
+          <div class="form-group">
             <label for="name">Nombre</label>
             <input type="text" name="name" id="name">
           </div>
@@ -30,7 +34,7 @@
           </div>
           <div class="form-group">
             <label for="password">Contraseña</label>
-            <input type="text" name="password" id="pass_cli">
+            <input type="text" name="password" placeholder="Dejar vacio para no cambiar">
           </div>
           <div class="form-group">
             <label for="type">Tipo</label>

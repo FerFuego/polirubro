@@ -787,11 +787,13 @@ $(document).ready(function () {
         var formData = new FormData();
         formData.append('action', 'operationClient');
         formData.append('type_cli', values.type_cli);
+        formData.append('id', values.id);
         formData.append('name', values.name);
         formData.append('locality', values.locality);
         formData.append('mail', values.mail);
         formData.append('username', values.username);
         formData.append('password', values.password);
+        formData.append('type', values.type);
 
         jQuery.ajax({
             cache: false,
@@ -1283,7 +1285,7 @@ function getClientdata(obj) {
                 $('#locality').val(data.Localidad);
                 $('#mail').val(data.Mail);
                 $('#username').val(data.Usuario);
-                $('#pass_cli').val(data.Password);
+                //$('#pass_cli').val(data.Password);
                 $('#type').val(data.tipo).change();
             }
         }

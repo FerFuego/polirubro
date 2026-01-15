@@ -25,7 +25,7 @@ class Usuarios
             $result = $this->obj->executeQuery("SELECT * FROM clientes WHERE Id_Cliente = '$id'");
 
             if ($result->num_rows == 0)
-                return $result;
+                return;
 
             $row = mysqli_fetch_assoc($result);
             $this->Id_Cliente = $row['Id_Cliente'];
@@ -148,9 +148,16 @@ class Usuarios
 
     public function update()
     {
-
         $this->obj = new sQuery();
-        $this->obj->executeQuery("UPDATE clientes SET Nombre = '$this->Nombre', Localidad = '$this->Localidad', Mail = '$this->Mail', Usuario = '$this->Usuario', Password = $this->Password, ListaPrecioDef = '$this->ListaPrecioDef', tipo = '$this->tipo' WHERE (Id_Cliente = '$this->Id_Cliente')");
+        $query = "UPDATE clientes SET Nombre = '$this->Nombre', Localidad = '$this->Localidad', Mail = '$this->Mail', Usuario = '$this->Usuario', ListaPrecioDef = '$this->ListaPrecioDef', tipo = '$this->tipo'";
+
+        if ($this->Password) {
+            $pass = md5($this->Password);
+            $query .= ", Password = '$pass'";
+        }
+
+        $query .= " WHERE (Id_Cliente = '$this->Id_Cliente')";
+        $this->obj->executeQuery($query);
     }
 
     public function delete()
