@@ -150,7 +150,7 @@
                         value="<?php echo $general->minimo; ?>">
                 </div>
             </div>
-            <div class="d-flex">
+            <div class="d-none">
                 <div class="form-group w-100 pl-2">
                     <br>
                     <label for="show_prices">Mostrar Precios en la tienda implica que los usuarios puedan realizar
