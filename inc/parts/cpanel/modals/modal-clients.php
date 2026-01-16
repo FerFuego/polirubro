@@ -36,12 +36,13 @@
             <label for="password">Contraseña</label>
             <input type="text" name="password" placeholder="Dejar vacio para no cambiar">
           </div>
-          <div class="form-group" style="display: none;">
-            <label for="type">Tipo</label>
+          <div class="form-group">
+            <label for="type">ListaPrecioDef</label>
             <select name="type" id="type">
               <option value="">Seleccione</option>
-              <option value="0">0 - Precio Aumentado</option>
-              <option value="1">1 - Precio Descuento</option>
+              <option value="1">Lista 1</option>
+              <option value="2">Lista 2</option>
+              <option value="3">Lista 3</option>
             </select>
           </div>
         </form>
