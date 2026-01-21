@@ -126,6 +126,11 @@ if (!empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'insertProd
     $note = (isset($_POST['nota']) ? filter_var($_POST['nota'], FILTER_UNSAFE_RAW) : null);
     $cant = (isset($_POST['cant']) ? filter_var($_POST['cant'], FILTER_VALIDATE_INT) : null);
 
+    // Restriccion para usuario solo vista de precios
+    if (isset($_SESSION["Id_Cliente"]) && $_SESSION["Id_Cliente"] == 1) {
+        die('false');
+    }
+
     $order = new Pedidos();
     $result = $order->getPedidoAbierto($_SESSION["Id_Cliente"]);
 
@@ -190,6 +195,11 @@ if (!empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'updateProd
     $Id_Producto = (isset($_POST['id_product']) ? filter_var($_POST['id_product'], FILTER_VALIDATE_INT) : null);
     $id_productItem = (isset($_POST['id_item']) ? filter_var($_POST['id_item'], FILTER_VALIDATE_INT) : null);
 
+    // Restriccion para usuario solo vista de precios
+    if (isset($_SESSION["Id_Cliente"]) && $_SESSION["Id_Cliente"] == 1) {
+        die('false');
+    }
+
     $prod = new Productos($Id_Producto);
 
     if (!$prod)
@@ -227,7 +237,7 @@ if (!empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'finallyOrd
     $id_pedido = (isset($_POST['id_pedido']) ? filter_var($_POST['id_pedido'], FILTER_VALIDATE_INT) : null);
     $data = isset($_POST['data']) ? json_decode($_POST['data']) : null;
 
-    if (!isset($_SESSION["Id_Cliente"]) || $_SESSION["Id_Cliente"] == 0)
+    if (!isset($_SESSION["Id_Cliente"]) || $_SESSION["Id_Cliente"] == 0 || $_SESSION["Id_Cliente"] == 1)
         die('false');
 
     $order = new Pedidos($id_pedido);

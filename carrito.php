@@ -1,4 +1,9 @@
-<?php require_once('inc/layout/head.php'); ?>
+<?php require_once('inc/layout/head.php');
+if (isset($_SESSION["Id_Cliente"]) && $_SESSION["Id_Cliente"] == 1) {
+    header("Location: index.php");
+    die();
+}
+?>
 
 <!-- Header Section Begin -->
 <?php require_once('inc/layout/header.php'); ?>
@@ -21,10 +26,10 @@
 
 <!-- Cart Section Begin -->
 <section class="shoping-cart spad">
-    <?php if ( isset($_SESSION["Id_Cliente"]) ) :
+    <?php if (isset($_SESSION["Id_Cliente"])):
         $pedido = new Pedidos();
         $result = $pedido->getPedidoAbierto($_SESSION["Id_Cliente"]);
-        require ( $result['num_rows'] > 0 ) ? 'inc/parts/cart.php' : 'inc/parts/cart-empty.php'; 
+        require ($result['num_rows'] > 0) ? 'inc/parts/cart.php' : 'inc/parts/cart-empty.php';
     endif; ?>
 </section>
 <!-- Cart Section End -->

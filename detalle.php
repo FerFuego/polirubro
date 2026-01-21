@@ -78,30 +78,35 @@
 
                             <h4>Cód.: <?php echo $product->getCode(); ?></h4>
                             <?php if ($general->showPrices()): ?>
-                                <form class="js-form-cart">
-                                    <div class="product__details__price">
-                                        $<?php echo number_format($product->PreVtaFinal1(), 2, ',', '.'); ?></div>
-                                    <input type="hidden" name="id_product" value="<?php echo $product->getID(); ?>">
-                                    <input type="hidden" name="cod_product" value="<?php echo $product->getCode(); ?>">
-                                    <input type="hidden" name="name_product" value="<?php echo $product->getNombre(); ?>">
-                                    <input type="hidden" name="price_product" value="<?php echo $product->PreVtaFinal1(); ?>">
+                                <?php if (($_SESSION['Id_Cliente'] ?? 0) != 1): ?>
+                                    <form class="js-form-cart">
+                                        <div class="product__details__price">
+                                            $<?php echo number_format($product->PreVtaFinal1(), 2, ',', '.'); ?></div>
+                                        <input type="hidden" name="id_product" value="<?php echo $product->getID(); ?>">
+                                        <input type="hidden" name="cod_product" value="<?php echo $product->getCode(); ?>">
+                                        <input type="hidden" name="name_product" value="<?php echo $product->getNombre(); ?>">
+                                        <input type="hidden" name="price_product" value="<?php echo $product->PreVtaFinal1(); ?>">
 
-                                    <div>
-                                        <textarea type="text" name="nota" class="product__details__note"
-                                            placeholder="Agregar Nota"></textarea>
-                                    </div>
+                                        <div>
+                                            <textarea type="text" name="nota" class="product__details__note"
+                                                placeholder="Agregar Nota"></textarea>
+                                        </div>
 
-                                    <div class="product__details__quantity">
-                                        <div class="quantity">
-                                            <div class="pro-qty">
-                                                <input type="number" name="cant" min="1" max="99999" value="1">
+                                        <div class="product__details__quantity">
+                                            <div class="quantity">
+                                                <div class="pro-qty">
+                                                    <input type="number" name="cant" min="1" max="99999" value="1">
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
 
-                                    <input type="submit" class="primary-btn" value="AGREGAR AL CARRITO">
-                                    <!-- <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a> -->
-                                </form>
+                                        <input type="submit" class="primary-btn" value="AGREGAR AL CARRITO">
+                                        <!-- <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a> -->
+                                    </form>
+                                <?php else: ?>
+                                    <div class="product__details__price">
+                                        $<?php echo number_format($product->PreVtaFinal1(), 2, ',', '.'); ?></div>
+                                <?php endif; ?>
                             <?php endif; ?>
 
                             <div class="js-login-message"></div>
