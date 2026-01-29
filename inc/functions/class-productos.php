@@ -192,47 +192,40 @@ class Productos
         $fotosPath = "./fotos/";
         $extensions = ['jpg', 'JPG', 'png', 'PNG', 'jpeg', 'JPEG'];
 
-        // Main image - try all extensions
+        // Imagen principal
         foreach ($extensions as $ext) {
-            if (file_exists($fotosPath . $codProducto . "." . $ext)) {
-                $images[] = $fotosPath . $codProducto . "." . $ext;
+            $main = $fotosPath . $codProducto . "." . $ext;
+            if (file_exists($main)) {
+                $images[] = $main;
                 break;
             }
         }
 
-        // Additional images (999999_1.jpg, 999999_2.jpg, etc.)
-        $counter = 1;
-        while (true) {
-            $imagePath = null;
+        // Imágenes secundarias usando glob
+        $pattern = $fotosPath . $codProducto . "_*.*";
+        $files = glob($pattern);
 
-            // Try all extensions for each numbered image
-            foreach ($extensions as $ext) {
-                if (file_exists($fotosPath . $codProducto . "_" . $counter . "." . $ext)) {
-                    $imagePath = $fotosPath . $codProducto . "_" . $counter . "." . $ext;
-                    break;
+        if ($files) {
+            foreach ($files as $file) {
+                $ext = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+                if (in_array($ext, $extensions)) {
+                    $images[] = $file;
+
+                    if ($limit > 0 && count($images) >= $limit) {
+                        break;
+                    }
                 }
-            }
-
-            if ($imagePath) {
-                $images[] = $imagePath;
-                $counter++;
-
-                // Check limit
-                if ($limit > 0 && count($images) >= $limit) {
-                    break;
-                }
-            } else {
-                break;
             }
         }
 
-        // Fallback to default image if no images found
+        // Fallback
         if (empty($images)) {
             $images[] = "img/sin-imagen.jpg";
         }
 
         return $images;
     }
+
 
     /**
      * Get videos for a product
