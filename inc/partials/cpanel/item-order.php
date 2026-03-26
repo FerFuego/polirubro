@@ -6,6 +6,12 @@
         <?php echo $order->Nombre; ?>
     </td>
     <td class="text-left">
+        <?php echo $order->Telefono; ?>
+    </td>
+    <td class="text-left">
+        <?php echo $order->Mail; ?>
+    </td>
+    <td class="text-left">
         <?php echo $order->Localidad; ?>
     </td>
     <td class="text-left">

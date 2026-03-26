@@ -13,6 +13,8 @@
             <tr>
                 <th class="text-left">Pedido</th>
                 <th class="text-left">Nombre</th>
+                <th class="text-left">Teléfono</th>
+                <th class="text-left">Email</th>
                 <th class="text-left">Localidad</th>
                 <th class="text-left">Subtotal</th>
                 <th class="text-left">Descuento</th>
