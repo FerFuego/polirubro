@@ -251,7 +251,7 @@ if (!empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'finallyOrd
         $user = new Usuarios($_SESSION["Id_Cliente"]);
         $order->Nombre = $user->getNombre();
         $order->Mail = $user->getMail();
-        $order->Telefono = '';
+        $order->Telefono = $user->getTelefono();
         $order->Localidad = $user->getLocalidad();
     }
 
@@ -806,6 +806,7 @@ if (!empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'registerUs
     $name = (isset($_POST['user_name']) ? $_POST['user_name'] : null);
     $email = (isset($_POST['email']) ? $_POST['email'] : null);
     $username = (isset($_POST['user_cli']) ? $_POST['user_cli'] : null);
+    $phone = (isset($_POST['user_phone']) ? $_POST['user_phone'] : null);
     $password = (isset($_POST['pass_cli']) ? $_POST['pass_cli'] : null);
     $locality = (isset($_POST['user_locality']) ? $_POST['user_locality'] : null);
     $csrf = (isset($_POST['user_csrf']) ? $_POST['user_csrf'] : null);
@@ -828,7 +829,7 @@ if (!empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'registerUs
     }
 
     // Validations for empty fields
-    if (!$name || !$email || !$password || !$username || !$locality) {
+    if (!$name || !$email || !$password || !$username || !$locality || !$phone) {
         die('false');
     }
 
@@ -837,6 +838,7 @@ if (!empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'registerUs
     $user->Id_Cliente = time();
     $user->Nombre = $name;
     $user->Mail = $email;
+    $user->Telefono = $phone;
     $user->Usuario = $username;
     $user->Password = $password;
     $user->Localidad = $locality;

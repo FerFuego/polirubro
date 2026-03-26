@@ -1573,6 +1573,7 @@ function addClient() {
 
     const data = [
         'user_name',
+        'user_phone',
         'user_locality',
         'email',
         'user_cli',

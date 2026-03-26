@@ -38,6 +38,10 @@
                         <input type="email" name="email" id="email" required>
                     </div>
                     <div class="form-group">
+                        <label for="phone">Teléfono</label>
+                        <input type="text" name="phone" id="user_phone" required>
+                    </div>
+                    <div class="form-group">
                         <label for="username">Nombre de Usuario (elige un nombre corto para tu usuario)</label>
                         <input type="text" name="username" id="user_cli">
                     </div>
