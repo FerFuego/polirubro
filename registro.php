@@ -27,15 +27,15 @@
                 <form class="form-cli" id="js-form-register">
                     <div class="form-group">
                         <label for="name">Nombre Completo</label>
-                        <input type="text" name="name" id="user_name">
+                        <input type="text" name="name" id="user_name" required>
                     </div>
                     <div class="form-group">
                         <label for="locality">Localidad</label>
-                        <input type="text" name="locality" id="user_locality">
+                        <input type="text" name="locality" id="user_locality" required>
                     </div>
                     <div class="form-group">
                         <label for="email">Correo Electrónico (email)</label>
-                        <input type="email" name="email" id="email">
+                        <input type="email" name="email" id="email" required>
                     </div>
                     <div class="form-group">
                         <label for="username">Nombre de Usuario (elige un nombre corto para tu usuario)</label>
