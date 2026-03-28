@@ -1,7 +1,7 @@
 <?php require_once('inc/layout/head.php'); ?>
 
 <!-- Verify Auth -->
-<?php if ( !isset($_SESSION["Id_Cliente"]) || $_SESSION["Id_Cliente"] == 0 ) {
+<?php if ( !isset($_SESSION["Id_Cliente"]) || $_SESSION["Id_Cliente"] == 0 || strtolower(isset($_SESSION['user']) ? $_SESSION['user'] : '') === 'poliprecios' ) {
     $host = $_SERVER['HTTP_HOST'];
     $page = 'login.php';
     $url = "http://$host/$page";
