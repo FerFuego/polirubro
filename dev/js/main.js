@@ -1678,8 +1678,12 @@ function getMyOrderData(id) {
         contentType: false,
         processData: false,
         success: function (response) {
-            let data = JSON.parse(response);
-            $('#contentOrderDetail').html(data);
+            try {
+                let data = JSON.parse(response);
+                $('#contentOrderDetail').html(data);
+            } catch(e) {
+                $('#contentOrderDetail').html(response.replace(/1$/, ''));
+            }
             $('#orderModal').modal('show');
         },
         error: function() {
