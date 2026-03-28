@@ -198,6 +198,34 @@ class Usuarios
         return $result ? 'true' : 'false';
     }
 
+    public function updateMyAccount()
+    {
+        $obj = new Connection();
+        $conn = $obj->getConnection();
+
+        if (!$conn) {
+            return 'false';
+        }
+
+        $nombre = mysqli_real_escape_string($conn, $this->Nombre);
+        $mail = mysqli_real_escape_string($conn, $this->Mail);
+        $telefono = mysqli_real_escape_string($conn, $this->Telefono);
+        $localidad = mysqli_real_escape_string($conn, $this->Localidad);
+
+        $this->obj = new sQuery();
+        $query = "UPDATE clientes SET Nombre = '$nombre', Localidad = '$localidad', Mail = '$mail', Telefono = '$telefono'";
+
+        if ($this->Password) {
+            $pass = md5($this->Password);
+            $query .= ", Password = '$pass'";
+        }
+
+        $query .= " WHERE (Id_Cliente = '$this->Id_Cliente')";
+        $result = $this->obj->executeQuery($query);
+
+        return $result ? 'true' : 'false';
+    }
+
     public function delete()
     {
 

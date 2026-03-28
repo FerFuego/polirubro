@@ -176,6 +176,13 @@ class Pedidos
         return $result;
     }
 
+    public function getOrdersByUser($id_cliente)
+    {
+        $this->obj = new sQuery();
+        $result = $this->obj->executeQuery("SELECT * FROM PEDIDOS_CABE WHERE Id_Cliente = '$id_cliente' AND Cerrado = 1 ORDER BY Id_Pedido DESC");
+        return $result;
+    }
+
     public function getCountOpenPedidos()
     {
         $this->obj = new sQuery();

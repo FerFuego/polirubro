@@ -765,6 +765,57 @@ if (!empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'dataOrders
 }
 
 /**
+ * Request of User Orders (Mi Cuenta)
+ */
+if (!empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'dataMyOrders') {
+    if (!isset($_SESSION["Id_Cliente"])) die(json_encode("Acceso denegado"));
+    
+    $Id_Pedido = isset($_POST['Id_Pedido']) ? filter_var($_POST['Id_Pedido'], FILTER_VALIDATE_INT) : null;
+    $data = "<div>No se encontró el pedido o no te pertenece</div>";
+
+    if ($Id_Pedido):
+        $pedido = new Pedidos($Id_Pedido);
+        if ($pedido->Id_Pedido && $pedido->Id_Cliente == $_SESSION["Id_Cliente"]):
+            $result = [
+                'Id_Pedido' => $pedido->Id_Pedido,
+                'cpanel' => false
+            ];
+            $data = require '../../inc/parts/checkout.php';
+        endif;
+    endif;
+    echo json_encode($data);
+    die();
+}
+
+/**
+ * Update My Account
+ */
+if (!empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'updateMyAccount') {
+    if (!isset($_SESSION["Id_Cliente"])) die('false');
+
+    $user = new Usuarios($_SESSION["Id_Cliente"]);
+    
+    // Validate if user actually exists
+    if (!$user->Id_Cliente) die('false');
+
+    $user->Nombre = isset($_POST['user_name']) ? filter_var($_POST['user_name'], FILTER_UNSAFE_RAW) : $user->Nombre;
+    $user->Mail = isset($_POST['email']) ? filter_var($_POST['email'], FILTER_SANITIZE_EMAIL) : $user->Mail;
+    $user->Telefono = isset($_POST['user_phone']) ? filter_var($_POST['user_phone'], FILTER_UNSAFE_RAW) : $user->Telefono;
+    $user->Localidad = isset($_POST['user_locality']) ? filter_var($_POST['user_locality'], FILTER_UNSAFE_RAW) : $user->Localidad;
+    $user->Password = isset($_POST['pass_cli']) && !empty($_POST['pass_cli']) ? $_POST['pass_cli'] : null;
+
+    $res = $user->updateMyAccount();
+    
+    // Update session data if needed
+    if ($res === 'true') {
+        $_SESSION['user'] = $user->Nombre;
+    }
+
+    echo $res;
+    die();
+}
+
+/**
  * Contact Form
  */
 if (!empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'sendContact') {

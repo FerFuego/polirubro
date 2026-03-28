@@ -1622,3 +1622,68 @@ function addClient() {
         }
     });
 }
+
+function updateMyAccount() {
+    let form = $('#js-form-my-account');
+    let btn = $('#btn-update-account');
+    let loader = btn.siblings('.btn-loader');
+    
+    if(!$('#user_name').val() || !$('#email').val() || !$('#user_phone').val() || !$('#user_locality').val()) {
+        toastr.error('Por favor complete todos los campos obligatorios.');
+        return;
+    }
+
+    btn.prop('disabled', true);
+    loader.show();
+
+    let formData = new FormData(form[0]);
+
+    jQuery.ajax({
+        cache: false,
+        url: 'inc/functions/ajax-requests.php',
+        type: 'POST',
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function (response) {
+            btn.prop('disabled', false);
+            loader.hide();
+            if (response === 'true') {
+                toastr.success('¡Datos actualizados correctamente!');
+                setTimeout(function () {
+                    window.location.reload();
+                }, 1500);
+            } else {
+                toastr.error('Ocurrió un error al actualizar los datos.');
+            }
+        },
+        error: function() {
+            btn.prop('disabled', false);
+            loader.hide();
+            toastr.error('Ocurrió un error de conexión.');
+        }
+    });
+}
+
+function getMyOrderData(id) {
+    let formData = new FormData();
+    formData.append('action', 'dataMyOrders');
+    formData.append('Id_Pedido', id);
+
+    jQuery.ajax({
+        cache: false,
+        url: 'inc/functions/ajax-requests.php',
+        type: 'POST',
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function (response) {
+            let data = JSON.parse(response);
+            $('#contentOrderDetail').html(data);
+            $('#orderModal').modal('show');
+        },
+        error: function() {
+            toastr.error('No se pudo cargar el detalle del pedido.');
+        }
+    });
+}
