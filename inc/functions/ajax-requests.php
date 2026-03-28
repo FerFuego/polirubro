@@ -778,7 +778,7 @@ if (!empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'dataMyOrde
         if ($pedido->Id_Pedido && $pedido->Id_Cliente == $_SESSION["Id_Cliente"]):
             $result = [
                 'Id_Pedido' => $pedido->Id_Pedido,
-                'cpanel' => false
+                'cpanel' => true
             ];
             $data = require '../../inc/parts/checkout.php';
         endif;
