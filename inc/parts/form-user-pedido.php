@@ -18,6 +18,10 @@
                             <div id="control_locality"></div>
                         </div>
                         <div class="col-lg-6 col-md-12 form-check pb-3">
+                            <input type="text" class="form-control form-control-lg" name="address" id="address" placeholder="Dirección">
+                            <div id="control_address"></div>
+                        </div>
+                        <div class="col-lg-6 col-md-12 form-check pb-3">
                             <input type="text" class="form-control form-control-lg" name="phone" id="phone" placeholder="Telefono">
                             <div id="control_phone"></div>
                         </div>

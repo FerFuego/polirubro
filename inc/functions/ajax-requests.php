@@ -246,12 +246,14 @@ if (!empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'finallyOrd
         $order->Nombre = $data->name;
         $order->Mail = $data->email;
         $order->Telefono = $data->phone;
+        $order->Direccion = $data->address;
         $order->Localidad = $data->locality;
     } else {
         $user = new Usuarios($_SESSION["Id_Cliente"]);
         $order->Nombre = $user->getNombre();
         $order->Mail = $user->getMail();
         $order->Telefono = $user->getTelefono();
+        $order->Direccion = $user->getDireccion();
         $order->Localidad = $user->getLocalidad();
     }
 
@@ -342,6 +344,8 @@ if (!empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'operationC
     $name = (isset($_POST['name']) ? filter_var($_POST['name'], FILTER_UNSAFE_RAW) : null);
     $mail = (isset($_POST['mail']) ? filter_var($_POST['mail'], FILTER_UNSAFE_RAW) : null);
     $locality = (isset($_POST['locality']) ? filter_var($_POST['locality'], FILTER_UNSAFE_RAW) : null);
+    $address = (isset($_POST['address']) ? filter_var($_POST['address'], FILTER_UNSAFE_RAW) : null);
+    $phone = (isset($_POST['phone']) ? filter_var($_POST['phone'], FILTER_UNSAFE_RAW) : null);
     $username = (isset($_POST['username']) ? filter_var($_POST['username'], FILTER_UNSAFE_RAW) : null);
     $password = (isset($_POST['password']) ? filter_var($_POST['password'], FILTER_UNSAFE_RAW) : null);
     $type = (isset($_POST['type']) ? filter_var($_POST['type'], FILTER_UNSAFE_RAW) : 1);
@@ -351,7 +355,9 @@ if (!empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'operationC
         $user->Id_Cliente = ($id) ? $id : date('YmdHis');
         $user->Nombre = $name;
         $user->Localidad = $locality;
+        $user->Direccion = $address;
         $user->Mail = $mail;
+        $user->Telefono = $phone;
         $user->Usuario = $username;
         $user->Password = $password;
         $user->ListaPrecioDef = $type;
@@ -366,7 +372,9 @@ if (!empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'operationC
         $user->Id_Cliente = $id;
         $user->Nombre = $name;
         $user->Localidad = $locality;
+        $user->Direccion = $address;
         $user->Mail = $mail;
+        $user->Telefono = $phone;
         $user->Usuario = $username;
         if ($password) {
             $user->Password = $password;
@@ -801,6 +809,7 @@ if (!empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'updateMyAc
     $user->Nombre = isset($_POST['user_name']) ? filter_var($_POST['user_name'], FILTER_UNSAFE_RAW) : $user->Nombre;
     $user->Mail = isset($_POST['email']) ? filter_var($_POST['email'], FILTER_SANITIZE_EMAIL) : $user->Mail;
     $user->Telefono = isset($_POST['user_phone']) ? filter_var($_POST['user_phone'], FILTER_UNSAFE_RAW) : $user->Telefono;
+    $user->Direccion = isset($_POST['user_address']) ? filter_var($_POST['user_address'], FILTER_UNSAFE_RAW) : $user->Direccion;
     $user->Localidad = isset($_POST['user_locality']) ? filter_var($_POST['user_locality'], FILTER_UNSAFE_RAW) : $user->Localidad;
     $user->Password = isset($_POST['pass_cli']) && !empty($_POST['pass_cli']) ? $_POST['pass_cli'] : null;
 
@@ -858,6 +867,7 @@ if (!empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'registerUs
     $email = (isset($_POST['email']) ? $_POST['email'] : null);
     $username = (isset($_POST['user_cli']) ? $_POST['user_cli'] : null);
     $phone = (isset($_POST['user_phone']) ? $_POST['user_phone'] : null);
+    $address = (isset($_POST['user_address']) ? $_POST['user_address'] : null);
     $password = (isset($_POST['pass_cli']) ? $_POST['pass_cli'] : null);
     $locality = (isset($_POST['user_locality']) ? $_POST['user_locality'] : null);
     $csrf = (isset($_POST['user_csrf']) ? $_POST['user_csrf'] : null);
@@ -880,7 +890,7 @@ if (!empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'registerUs
     }
 
     // Validations for empty fields
-    if (!$name || !$email || !$password || !$username || !$locality || !$phone) {
+    if (!$name || !$email || !$password || !$username || !$locality || !$phone || !$address) {
         die('false');
     }
 
@@ -890,6 +900,7 @@ if (!empty($_POST) && isset($_POST['action']) && $_POST['action'] == 'registerUs
     $user->Nombre = $name;
     $user->Mail = $email;
     $user->Telefono = $phone;
+    $user->Direccion = $address;
     $user->Usuario = $username;
     $user->Password = $password;
     $user->Localidad = $locality;

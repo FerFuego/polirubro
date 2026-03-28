@@ -11,6 +11,7 @@ class Pedidos
     public $Localidad;
     public $Mail;
     public $Telefono;
+    public $Direccion;
     public $Usuario;
     public $FechaIni;
     public $FechaFin;
@@ -37,6 +38,7 @@ class Pedidos
             $this->Localidad = $row['Localidad'];
             $this->Mail = $row['Mail'];
             $this->Telefono = $row['Telefono'];
+            $this->Direccion = isset($row['Direccion']) ? $row['Direccion'] : null;
             $this->Usuario = $row['Usuario'];
             $this->FechaIni = $row['FechaIni'];
             $this->FechaFin = $row['FechaFin'];
@@ -72,6 +74,10 @@ class Pedidos
     public function getTelefono()
     {
         return $this->Telefono;
+    }
+    public function getDireccion()
+    {
+        return $this->Direccion;
     }
     public function getUsuario()
     {
@@ -268,7 +274,7 @@ class Pedidos
     {
 
         $this->obj = new sQuery();
-        $this->obj->executeQuery("INSERT INTO PEDIDOS_CABE (Id_Cliente, Nombre, Localidad, Mail, Telefono, Usuario, FechaIni, FechaFin, SubTotal, Descuento, PctDescuento, ImpTotal, Cerrado, IP) VALUES ('$user->Id_Cliente','$user->Nombre','$user->Localidad','$user->Mail','$this->Telefono','$user->Usuario','$this->FechaIni',null,0,0,0,0,0,'$this->IP')");
+        $this->obj->executeQuery("INSERT INTO PEDIDOS_CABE (Id_Cliente, Nombre, Localidad, Direccion, Mail, Telefono, Usuario, FechaIni, FechaFin, SubTotal, Descuento, PctDescuento, ImpTotal, Cerrado, IP) VALUES ('$user->Id_Cliente','$user->Nombre','$user->Localidad','$this->Direccion','$user->Mail','$this->Telefono','$user->Usuario','$this->FechaIni',null,0,0,0,0,0,'$this->IP')");
 
         $data = [
             'Id_Pedido' => $this->obj->getIDAffect(),
@@ -281,7 +287,7 @@ class Pedidos
     {
 
         $this->obj = new sQuery();
-        $this->obj->executeQuery("INSERT INTO PEDIDOS_CABE (Id_Cliente, Nombre, Localidad, Mail, Telefono, Usuario, FechaIni, FechaFin, SubTotal, Descuento, PctDescuento, ImpTotal, Cerrado, IP) VALUES ('$this->Id_Cliente','$this->Nombre','$this->Localidad','$this->Mail','$this->Telefono','$this->Usuario','$this->FechaIni',null,0,0,0,0,0,'$this->IP')");
+        $this->obj->executeQuery("INSERT INTO PEDIDOS_CABE (Id_Cliente, Nombre, Localidad, Direccion, Mail, Telefono, Usuario, FechaIni, FechaFin, SubTotal, Descuento, PctDescuento, ImpTotal, Cerrado, IP) VALUES ('$this->Id_Cliente','$this->Nombre','$this->Localidad','$this->Direccion','$this->Mail','$this->Telefono','$this->Usuario','$this->FechaIni',null,0,0,0,0,0,'$this->IP')");
 
         $data = [
             'Id_Pedido' => $this->obj->getIDAffect(),
@@ -293,7 +299,7 @@ class Pedidos
     public function finalizarPedido()
     {
         $this->obj = new sQuery();
-        $result = $this->obj->executeQuery("UPDATE PEDIDOS_CABE SET Nombre = '$this->Nombre', Mail = '$this->Mail', Telefono = '$this->Telefono', Localidad = '$this->Localidad', FechaFin = '$this->FechaFin', SubTotal = $this->SubTotal, PctDescuento = $this->PctDescuento, Descuento = $this->Descuento, ImpTotal = $this->ImpTotal, Cerrado = '$this->Cerrado' WHERE (Id_Cliente = $this->Id_Cliente) AND (Id_Pedido = $this->Id_Pedido) AND (Cerrado = 0)");
+        $result = $this->obj->executeQuery("UPDATE PEDIDOS_CABE SET Nombre = '$this->Nombre', Mail = '$this->Mail', Telefono = '$this->Telefono', Localidad = '$this->Localidad', Direccion = '$this->Direccion', FechaFin = '$this->FechaFin', SubTotal = $this->SubTotal, PctDescuento = $this->PctDescuento, Descuento = $this->Descuento, ImpTotal = $this->ImpTotal, Cerrado = '$this->Cerrado' WHERE (Id_Cliente = $this->Id_Cliente) AND (Id_Pedido = $this->Id_Pedido) AND (Cerrado = 0)");
     }
 
     public function delete()

@@ -34,6 +34,10 @@
                         <input type="text" name="locality" id="user_locality" required>
                     </div>
                     <div class="form-group">
+                        <label for="address">Dirección</label>
+                        <input type="text" name="address" id="user_address" required>
+                    </div>
+                    <div class="form-group">
                         <label for="email">Correo Electrónico (email)</label>
                         <input type="email" name="email" id="email" required>
                     </div>

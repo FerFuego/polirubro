@@ -789,6 +789,8 @@ $(document).ready(function () {
         formData.append('id', values.id);
         formData.append('name', values.name);
         formData.append('locality', values.locality);
+        formData.append('address', values.address);
+        formData.append('phone', values.phone);
         formData.append('mail', values.mail);
         formData.append('username', values.username);
         formData.append('password', values.password);
@@ -1283,6 +1285,8 @@ function getClientdata(obj) {
                 $('#type_cli').val('edit');
                 $('#name').val(data.Nombre);
                 $('#locality').val(data.Localidad);
+                $('#address').val(data.Direccion);
+                $('#phone').val(data.Telefono);
                 $('#mail').val(data.Mail);
                 $('#username').val(data.Usuario);
                 //$('#pass_cli').val(data.Password);
@@ -1575,6 +1579,7 @@ function addClient() {
         'user_name',
         'user_phone',
         'user_locality',
+        'user_address',
         'email',
         'user_cli',
         'pass_cli',
@@ -1628,7 +1633,7 @@ function updateMyAccount() {
     let btn = $('#btn-update-account');
     let loader = btn.siblings('.btn-loader');
     
-    if(!$('#user_name').val() || !$('#email').val() || !$('#user_phone').val() || !$('#user_locality').val()) {
+    if(!$('#user_name').val() || !$('#email').val() || !$('#user_phone').val() || !$('#user_address').val() || !$('#user_locality').val()) {
         toastr.error('Por favor complete todos los campos obligatorios.');
         return;
     }

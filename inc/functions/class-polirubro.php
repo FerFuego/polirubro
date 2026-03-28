@@ -116,7 +116,9 @@ class Polirubro
                 <p align='left'>
                 <strong>Pedido</strong>: " . $id_pedido . "
                 <br><strong>Cliente</strong>: " . $pedido->getIDCliente() . " - " . $pedido->getNombre() . "
+                <br><strong>Teléfono</strong>: " . $pedido->getTelefono() . "
                 <br><strong>Localidad</strong>: " . $pedido->getLocalidad() . "
+                <br><strong>Dirección</strong>: " . $pedido->getDireccion() . "
                 <br><strong>E-Mail</strong>: " . $pedido->getMail() . "
                 <br><strong>Fecha de este registro (A&ntilde;o-Mes-D&iacute;a)</strong>: " . $pedido->getFechaFin() . "
                 <br><strong>IP del cliente</strong>: " . $pedido->getIP() . "

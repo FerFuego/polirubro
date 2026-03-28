@@ -10,6 +10,7 @@ class Usuarios
     public $Localidad;
     public $Mail;
     public $Telefono;
+    public $Direccion;
     public $Usuario;
     public $Password;
     public $ListaPrecioDef;
@@ -34,6 +35,7 @@ class Usuarios
             $this->Localidad = $row['Localidad'];
             $this->Mail = $row['Mail'];
             $this->Telefono = $row['Telefono'];
+            $this->Direccion = isset($row['Direccion']) ? $row['Direccion'] : null;
             $this->Usuario = $row['Usuario'];
             $this->Password = $row['Password'];
             $this->ListaPrecioDef = $row['ListaPrecioDef'];
@@ -61,6 +63,10 @@ class Usuarios
     public function getTelefono()
     {
         return $this->Telefono;
+    }
+    public function getDireccion()
+    {
+        return $this->Direccion;
     }
     public function getUsuario()
     {
@@ -152,6 +158,7 @@ class Usuarios
         $nombre = mysqli_real_escape_string($conn, $this->Nombre);
         $mail = mysqli_real_escape_string($conn, $this->Mail);
         $telefono = mysqli_real_escape_string($conn, $this->Telefono);
+        $direccion = mysqli_real_escape_string($conn, $this->Direccion);
         $localidad = mysqli_real_escape_string($conn, $this->Localidad);
         $usuario = mysqli_real_escape_string($conn, $this->Usuario);
         $pass = md5($this->Password);
@@ -161,7 +168,7 @@ class Usuarios
         $isAdmin = (int) $this->is_Admin;
 
         $this->obj = new sQuery();
-        $result = $this->obj->executeQuery("INSERT INTO clientes (Id_Cliente, Nombre, Localidad, Mail, Telefono, Usuario, Password, ListaPrecioDef, tipo, is_Admin) VALUES ('$this->Id_Cliente', '$nombre', '$localidad', '$mail', '$telefono', '$usuario', '$pass', '$listaPrecio', '$tipo', '$isAdmin')");
+        $result = $this->obj->executeQuery("INSERT INTO clientes (Id_Cliente, Nombre, Localidad, Direccion, Mail, Telefono, Usuario, Password, ListaPrecioDef, tipo, is_Admin) VALUES ('$this->Id_Cliente', '$nombre', '$localidad', '$direccion', '$mail', '$telefono', '$usuario', '$pass', '$listaPrecio', '$tipo', '$isAdmin')");
 
         return $result ? 'true' : 'false';
     }
@@ -178,6 +185,7 @@ class Usuarios
         $nombre = mysqli_real_escape_string($conn, $this->Nombre);
         $mail = mysqli_real_escape_string($conn, $this->Mail);
         $telefono = mysqli_real_escape_string($conn, $this->Telefono);
+        $direccion = mysqli_real_escape_string($conn, $this->Direccion);
         $localidad = mysqli_real_escape_string($conn, $this->Localidad);
         $usuario = mysqli_real_escape_string($conn, $this->Usuario);
 
@@ -185,7 +193,7 @@ class Usuarios
         $tipo = (int) $this->tipo;
 
         $this->obj = new sQuery();
-        $query = "UPDATE clientes SET Nombre = '$nombre', Localidad = '$localidad', Mail = '$mail', Telefono = '$telefono', Usuario = '$usuario', ListaPrecioDef = '$listaPrecio', tipo = '$tipo'";
+        $query = "UPDATE clientes SET Nombre = '$nombre', Localidad = '$localidad', Direccion = '$direccion', Mail = '$mail', Telefono = '$telefono', Usuario = '$usuario', ListaPrecioDef = '$listaPrecio', tipo = '$tipo'";
 
         if ($this->Password) {
             $pass = md5($this->Password);
@@ -210,10 +218,11 @@ class Usuarios
         $nombre = mysqli_real_escape_string($conn, $this->Nombre);
         $mail = mysqli_real_escape_string($conn, $this->Mail);
         $telefono = mysqli_real_escape_string($conn, $this->Telefono);
+        $direccion = mysqli_real_escape_string($conn, $this->Direccion);
         $localidad = mysqli_real_escape_string($conn, $this->Localidad);
 
         $this->obj = new sQuery();
-        $query = "UPDATE clientes SET Nombre = '$nombre', Localidad = '$localidad', Mail = '$mail', Telefono = '$telefono'";
+        $query = "UPDATE clientes SET Nombre = '$nombre', Localidad = '$localidad', Direccion = '$direccion', Mail = '$mail', Telefono = '$telefono'";
 
         if ($this->Password) {
             $pass = md5($this->Password);

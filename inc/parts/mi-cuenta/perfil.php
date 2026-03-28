@@ -29,9 +29,19 @@
                 </div>
             </div>
 
-            <div class="checkout__input">
-                <p>Localidad<span>*</span></p>
-                <input type="text" name="user_locality" id="user_locality" placeholder="Buenos Aires" value="<?php echo htmlspecialchars($user->Localidad); ?>" required>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="checkout__input">
+                        <p>Dirección<span>*</span></p>
+                        <input type="text" name="user_address" id="user_address" placeholder="Av. Siempre Viva 123" value="<?php echo htmlspecialchars($user->Direccion); ?>" required>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="checkout__input">
+                        <p>Localidad<span>*</span></p>
+                        <input type="text" name="user_locality" id="user_locality" placeholder="Buenos Aires" value="<?php echo htmlspecialchars($user->Localidad); ?>" required>
+                    </div>
+                </div>
             </div>
 
             <div class="checkout__input">

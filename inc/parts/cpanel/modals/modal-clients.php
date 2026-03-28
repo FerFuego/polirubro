@@ -25,6 +25,14 @@
             <input type="text" name="locality" id="locality">
           </div>
           <div class="form-group">
+            <label for="address">Dirección</label>
+            <input type="text" name="address" id="address">
+          </div>
+          <div class="form-group">
+            <label for="phone">Teléfono</label>
+            <input type="text" name="phone" id="phone">
+          </div>
+          <div class="form-group">
             <label for="mail">Mail</label>
             <input type="email" name="mail" id="mail">
           </div>
