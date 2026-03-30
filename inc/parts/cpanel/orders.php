@@ -16,6 +16,7 @@
                 <th class="text-left">Teléfono</th>
                 <th class="text-left">Email</th>
                 <th class="text-left">Localidad</th>
+                <th class="text-left">Dirección</th>
                 <th class="text-left">Subtotal</th>
                 <th class="text-left">Descuento</th>
                 <th class="text-left">Importe</th>

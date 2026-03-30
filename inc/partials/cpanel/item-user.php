@@ -6,6 +6,12 @@
         <?php echo $user->Nombre; ?>
     </td>
     <td class="text-left">
+        <?php echo $user->Telefono; ?>
+    </td>
+    <td class="text-left">
+        <?php echo $user->Direccion; ?>
+    </td>
+    <td class="text-left">
         <?php echo $user->Usuario; ?>
     </td>
     <td class="text-left">
